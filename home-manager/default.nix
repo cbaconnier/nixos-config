@@ -1,7 +1,6 @@
 { ... }:
 {
  imports = [
-  ./extra
   ./git
   ./gtk
   ./hyprland
