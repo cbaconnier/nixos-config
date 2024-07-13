@@ -3,8 +3,7 @@
 # https://github.com/werman/noise-suppression-for-voice
 
 let
-# path = "${pkgs.noise-suppression-for-voice}";
- path = builtins.trace "${pkgs.noise-suppression-for-voice}"
+ path = "${pkgs.noise-suppression-for-voice}";
 in
 {
  home.file.".config/pipewire/pipewire.conf.d/99-input-denoising.conf".text = ''
@@ -19,7 +18,7 @@ in
                    {
                        type = ladspa
                        name = rnnoise
-                       plugin = ${pkgs.noise-suppression-for-voice}/lib/ladspa/librnnoise_ladspa.so
+                       plugin = ${path}/lib/ladspa/librnnoise_ladspa.so
                        label = noise_suppressor_mono
                        control = {
                            "VAD Threshold (%)" = 50.0

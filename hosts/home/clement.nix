@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, outputs, ...}:
+{ inputs, outputs, pkgs, ...}:
 
 {
  home.username = "clement";
@@ -30,13 +30,8 @@
     XDG_SESSION_TYPE = "wayland";        # Specify the session type as Wayland
  };
 
-home.useGlobalPkgs = true;
-home.useUserPackages = true;
-home.backupFileExtension = "backup";
 
- # Allow the usage of our custom packages 
- # https://github.com/Misterio77/nix-starter-configs/issues/62
- nixpkgs.overlays = [ outputs.overlays.additions ];
+ nixpkgs.overlays = [ outputs.overlays.additions  ];
  
  home.stateVersion = "24.11";
  programs.home-manager.enable = true;
