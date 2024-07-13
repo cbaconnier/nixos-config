@@ -6,6 +6,7 @@
 {
   imports = [
      ./hardware-configuration.nix
+
       ./../../hosts-config/audio.nix
       ./../../hosts-config/fonts.nix
       # ./../../hosts-config/hyprland.nix
@@ -16,6 +17,7 @@
       ./../../hosts-config/shell.nix
       ./../../hosts-config/system-packages.nix
       ./../../hosts-config/user-packages.nix
+
     ];
 
   # Bootloader.
