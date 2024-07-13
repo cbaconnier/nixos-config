@@ -45,7 +45,7 @@
     isNormalUser = true;
     description = "clement";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [ xboxdrv kittysay];
+    packages = with pkgs; [ ];
   };
 
   # This value determines the NixOS release from which the default
