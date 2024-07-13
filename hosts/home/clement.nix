@@ -30,7 +30,7 @@
     XDG_SESSION_TYPE = "wayland";        # Specify the session type as Wayland
  };
 
-
+ # Enable the overlays.additions to access our custom pkgs in home-manager
  nixpkgs.overlays = [ outputs.overlays.additions  ];
  
  home.stateVersion = "24.11";
