@@ -1,0 +1,34 @@
+{ pkgs, ...}:
+{
+ programs = {
+
+  thunar = {
+   enable = true;
+   plugins = with pkgs.xfce; [
+    exo
+    mousepad
+    thunar-archive-plugin
+    thunar-volman
+    tumbler
+   ];
+  };
+
+  # Running steam game with gamescope (Steam Deck Virtual Desktop)
+  # https://github.com/sonic2kk/steamtinkerlaunch/wiki/GameScope
+  # https://github.com/NixOS/nixpkgs/issues/162562#issuecomment-1229444338
+
+  #https://nixos.wiki/wiki/Steam
+  steam = {
+   enable = true;
+   remotePlay.openFirewall = true;
+   dedicatedServer.openFirewall = true;
+  };
+
+
+  # Gamemode is a daemon and library combo for Linux that allows games to request a set of optimisations be temporarily applied to the host OS and/or a game process. 
+  # https://wiki.archlinux.org/title/gamemode
+  # On steam games you would use it this way: gamemoderun %command%
+  gamemode.enable = true;   
+
+ };
+}
