@@ -6,16 +6,19 @@
 {
   imports = [
      ./hardware-configuration.nix
+
       ./../../hosts-config/audio.nix
       ./../../hosts-config/fonts.nix
       # ./../../hosts-config/hyprland.nix
       ./../../hosts-config/locale.nix
       ./../../hosts-config/network.nix
       ./../../hosts-config/nvidia.nix
+     # ./../../hosts-config/packages.nix
       ./../../hosts-config/programs.nix
       ./../../hosts-config/shell.nix
       ./../../hosts-config/system-packages.nix
       ./../../hosts-config/user-packages.nix
+
     ];
 
   # Bootloader.

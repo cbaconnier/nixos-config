@@ -6,6 +6,7 @@
   ./hyprland
   ./kitty
   ./nvim
+  ./pipewire
   ./rofi
   ./zsh
  ];
