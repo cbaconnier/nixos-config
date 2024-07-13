@@ -8,6 +8,5 @@
    curl 
    git
    zsh
-   xboxdrv # xbox controller driver
  ];
 }

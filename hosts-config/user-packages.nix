@@ -20,7 +20,8 @@
      firefox
      pavucontrol
      mangohud # A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more. https://wiki.archlinux.org/title/MangoHud
-     #hyprpicker
+     hyprpicker
+     xboxdrv # xbox controller driver
     ];
   };
 }
