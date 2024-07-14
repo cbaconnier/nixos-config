@@ -5,11 +5,11 @@
   thunar = {
    enable = true;
    plugins = with pkgs.xfce; [
-    exo
+    exo  #Open Terminal Here
     mousepad
     thunar-archive-plugin
-    thunar-volman
-    tumbler
+    thunar-volman #  Automatic management of removeable devices in Thunar.
+    tumbler # External program to generate thumbnails.
    ];
   };
 
