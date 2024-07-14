@@ -22,7 +22,13 @@
      mangohud # A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more. https://wiki.archlinux.org/title/MangoHud
      hyprpicker
      xboxdrv # xbox controller driver
+     webcord
+     lazygit
     ];
+  };
+
+  services = {
+    gvfs.enable = true; # When installed, Thunar will show the trash can, removable media, and remote filesystems 
   };
 }
 
