@@ -24,6 +24,7 @@
      xboxdrv # xbox controller driver
      webcord
      lazygit
+     libnotify
      ags
      clipse # TUI-based clipboard manager application
     ];
