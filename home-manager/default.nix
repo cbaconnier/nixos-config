@@ -1,7 +1,6 @@
 { ... }:
 {
  imports = [
-  ./cliphist
   ./easyeffects
   ./git
   ./gtk
