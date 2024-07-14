@@ -73,7 +73,6 @@
   };
  
    home.packages = with pkgs; [
-    dconf
     numix-icon-theme-circle
     colloid-icon-theme
     catppuccin-kvantum

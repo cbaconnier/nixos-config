@@ -1,6 +1,7 @@
 { ... }:
 {
  imports = [
+  ./easyeffects
   ./git
   ./gtk
   ./hyprland

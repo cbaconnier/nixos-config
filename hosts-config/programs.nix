@@ -30,5 +30,9 @@
   # On steam games you would use it this way: gamemoderun %command%
   gamemode.enable = true;   
 
+  # dconf is a low-level configuration system for storing application settings.
+  # Enabling it allows GNOME and other applications to store and retrieve configuration data.
+  dconf.enable = true;
+
  };
 }

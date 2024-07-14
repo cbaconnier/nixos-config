@@ -2,6 +2,6 @@
 { ... }:
 {
  imports = [
-  ./rnnoise.nix
+ # ./rnnoise.nix # Disabled in favor of easyeffects
  ];
 }
