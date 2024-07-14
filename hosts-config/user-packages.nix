@@ -24,6 +24,7 @@
      xboxdrv # xbox controller driver
      webcord
      lazygit
+     clipse # TUI-based clipboard manager application
     ];
   };
 
