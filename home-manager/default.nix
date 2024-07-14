@@ -1,6 +1,7 @@
 { ... }:
 {
  imports = [
+  ./ags
   ./easyeffects
   ./git
   ./gtk
