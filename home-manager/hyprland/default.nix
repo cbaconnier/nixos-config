@@ -7,7 +7,7 @@
 {
  wayland.windowManager.hyprland = {
   enable = true;
- # package = pkgs.hyprland;
+  package = pkgs.hyprland;
   xwayland.enable = true;
 
   extraConfig = ''
@@ -22,11 +22,9 @@
    source=$path/keybinds.conf
    source=$path/behavior.conf
    source=$path/input.conf
-
-   plugin = ${inputs.hy3.packages.x86_64-linux.hy3}/lib/libhy3.so
   '';
 
-  # plugins = [ inputs.hy3.packages.x86_64-linux.hy3 ];
+  #plugins = [ inputs.hy3.packages.x86_64-linux.hy3 ];
   # disabled because it will start with the login manager
   # also it causes conflicts with our config
   systemd.enable = false;
