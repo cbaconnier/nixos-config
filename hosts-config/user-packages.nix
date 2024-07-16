@@ -25,10 +25,23 @@
      vesktop
      lazygit
      libnotify
-     ags
      clipse # TUI-based clipboard manager application
+
+
+     ags # GTK widgets https://aylur.github.io/ags-docs/
+     libdbusmenu-gtk3 # Library for passing menu structures across DBus, Used by AGS for the try-system
     ];
   };
+
+# https://github.com/NixOS/nixpkgs/issues/306446#issuecomment-2081540768
+ nixpkgs.overlays = [
+    (final: prev:
+    {
+      ags = prev.ags.overrideAttrs (old: {
+        buildInputs = old.buildInputs ++ [ pkgs.libdbusmenu-gtk3 ];
+      });
+    })
+  ];
 
   services = {
     gvfs.enable = true; # When installed, Thunar will show the trash can, removable media, and remote filesystems 

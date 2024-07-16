@@ -3,7 +3,7 @@ const notifications = await Service.import("notifications")
 // const mpris = await Service.import("mpris")
 const audio = await Service.import("audio")
 // const battery = await Service.import("battery")
-// const systemtray = await Service.import("systemtray")
+const systemtray = await Service.import("systemtray")
 
 const date = Variable("", {
     poll: [1000, 'date "+%H:%M:%S %b %e."'],
@@ -13,14 +13,20 @@ const date = Variable("", {
 // so to make a reuseable widget, make it a function
 // then you can simply instantiate one by calling it
 
-function Workspaces() {
+function Workspaces(monitor) {
     const activeId = hyprland.active.workspace.bind("id")
+    const activeWorkspace = hyprland.active.workspace;
+    
     const workspaces = hyprland.bind("workspaces")
-        .as(ws => ws.map(({ id }) => Widget.Button({
+        .as(ws => ws
+          .filter(({monitorID}) => monitorID === monitor)
+          .sort(({id:a}, {id:b}) => a - b)
+          .map(({ id }) => Widget.Button({
             on_clicked: () => hyprland.messageAsync(`dispatch workspace ${id}`),
             child: Widget.Label(`${id}`),
             class_name: activeId.as(i => `${i === id ? "focused" : ""}`),
-        })))
+          }))
+        )
 
     return Widget.Box({
         class_name: "workspaces",
@@ -141,27 +147,27 @@ function Volume() {
 // }
 
 
-// function SysTray() {
-//     const items = systemtray.bind("items")
-//         .as(items => items.map(item => Widget.Button({
-//             child: Widget.Icon({ icon: item.bind("icon") }),
-//             on_primary_click: (_, event) => item.activate(event),
-//             on_secondary_click: (_, event) => item.openMenu(event),
-//             tooltip_markup: item.bind("tooltip_markup"),
-//         })))
-//
-//     return Widget.Box({
-//         children: items,
-//     })
-// }
+function SysTray() {
+    const items = systemtray.bind("items")
+        .as(items => items.map(item => Widget.Button({
+            child: Widget.Icon({ icon: item.bind("icon") }),
+            on_primary_click: (_, event) => item.activate(event),
+            on_secondary_click: (_, event) => item.openMenu(event),
+            tooltip_markup: item.bind("tooltip_markup"),
+        })))
+
+    return Widget.Box({
+        children: items,
+    })
+}
 
 
 // layout of the bar
-function Left() {
+function Left(monitor) {
     return Widget.Box({
         spacing: 8,
         children: [
-            Workspaces(),
+            Workspaces(monitor),
             ClientTitle(),
         ],
     })
@@ -185,7 +191,7 @@ function Right() {
             Volume(),
             // BatteryLabel(),
             Clock(),
-            // SysTray(),
+            SysTray(),
         ],
     })
 }
@@ -198,7 +204,7 @@ function Bar(monitor = 0) {
         anchor: ["top", "left", "right"],
         exclusivity: "exclusive",
         child: Widget.CenterBox({
-            start_widget: Left(),
+            start_widget: Left(monitor),
             center_widget: Center(),
             end_widget: Right(),
         }),
@@ -208,7 +214,9 @@ function Bar(monitor = 0) {
 App.config({
     style: "./style.css",
     windows: [
-        Bar(),
+        //Bar(),
+        Bar(0),
+        Bar(1),
 
         // you can call it, for each monitor
         // Bar(0),
