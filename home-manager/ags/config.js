@@ -35,12 +35,12 @@ function Workspaces(monitor) {
 }
 
 
-function ClientTitle() {
-    return Widget.Label({
-        class_name: "client-title",
-        label: hyprland.active.client.bind("title"),
-    })
-}
+//function ClientTitle() {
+//    return Widget.Label({
+//        class_name: "client-title",
+//        label: hyprland.active.client.bind("title"),
+//    })
+//}
 
 
 function Clock() {
@@ -168,7 +168,7 @@ function Left(monitor) {
         spacing: 8,
         children: [
             Workspaces(monitor),
-            ClientTitle(),
+            // ClientTitle(),
         ],
     })
 }
