@@ -9,7 +9,7 @@
 
       ./../../hosts-config/audio.nix
       ./../../hosts-config/fonts.nix
-      # ./../../hosts-config/hyprland.nix
+      ./../../osts-config/hyprland.nix
       ./../../hosts-config/locale.nix
       ./../../hosts-config/network.nix
       ./../../hosts-config/nvidia.nix
