@@ -27,6 +27,7 @@
      libnotify
      clipse # TUI-based clipboard manager application
 
+     cbonsai # Grow bonsai trees in your terminal
 
      ags # GTK widgets https://aylur.github.io/ags-docs/
      libdbusmenu-gtk3 # Library for passing menu structures across DBus, Used by AGS for the try-system
