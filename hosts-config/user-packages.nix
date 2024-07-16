@@ -22,7 +22,7 @@
      mangohud # A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more. https://wiki.archlinux.org/title/MangoHud
      hyprpicker
      xboxdrv # xbox controller driver
-     webcord
+     vesktop
      lazygit
      libnotify
      ags
