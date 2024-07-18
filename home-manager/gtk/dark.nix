@@ -16,6 +16,7 @@
    HYPRCURSOR_SIZE = "24";
    XCURSOR_THEME = "catppuccin-macchiato-teal-cursors";
    XCURSOR_SIZE = "24";
+   GTK_THEME = "catppuccin-macchiato-teal-standard";
   };
  
   gtk = {
