@@ -18,7 +18,7 @@
       ./../../hosts-config/shell.nix
       ./../../hosts-config/system-packages.nix
       ./../../hosts-config/user-packages.nix
-
+      ./../../scripts
     ];
 
   # Bootloader.

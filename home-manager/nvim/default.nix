@@ -1,6 +1,17 @@
 { config, lib, pkgs, ... }:
 
 # https://github.com/LazyVim/LazyVim/discussions/1972
+let
+  auto-dark-mode-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "auto-dark-mode-nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "f-person";
+      repo = "auto-dark-mode.nvim";
+      rev = "2b8c938da9a7c9432120266b92936b2c22e8cfb8"; 
+      sha256 = "sha256-ZRaJbIuQJmh6MoWjRwNK8n0dmd5Cv/BoXGovNhggcnQ="; 
+    };
+  };
+in
 {
  programs.neovim = {
   enable = true; 
@@ -15,6 +26,7 @@
 
     plugins = with pkgs.vimPlugins; [
       lazy-nvim
+      auto-dark-mode-nvim 
     ];
 
     extraLuaConfig =
@@ -61,6 +73,7 @@
           vim-illuminate
           vim-startuptime
           which-key-nvim
+          
           { name = "LuaSnip"; path = luasnip; }
           { name = "catppuccin"; path = catppuccin-nvim; }
           { name = "mini.ai"; path = mini-nvim; }
@@ -68,7 +81,8 @@
           { name = "mini.comment"; path = mini-nvim; }
           { name = "mini.indentscope"; path = mini-nvim; }
           { name = "mini.pairs"; path = mini-nvim; }
-          { name = "mini.surround"; path = mini-nvim; }
+          { name = "mini.surround"; path = mini-nvim; }  
+          { name = "auto-dark-mode"; path = auto-dark-mode-nvim; }
         ];
         mkEntryFromDrv = drv:
           if lib.isDerivation drv then
