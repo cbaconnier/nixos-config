@@ -1,9 +1,13 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
  # Switching between dark / light is still too experimental to make it work, and takes too long to switch ATM
  # https://home-manager-options.extranix.com/?query=specialisation&release=master
  # https://github.com/nix-community/home-manager/issues/4073
  
+ let
+  userThemesDir = "${config.home.homeDirectory}/.local/share/themes";
+  userIconsDir = "${config.home.homeDirectory}/.local/share/icons";
+in
 {
   qt = {
    enable = true;
@@ -25,9 +29,9 @@
    theme = {
     name = "catppuccin-latte-teal-standard";
     package = pkgs.catppuccin-gtk.override {
-      accents = [ "teal" ];       
-      size = "standard";
-      variant = "latte";
+     accents = [ "teal" ];
+     size = "standard";
+     variant = "latte";
     };
    };
  
@@ -109,5 +113,31 @@
    # xsettingsd
    # themechanger
  ];
+ 
+ # Script to make theme available system-wide
+home.activation.publish-theme = config.lib.dag.entryAfter ["writeBoundary"] ''
+ # GTK Theme
+    gtk_theme_path="${config.gtk.theme.package}/share/themes/catppuccin-latte-teal-standard"
+    user_gtk_theme_path="${userThemesDir}/catppuccin-latte-teal-standard"
+    $DRY_RUN_CMD mkdir -p "${userThemesDir}"
+    if [ ! -e "$user_gtk_theme_path" ]; then
+      $DRY_RUN_CMD ln -sf "$gtk_theme_path" "$user_gtk_theme_path"
+    fi
+
+ # Cursor Theme
+    cursor_theme_path="${config.gtk.cursorTheme.package}/share/icons/catppuccin-latte-teal-cursors"
+    user_cursor_theme_path="${userIconsDir}/catppuccin-latte-teal-cursors"
+    $DRY_RUN_CMD mkdir -p "${userIconsDir}"
+    if [ ! -e "$user_cursor_theme_path" ]; then
+      $DRY_RUN_CMD ln -sf "$cursor_theme_path" "$user_cursor_theme_path"
+    fi
+
+ # Icon Theme
+    icon_theme_path="${config.gtk.iconTheme.package}/share/icons/Papirus-Light"
+    user_icon_theme_path="${userIconsDir}/Papirus-Light"
+    if [ ! -e "$user_icon_theme_path" ]; then
+      $DRY_RUN_CMD ln -sf "$icon_theme_path" "$user_icon_theme_path"
+    fi
+    '';
 }
 
