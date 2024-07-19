@@ -10,6 +10,7 @@
   ./nvim
   ./pipewire
   ./rofi
+  ./vesktop
   ./zsh
  ];
 }
