@@ -53,7 +53,18 @@
      gtk-application-prefer-dark-theme = true;
    };
   };
- 
+
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+    color-scheme = "prefer-dark";
+   ### Those are pointless becase gtk set them correcty
+   # cursor-size = 24;
+   # cursor-theme = "catppuccin-macchiato-teal-cursors";
+   # gtk-theme = "catppuccin-macchiato-teal-standard+normal";
+   # icon-theme = "Papirus-Dark";
+    };
+  };
+
    #console = {
    #  earlySetup = true;
    #  colors = [
@@ -76,27 +87,27 @@
    #  ];
    #};
 
-# update style without reload: https://discourse.nixos.org/t/setting-nautiilus-gtk-theme/38958/7
-#xdg.configFile = {
-#  "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
-#  "gtk-4.0/gtk.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
-#  "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
-#};
+ # update style without reload: https://discourse.nixos.org/t/setting-nautiilus-gtk-theme/38958/7
+ xdg.configFile = {
+  "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
+  "gtk-4.0/gtk.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
+  "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
+ };
        
-  nixpkgs.config.packageOverrides = pkgs: {
-    colloid-icon-theme = pkgs.colloid-icon-theme.override { colorVariants = ["teal"]; };
-  };
-   
-   home.packages = with pkgs; [
-    numix-icon-theme-circle
-    colloid-icon-theme
-    catppuccin-kvantum
+ nixpkgs.config.packageOverrides = pkgs: {
+   colloid-icon-theme = pkgs.colloid-icon-theme.override { colorVariants = ["teal"]; };
+ };
+  
+  home.packages = with pkgs; [
+   numix-icon-theme-circle
+   colloid-icon-theme
+   catppuccin-kvantum
  
-    # gnome.gnome-tweaks
-    # gnome.gnome-shell
-    # gnome.gnome-shell-extensions
-    # xsettingsd
-    # themechanger
-  ];
+   # gnome.gnome-tweaks
+   # gnome.gnome-shell
+   # gnome.gnome-shell-extensions
+   # xsettingsd
+   # themechanger
+ ];
 }
 
