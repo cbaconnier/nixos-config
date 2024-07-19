@@ -9,6 +9,7 @@
 
       ./../../hosts-config/audio.nix
       ./../../hosts-config/fonts.nix
+      ./../../hosts-config/greetd.nix
       ./../../hosts-config/hyprland.nix
       ./../../hosts-config/locale.nix
       ./../../hosts-config/network.nix
@@ -23,6 +24,27 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  # Limit the number of generations to keep
+  boot.loader.systemd-boot.configurationLimit = 2;
+  boot.loader.timeout = 2;
+  
+  boot.consoleLogLevel = 3;   
+  boot.kernelParams = [ "quiet" ];
+  boot.initrd.enable = true;
+  boot.initrd.systemd.enable = true;
+
+  boot.plymouth = {
+   enable = true;
+   theme = "circle_hud";
+   themePackages = [(pkgs.adi1090x-plymouth-themes.override {selected_themes = ["circle_hud"];})];
+  };
+
+  # Perform garbage collection weekly to maintain low disk usage
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 1w";
+  };
 
   networking.hostName = "home"; 
 
@@ -32,15 +54,7 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 
-  # Limit the number of generations to keep
-  boot.loader.systemd-boot.configurationLimit = 15;
 
-  # Perform garbage collection weekly to maintain low disk usage
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 1w";
-  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.clement = {
