@@ -116,6 +116,10 @@ in
  
  # Script to make theme available system-wide
 home.activation.publish-theme = config.lib.dag.entryAfter ["writeBoundary"] ''
+ # Set the current specialisation name, so Hyprland will initialize it on the next boot
+    $DRY_RUN_CMD mkdir -p "$HOME/.cache"
+    $DRY_RUN_CMD echo "light" > "$HOME/.cache/.current_theme"
+
  # GTK Theme
     gtk_theme_path="${config.gtk.theme.package}/share/themes/catppuccin-latte-teal-standard"
     user_gtk_theme_path="${userThemesDir}/catppuccin-latte-teal-standard"
