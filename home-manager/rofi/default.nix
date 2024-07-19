@@ -9,6 +9,7 @@
   font = "JetBrains Mono Regular 13";
   location = "center";
   terminal = "kitty";
+  theme = "~/.config/rofi/themes/catppuccin-macchiato.rasi";
 
   extraConfig = {
    modi = "drun";
@@ -24,17 +25,8 @@
 
  };
 
-specialisation.light.configuration = {
-  programs.rofi.theme = "~/.config/rofi/themes/catppuccin-latte.rasi";
-};
-
-specialisation.dark.configuration = {
-  programs.rofi.theme = "~/.config/rofi/themes/catppuccin-macchiato.rasi";
-};
-
  home.file = {
   ".config/rofi/themes/catppuccin-macchiato.rasi".source = ./catppuccin-macchiato.rasi;
-  ".config/rofi/themes/catppuccin-latte.rasi".source = ./catppuccin-latte.rasi;
  };
 
 }
