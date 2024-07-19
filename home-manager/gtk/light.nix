@@ -55,12 +55,12 @@
   };
  
   dconf.settings = {
-    "org/gnome/desktop/interface" = {
+   "org/gnome/desktop/interface" = {
     color-scheme = "prefer-light";
    ### Those are pointless becase gtk set them correcty
    # cursor-size = 24;
    # cursor-theme = "catppuccin-latte-teal-cursors";
-   # gtk-theme = "catppuccin-latte-teal-standard+normal";
+   # gtk-theme = "catppuccin-latte-teal-standard";
    # icon-theme = "Papirus-Light";
     };
   };
