@@ -34,5 +34,7 @@
   # Enabling it allows GNOME and other applications to store and retrieve configuration data.
   dconf.enable = true;
 
+  xfconf.enable = true;
+
  };
 }
