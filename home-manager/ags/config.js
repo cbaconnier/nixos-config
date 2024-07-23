@@ -5,9 +5,14 @@ const audio = await Service.import("audio")
 // const battery = await Service.import("battery")
 const systemtray = await Service.import("systemtray")
 
+const { Gtk } = imports.gi;
+
+
 const date = Variable("", {
-    poll: [1000, 'date "+%H:%M:%S %b %e."'],
+  poll: [1000, 'date "+%H:%M:%S - %e %b."'],
 })
+
+const monitors = JSON.parse(Utils.exec('hyprctl -j monitors'));
 
 // widgets can be only assigned as a child in one container
 // so to make a reuseable widget, make it a function
@@ -19,7 +24,7 @@ function Workspaces(monitor) {
     
     const workspaces = hyprland.bind("workspaces")
         .as(ws => ws
-          .filter(({monitorID}) => monitorID === monitor)
+          .filter(({monitorID}) => monitorID === monitor.id)
           .sort(({id:a}, {id:b}) => a - b)
           .map(({ id }) => Widget.Button({
             on_clicked: () => hyprland.messageAsync(`dispatch workspace ${id}`),
@@ -44,12 +49,31 @@ function Workspaces(monitor) {
 
 
 function Clock() {
-    return Widget.Label({
-        class_name: "clock",
-        label: date.bind(),
-    })
-}
+    const calendar = Widget.Calendar({ show_day_names: true, show_heading: true });
+    
+    const calendarWindow = Widget.Window({
+        name: 'calendar',
+        anchor: ['top', 'right'],
+        visible: false,
+        child: calendar,
+    });
 
+    return Widget.Box({
+        children: [
+            Widget.Button({
+                on_clicked: () => {
+                    calendarWindow.visible = !calendarWindow.visible;
+                },
+                class_name: "clock",
+                child: Widget.Label({
+                  class_name: "clock",
+                  label: date.bind(),
+                }),
+
+            }),
+        ],
+    });
+}
 
 // we don't need dunst or any other notification daemon
 // because the Notifications module is a notification daemon itself
@@ -196,11 +220,11 @@ function Right() {
     })
 }
 
-function Bar(monitor = 0) {
+function Bar(monitor) {
     return Widget.Window({
-        name: `bar-${monitor}`, // name has to be unique
+        name: `bar-${monitor.id}`, // name has to be unique
         class_name: "bar",
-        monitor,
+        monitor: monitor.id,
         anchor: ["top", "left", "right"],
         exclusivity: "exclusive",
         child: Widget.CenterBox({
@@ -214,14 +238,8 @@ function Bar(monitor = 0) {
 App.config({
     style: "./style.css",
     windows: [
-        //Bar(),
-        Bar(0),
-        Bar(1),
-
-        // you can call it, for each monitor
-        // Bar(0),
-        // Bar(1)
-    ],
+      ...monitors.map(monitor => Bar(monitor)),
+    ]
 })
 
 export { }
