@@ -32,6 +32,8 @@
      signal-desktop
      obs-studio
 
+     imv # Image viewer, also provide `imv-dir` that auto-selects the folder where the image is located, so that the next and previous commands function works in the same way as other image viewers.
+
      ags # GTK widgets https://aylur.github.io/ags-docs/
      libdbusmenu-gtk3 # Library for passing menu structures across DBus, Used by AGS for the try-system
      home-manager
