@@ -36,7 +36,9 @@
 
      ags # GTK widgets https://aylur.github.io/ags-docs/
      libdbusmenu-gtk3 # Library for passing menu structures across DBus, Used by AGS for the try-system
-     home-manager
+     home-manager  
+
+     appimage-run
     ];
   };
 

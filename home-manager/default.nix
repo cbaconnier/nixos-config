@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
  imports = [
   ./ags
@@ -13,4 +13,9 @@
   ./vesktop
   ./zsh
  ];
+
+ home.packages = with pkgs; [
+  geforcenow-electron
+ ];
+
 }

@@ -33,6 +33,9 @@
  # Enable the overlays.additions to access our custom pkgs in home-manager
  nixpkgs.overlays = [ outputs.overlays.additions  ];
  
+ # Allow unfree packages
+ nixpkgs.config.allowUnfree = true;
+
  home.stateVersion = "24.11";
  programs.home-manager.enable = true;
 
