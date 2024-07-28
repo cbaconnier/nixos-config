@@ -16,6 +16,7 @@
 
  home.packages = with pkgs; [
   geforcenow-electron
+  flameshot-unstable
  ];
 
 }
