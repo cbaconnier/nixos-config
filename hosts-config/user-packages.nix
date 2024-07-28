@@ -39,6 +39,8 @@
      home-manager  
 
      appimage-run
+     
+     yt-dlp # Command-line tool to download videos from YouTube.com and other sites 
     ];
   };
 
