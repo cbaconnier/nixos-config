@@ -3,6 +3,7 @@
  imports = [
   ./ags
   ./easyeffects
+  ./flameshot
   ./git
   ./gtk
   ./hyprland
