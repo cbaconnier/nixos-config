@@ -27,6 +27,10 @@
      libnotify
      clipse # TUI-based clipboard manager application
 
+     grim
+     slurp
+     hyprshot
+
      cbonsai # Grow bonsai trees in your terminal
 
      signal-desktop
@@ -42,6 +46,8 @@
      appimage-run
      
      yt-dlp # Command-line tool to download videos from YouTube.com and other sites 
+
+     nix
     ];
   };
 
