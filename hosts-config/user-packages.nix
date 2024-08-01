@@ -29,7 +29,6 @@
 
      grim
      slurp
-     hyprshot
 
      cbonsai # Grow bonsai trees in your terminal
 
