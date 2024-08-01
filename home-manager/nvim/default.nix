@@ -11,6 +11,13 @@ let
       sha256 = "sha256-ZRaJbIuQJmh6MoWjRwNK8n0dmd5Cv/BoXGovNhggcnQ="; 
     };
   };
+
+ # Define the writable directory for treesitter parsers
+  treesitterParserDir = "${pkgs.stdenv.mkDerivation {
+    name = "nvim-treesitter-parsers";
+    buildCommand = "mkdir -p $out";
+  }}/parser";
+
 in
 {
  programs.neovim = {
@@ -114,24 +121,19 @@ in
             -- import/override with your plugins
             { import = "plugins" },
             -- treesitter handled by xdg.configFile."nvim/parser", put this line at the end of spec to clear ensure_installed
-            { "nvim-treesitter/nvim-treesitter", opts = { ensure_installed = {} } },
+            { "nvim-treesitter/nvim-treesitter", 
+              opts = { 
+                ensure_installed = {},
+                parser_install_dir = vim.fn.stdpath("data") .. "/treesitter/parsers" 
+              }
+            },
           },
         })
       '';
   };
 
-  # https://github.com/nvim-treesitter/nvim-treesitter#i-get-query-error-invalid-node-type-at-position
-  xdg.configFile."nvim/parser".source =
-    let
-      parsers = pkgs.symlinkJoin {
-        name = "treesitter-parsers";
-        paths = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [
-          c
-          lua
-        ])).dependencies;
-      };
-    in
-    "${parsers}/parser";
+ # Configure treesitter parser path
+  xdg.configFile."nvim/parser".source = treesitterParserDir;
 
   # Normal LazyVim config here, see https://github.com/LazyVim/starter/tree/main/lua
   xdg.configFile."nvim/lua".source = ./lua;
