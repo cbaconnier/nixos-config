@@ -9,12 +9,6 @@
   userIconsDir = "${config.home.homeDirectory}/.local/share/icons";
 in
 {
-  qt = {
-   enable = true;
-   platformTheme.name = "gtk2";
-   style.name = "gtk2";
-  };
-
   home.sessionVariables = {
    HYPRCURSOR_THEME = "catppuccin-latte-teal-cursors";
    HYPRCURSOR_SIZE = "24";
@@ -23,6 +17,15 @@ in
    GTK_THEME = "catppuccin-latte-teal-standard";
   };
  
+  qt = {
+   enable = true;
+   platformTheme = "gtk3";
+   style = {
+     package = pkgs.catppuccin-kvantum;
+     name = "Catppuccin-Latte-Teal";
+   };
+  };
+
   gtk = {
    enable = true;
    
@@ -105,13 +108,6 @@ in
   home.packages = with pkgs; [
    numix-icon-theme-circle
    colloid-icon-theme
-   catppuccin-kvantum
- 
-   # gnome.gnome-tweaks
-   # gnome.gnome-shell
-   # gnome.gnome-shell-extensions
-   # xsettingsd
-   # themechanger
  ];
  
  # Script to make theme available system-wide
