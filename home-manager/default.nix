@@ -7,6 +7,7 @@
   ./git
   ./gtk
   ./hyprland
+  ./hyprpaper
   ./kitty
   ./nvim
   ./pipewire
