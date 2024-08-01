@@ -8,7 +8,7 @@
 # CSS source: https://github.com/catppuccin/discord
 
  home.file = {
-  ".config/vesktop/themes/macchiato.conf".source = ./catppuccin-macchiato-teal.theme.css;
+  ".config/vesktop/themes/macchiato.conf".source = ./catppuccin-macchiato-blue.theme.css;
   ".config/vesktop/themes/latte.conf".source = ./catppuccin-latte-teal.theme.css;
  };
 

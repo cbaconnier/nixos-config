@@ -9,11 +9,11 @@
 in
 {
   home.sessionVariables = {
-   HYPRCURSOR_THEME = "catppuccin-macchiato-teal-cursors";
+   HYPRCURSOR_THEME = "catppuccin-macchiato-blue-cursors";
    HYPRCURSOR_SIZE = "24";
-   XCURSOR_THEME = "catppuccin-macchiato-teal-cursors";
+   XCURSOR_THEME = "catppuccin-macchiato-blue-cursors";
    XCURSOR_SIZE = "24";
-   GTK_THEME = "catppuccin-macchiato-teal-standard";
+   GTK_THEME = "catppuccin-macchiato-blue-standard";
   };
  
   qt = {
@@ -21,7 +21,7 @@ in
    platformTheme = "gtk3";
    style = {
      package = pkgs.catppuccin-kvantum;
-     name = "Catppuccin-Macchiato-Teal";
+     name = "Catppuccin-Macchiato-Blue";
    };
   };
 
@@ -29,24 +29,24 @@ in
    enable = true;
    
    theme = {
-    name = "catppuccin-macchiato-teal-standard";
+    name = "catppuccin-macchiato-blue-standard";
     package = pkgs.catppuccin-gtk.override {
-     accents = [ "teal" ];
+     accents = [ "blue" ];
      size = "standard";
      variant = "macchiato";
     };
    };
  
    cursorTheme = {
-    package = pkgs.catppuccin-cursors.macchiatoTeal;
-    name = "catppuccin-macchiato-teal-cursors";
+    package = pkgs.catppuccin-cursors.macchiatoBlue;
+    name = "catppuccin-macchiato-blue-cursors";
     size = 24;
    };
  
    iconTheme = {
     name = "Papirus-Dark";
     package = pkgs.catppuccin-papirus-folders.override {
-      accent = "teal";       
+      accent = "blue";       
       flavor = "macchiato";
     };
    };
@@ -65,8 +65,8 @@ in
     color-scheme = "prefer-dark";
    ### Those are pointless becase gtk set them correcty
    # cursor-size = 24;
-   # cursor-theme = "catppuccin-macchiato-teal-cursors";
-   # gtk-theme = "catppuccin-macchiato-teal-standard";
+   # cursor-theme = "catppuccin-macchiato-blue-cursors";
+   # gtk-theme = "catppuccin-macchiato-blue-standard";
    # icon-theme = "Papirus-Dark";
     };
   };
@@ -101,7 +101,7 @@ in
  };
        
  nixpkgs.config.packageOverrides = pkgs: {
-   colloid-icon-theme = pkgs.colloid-icon-theme.override { colorVariants = ["teal"]; };
+   colloid-icon-theme = pkgs.colloid-icon-theme.override { colorVariants = ["default"]; };
  };
   
   home.packages = with pkgs; [
@@ -116,16 +116,16 @@ home.activation.publish-theme = config.lib.dag.entryAfter ["writeBoundary"] ''
     $DRY_RUN_CMD echo "dark" > "$HOME/.cache/.current_theme"
 
  # GTK Theme
-    gtk_theme_path="${config.gtk.theme.package}/share/themes/catppuccin-macchiato-teal-standard"
-    user_gtk_theme_path="${userThemesDir}/catppuccin-macchiato-teal-standard"
+    gtk_theme_path="${config.gtk.theme.package}/share/themes/catppuccin-macchiato-blue-standard"
+    user_gtk_theme_path="${userThemesDir}/catppuccin-macchiato-blue-standard"
     $DRY_RUN_CMD mkdir -p "${userThemesDir}"
     if [ ! -e "$user_gtk_theme_path" ]; then
       $DRY_RUN_CMD ln -sf "$gtk_theme_path" "$user_gtk_theme_path"
     fi
 
  # Cursor Theme
-    cursor_theme_path="${config.gtk.cursorTheme.package}/share/icons/catppuccin-macchiato-teal-cursors"
-    user_cursor_theme_path="${userIconsDir}/catppuccin-macchiato-teal-cursors"
+    cursor_theme_path="${config.gtk.cursorTheme.package}/share/icons/catppuccin-macchiato-blue-cursors"
+    user_cursor_theme_path="${userIconsDir}/catppuccin-macchiato-blue-cursors"
     $DRY_RUN_CMD mkdir -p "${userIconsDir}"
     if [ ! -e "$user_cursor_theme_path" ]; then
       $DRY_RUN_CMD ln -sf "$cursor_theme_path" "$user_cursor_theme_path"
