@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ pkgs, inputs, ...}:
 {
   users.users.clement = {
     packages = with pkgs; [ 
@@ -48,6 +48,8 @@
      fd # fast and user friendly alternative to `find`
 
      appimage-run
+
+     inputs.swww.packages.${pkgs.system}.swww # Wallpaper https://github.com/LGFae/swww
 
      gcc # C compiler
      

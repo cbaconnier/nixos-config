@@ -7,12 +7,12 @@
   ./git
   ./gtk
   ./hyprland
-  ./hyprpaper
   ./kitty
   ./nvim
   ./pipewire
   ./rofi
   ./vesktop
+  ./wallpapers
   ./zsh
  ];
 

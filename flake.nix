@@ -2,10 +2,10 @@
  inputs = {
 
   nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-  
   #hyprland.url = "github:hyprwm/Hyprland?submodules=1&ref=v0.41.2";
   #hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&rev=918d8340afd652b011b937d29d5eea0be08467f5";
   hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+  swww.url = "github:LGFae/swww";
   #hy3 = {
   #  url = "github:outfoxxed/hy3?ref=hl0.41.2"; 
   #  inputs.hyprland.follows = "hyprland"; 
