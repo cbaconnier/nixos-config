@@ -3,6 +3,7 @@ import { Clock } from './clock';
 import { Notification } from './notification';
 import { Volume } from './volume';
 import { SysTray } from './systray';
+import { OpenMenuButton } from './open_menu_button';
 
 function Left(monitor: Monitor) {
     return Widget.Box({
@@ -30,6 +31,7 @@ function Right() {
             Volume(),
             Clock(),
             SysTray(),
+            OpenMenuButton(),
         ],
     });
 }
