@@ -35,4 +35,9 @@
    ];
  };
 
+ # Fix: DRM kernel driver 'nvidia-drm' in use. NVK requires nouveau 
+ # The error has been seen when running lutris
+ environment.variables = {
+    VK_ICD_FILENAMES = "${config.hardware.nvidia.package}/share/vulkan/icd.d/nvidia_icd.x86_64.json";
+ };
 }

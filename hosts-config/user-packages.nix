@@ -47,6 +47,9 @@
      libdbusmenu-gtk3 # Library for passing menu structures across DBus, Used by AGS for the try-system
      home-manager  
 
+     lutris
+     wine
+
      fd # fast and user friendly alternative to `find`
 
      appimage-run
