@@ -24,6 +24,7 @@
      xboxdrv # xbox controller driver
      vesktop
      lazygit
+     yazi # ranger like
      libnotify
      clipse # TUI-based clipboard manager application
 
@@ -36,6 +37,7 @@
      obs-studio
      spotify 
 
+     gcc # C compiler
      nodejs
      tree-sitter
 
@@ -50,8 +52,6 @@
      appimage-run
 
      inputs.swww.packages.${pkgs.system}.swww # Wallpaper https://github.com/LGFae/swww
-
-     gcc # C compiler
      
      yt-dlp # Command-line tool to download videos from YouTube.com and other sites 
 
