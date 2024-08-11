@@ -49,6 +49,7 @@
 
      lutris
      wine
+     gamescope
 
      fd # fast and user friendly alternative to `find`
 
