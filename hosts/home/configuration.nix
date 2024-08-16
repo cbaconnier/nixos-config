@@ -8,6 +8,7 @@
      ./hardware-configuration.nix
 
       ./../../hosts-config/audio.nix
+      ./../../hosts-config/docker.nix
       ./../../hosts-config/fonts.nix
       ./../../hosts-config/greetd.nix
       #./../../hosts-config/hyprland.nix
@@ -62,7 +63,7 @@
   users.users.clement = {
     isNormalUser = true;
     description = "clement";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [ ];
   };
 
