@@ -2,13 +2,22 @@
 
 # https://nixos.wiki/wiki/Nvidia
 
-{
-  services.xserver.videoDrivers = [ "nvidia" ];
+{ 
+
+  environment.systemPackages = with pkgs; [
+    vulkan-tools
+    vulkan-loader  
+    vulkan-validation-layers
+  ];
+
   hardware.opengl = {
    enable = true;
    driSupport = true;
    driSupport32Bit = true;
   };
+  
+  services.xserver.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
    modesetting.enable = true;
@@ -37,7 +46,7 @@
 
  # Fix: DRM kernel driver 'nvidia-drm' in use. NVK requires nouveau 
  # The error has been seen when running lutris
- environment.variables = {
-    VK_ICD_FILENAMES = "${config.hardware.nvidia.package}/share/vulkan/icd.d/nvidia_icd.x86_64.json";
- };
+# environment.variables = {
+#    VK_ICD_FILENAMES = "${config.hardware.nvidia.package}/share/vulkan/icd.d/nvidia_icd.x86_64.json";
+# };
 }

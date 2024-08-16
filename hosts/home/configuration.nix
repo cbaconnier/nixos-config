@@ -33,6 +33,8 @@
   boot.initrd.enable = true;
   boot.initrd.systemd.enable = true;
 
+  boot.blacklistedKernelModules = ["nouveau"];
+
  # boot.plymouth = {
  #  enable = true;
  #  theme = "circle_hud";
