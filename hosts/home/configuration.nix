@@ -8,7 +8,7 @@
      ./hardware-configuration.nix
 
       ./../../hosts-config/audio.nix
-      ./../../hosts-config/docker.nix
+      ./../../hosts-config/virtualisation.nix
       ./../../hosts-config/fonts.nix
       ./../../hosts-config/greetd.nix
       #./../../hosts-config/hyprland.nix
