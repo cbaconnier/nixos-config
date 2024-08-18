@@ -7,25 +7,29 @@
 #
 
 {
-  virtualisation.containers.enable = true;
-
-  virtualisation = {
-    podman = {
-      enable = true;
-
-      # Create a `docker` alias for podman, to use it as a drop-in replacement
-      #dockerCompat = true;
-
-      # Required for containers under podman-compose to be able to talk to each other.
-      defaultNetwork.settings.dns_enabled = true;
-    };
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = false;
+    autoPrune.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
-    dive # look into docker image layers
-    podman-tui # status of containers in the terminal
-    docker-compose # start group of containers for dev
-    #podman-compose # start group of containers for dev
+    dive            # look into docker image layers
+    docker-compose  # start group of containers for dev
+    lazydocker      # TUI for docker
   ];
 
+  virtualisation.oci-containers = {
+    backend = "docker";
+    containers = {
+      portainer = {
+        image = "portainer/portainer-ce:latest";
+        volumes = [
+          "/var/run/docker.sock:/var/run/docker.sock"
+          "portainer_data:/data"
+        ];
+        ports = [ "9000:9000" ];
+      };
+    };
+  };
 }
