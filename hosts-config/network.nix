@@ -1,4 +1,4 @@
-  { ... }: 
+  { config, pkgs, ... }: 
 
   {
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -9,7 +9,11 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-
+  #networking = {
+  #  enable = true;
+  #  nameservers = [ "127.0.0.1" "9.9.9.9" "149.112.112.112" ];
+  #  dns = "dnsmasq";
+  #};
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -29,4 +33,15 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-  }
+  
+  services.dnsmasq = {
+    enable = true;
+    settings = {
+      server = [ "9.9.9.9" "149.112.112.112" ]; # quad9 DNS
+      address = "/.test/127.0.0.1";
+      listen-address = "127.0.0.1";
+    };
+  };
+
+
+}
