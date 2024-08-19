@@ -17,6 +17,9 @@
     dive            # look into docker image layers
     docker-compose  # start group of containers for dev
     lazydocker      # TUI for docker
+    
+    qemu            # Machine emulator and virtualizer
+    quickemu        # Quickly create and run optimised Windows, macOS and Linux virtual machines   
   ];
 
   virtualisation.oci-containers = {
