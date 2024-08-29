@@ -1,7 +1,7 @@
 {
  inputs = {
 
-  nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+  nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   hyprland.url = "github:hyprwm/Hyprland?submodules=1&ref=v0.41.2";
   swww.url = "github:LGFae/swww";
   #hy3 = {
