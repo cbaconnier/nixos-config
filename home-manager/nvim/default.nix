@@ -106,25 +106,46 @@ in
           },
           spec = {
             { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+
             -- The following configs are needed for fixing lazyvim on nix
             -- force enable telescope-fzf-native.nvim
             { "nvim-telescope/telescope-fzf-native.nvim", enabled = true },
+
             -- disable mason.nvim, use programs.neovim.extraPackages
             { "williamboman/mason-lspconfig.nvim", enabled = false },
             { "williamboman/mason.nvim", enabled = false },
+
+            -- Enable extra 
+            { import = "lazyvim.plugins.extras.lsp.none-ls" },
+
             -- import/override with your plugins
             { import = "plugins" },
+
             -- treesitter handled by xdg.configFile."nvim/parser", put this line at the end of spec to clear ensure_installed
-            { "nvim-treesitter/nvim-treesitter", 
-              opts = { 
-                ensure_installed = { all },
-                parser_install_dir = vim.fn.stdpath("data") .. "/treesitter/parsers" 
-              }
+            { "nvim-treesitter/nvim-treesitter",
+              opts = function(_, opts)
+                opts.ensure_installed = {}
+              end,
             },
           },
         })
       '';
   };
+
+  # https://github.com/nvim-treesitter/nvim-treesitter#i-get-query-error-invalid-node-type-at-position
+  xdg.configFile."nvim/parser".source =
+    let
+      parsers = pkgs.symlinkJoin {
+        name = "treesitter-parsers";
+        paths = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [
+          bash
+          lua
+          php
+          regex
+        ])).dependencies;
+      };
+    in
+    "${parsers}/parser";
 
   # Normal LazyVim config here, see https://github.com/LazyVim/starter/tree/main/lua
   xdg.configFile."nvim/lua".source = ./lua;
