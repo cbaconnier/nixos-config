@@ -33,6 +33,8 @@
 
      cbonsai # Grow bonsai trees in your terminal
 
+     tigervnc
+     wayvnc
      signal-desktop
      obs-studio
      spotify 
