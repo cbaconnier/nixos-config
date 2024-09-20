@@ -2,7 +2,8 @@
 
 {
  programs.zsh = {
-  enable = true;
+   enable = true;
+   syntaxHighlighting.enable = true;
    oh-my-zsh = {
     enable = true;
     theme = "refined";
@@ -10,7 +11,6 @@
      "git" 
      "docker"
      "colored-man-pages" 
-     #"zsh-syntax-highlighting"
      "emoji"
      "emotty" 
     ]; 
