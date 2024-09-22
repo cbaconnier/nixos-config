@@ -16,6 +16,7 @@
       ./../../hosts-config/network.nix
       ./../../hosts-config/nvidia.nix
       ./../../hosts-config/php.nix
+      ./../../hosts-config/printer.nix
       ./../../hosts-config/programs.nix
       ./../../hosts-config/shell.nix
       ./../../hosts-config/system-packages.nix
