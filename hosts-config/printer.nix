@@ -9,6 +9,7 @@
 {
   services.printing = {
     enable = true;
+    browsed.enable = false; # Disable browsed daemon to prevent CUPS vulnerability 
     # drivers = [ 
     #   pkgs.brlaser
     # ];
@@ -45,7 +46,4 @@
     nssmdns4 = true;
     openFirewall = true;
   };
-
-  # Prevent CUPS vulnerability 
-  systemd.services.cup-browsed.enable = false;
 }
