@@ -27,6 +27,7 @@
      yazi # ranger like
      libnotify
      clipse # TUI-based clipboard manager application
+     rsync
 
      grim
      slurp
