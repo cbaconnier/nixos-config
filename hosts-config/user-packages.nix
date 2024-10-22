@@ -28,6 +28,7 @@
      libnotify
      clipse # TUI-based clipboard manager application
      rsync
+     veracrypt
 
      grim
      slurp
