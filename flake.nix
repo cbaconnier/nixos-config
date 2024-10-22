@@ -8,6 +8,10 @@
   #  url = "github:outfoxxed/hy3?ref=hl0.41.2"; 
   #  inputs.hyprland.follows = "hyprland"; 
   #};
+  nvchad4nix = {
+    url = "github:nix-community/nix4nvchad";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
  };
 
  outputs =  { self, nixpkgs, home-manager, ... }@inputs: 
