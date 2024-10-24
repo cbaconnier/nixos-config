@@ -1,5 +1,8 @@
-{ inputs, config, pkgs, ... }: {
+{ inputs, config, pkgs, ... }: 
 
+# https://github.com/nix-community/nix4nvchad
+
+{
   imports = [
     inputs.nvchad4nix.homeManagerModule
   ];
