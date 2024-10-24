@@ -30,6 +30,7 @@ programs.nvchad = {
       tree-sitter
 
       # Other LSP
+       nixd
       # rust-analyzer
       # python3Packages.python-lsp-server
     ];
