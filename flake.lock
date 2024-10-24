@@ -320,17 +320,16 @@
     "nvchad-starter": {
       "flake": false,
       "locked": {
-        "lastModified": 1728129783,
-        "narHash": "sha256-SVpep7lVX0isYsUtscvgA7Ga3YXt/2jwQQCYkYadjiM=",
-        "owner": "NvChad",
-        "repo": "starter",
-        "rev": "d0c602f5f155d4d1261609219e9b8a61e936d681",
+        "lastModified": 1729788806,
+        "narHash": "sha256-HPvjEwgCYssLocxYXKeoSF71geke/UDw1LEvjL4ROxE=",
+        "owner": "cbaconnier",
+        "repo": "nvim",
+        "rev": "ca87ae45fa10c15499f9b34fcdaa58f74b97bf17",
         "type": "github"
       },
       "original": {
-        "owner": "NvChad",
-        "ref": "main",
-        "repo": "starter",
+        "owner": "cbaconnier",
+        "repo": "nvim",
         "type": "github"
       }
     },
@@ -339,7 +338,9 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "nvchad-starter": "nvchad-starter"
+        "nvchad-starter": [
+          "nvchad-starter"
+        ]
       },
       "locked": {
         "lastModified": 1729327343,
@@ -360,6 +361,7 @@
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "nixpkgs": "nixpkgs_3",
+        "nvchad-starter": "nvchad-starter",
         "nvchad4nix": "nvchad4nix",
         "swww": "swww"
       }
