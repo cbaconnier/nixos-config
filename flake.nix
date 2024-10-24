@@ -8,6 +8,17 @@
   #  url = "github:outfoxxed/hy3?ref=hl0.41.2"; 
   #  inputs.hyprland.follows = "hyprland"; 
   #};
+  nvchad-starter = {
+      url = "github:cbaconnier/nvim";
+      #url = "path:/home/clement/Projects/cbaconnier/nvim";   
+      flake = false;
+    };
+  nvchad4nix = {
+    url = "github:nix-community/nix4nvchad";
+    inputs.nixpkgs.follows = "nixpkgs";
+    inputs.nvchad-starter.follows = "nvchad-starter";
+  };
+
  };
 
  outputs =  { self, nixpkgs, home-manager, ... }@inputs: 

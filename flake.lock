@@ -317,11 +317,52 @@
         "type": "github"
       }
     },
+    "nvchad-starter": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1729788806,
+        "narHash": "sha256-HPvjEwgCYssLocxYXKeoSF71geke/UDw1LEvjL4ROxE=",
+        "owner": "cbaconnier",
+        "repo": "nvim",
+        "rev": "ca87ae45fa10c15499f9b34fcdaa58f74b97bf17",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cbaconnier",
+        "repo": "nvim",
+        "type": "github"
+      }
+    },
+    "nvchad4nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nvchad-starter": [
+          "nvchad-starter"
+        ]
+      },
+      "locked": {
+        "lastModified": 1729327343,
+        "narHash": "sha256-ulBLeVWMITOp+w61xzLg/pjoHWL6HMoIGtsHC6GLdWA=",
+        "owner": "nix-community",
+        "repo": "nix4nvchad",
+        "rev": "1f8fcc3a58e88dc9f0af285fc1488343a722d18e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix4nvchad",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "nixpkgs": "nixpkgs_3",
+        "nvchad-starter": "nvchad-starter",
+        "nvchad4nix": "nvchad4nix",
         "swww": "swww"
       }
     },

@@ -21,4 +21,8 @@
       config.allowUnfree = true;
     };
   };
+
+  nvchad = final: prev: {
+    nvchad = inputs.nvchad4nix.packages.${final.system}.nvchad;
+  };
 }
