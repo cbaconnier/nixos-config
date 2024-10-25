@@ -23,6 +23,7 @@ programs.nvchad = {
       # Web Development
       nodePackages.typescript-language-server
       nodePackages.vscode-langservers-extracted # HTML/CSS/JSON/ESLint
+      tailwindcss-language-server
 
       # Additional useful tools
       ripgrep
