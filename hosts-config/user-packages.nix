@@ -44,6 +44,7 @@
      gcc # C compiler
      nodejs
 
+     sqlite
 
      imv # Image viewer, also provide `imv-dir` that auto-selects the folder where the image is located, so that the next and previous commands function works in the same way as other image viewers.
 
