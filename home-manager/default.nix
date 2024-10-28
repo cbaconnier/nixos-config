@@ -2,6 +2,7 @@
 {
  imports = [
   ./ags
+  ./clipse
   ./easyeffects
   ./flameshot
   ./git

@@ -1,0 +1,12 @@
+{
+    "historyFile": "clipboard_history.json",
+    "maxHistory": 100,
+    "themeFile": "custom_theme.json",
+    "tempDir": "tmp_files",
+    "imageDisplay": {
+        "type": "kitty",
+        "scaleX": 9,
+        "scaleY": 9,
+        "heightCut": 2
+     }
+}
