@@ -32,46 +32,7 @@
     ];
   };
  
-  # Clone my nvim configuration with write access and create a backup when the directory has uncommitted changes.
-# home.activation = {
-#     cloneNvimConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
-#       nvimConfigPath="${config.home.homeDirectory}/.config/nvim"
-#       backupDir="${config.home.homeDirectory}/.config/nvim_backups"
-#       timestamp=$(date +%Y%m%d_%H%M%S)
-#
-#       # Check if nvim directory exists
-#       if [ -d "$nvimConfigPath" ]; then
-#         cd "$nvimConfigPath"
-#
-#         # Check for uncommitted changes (modified, untracked, or staged files)
-#         if ! ${pkgs.git}/bin/git diff-index --quiet HEAD -- || \
-#            [ -n "$(${pkgs.git}/bin/git ls-files --others --exclude-standard)" ]; then
-#
-#           # Run the backup
-#           $DRY_RUN_CMD mkdir -p "$backupDir"
-#           $DRY_RUN_CMD cp -r "$nvimConfigPath" "$backupDir/nvim_$timestamp"
-#
-#           # Keep only the 10 most recent backups
-#           # $DRY_RUN_CMD cd "$backupDir" && ls -t | tail -n +11 | xargs -r rm -rf
-#         fi
-#
-#         # Clean and reset the git directory
-#         $DRY_RUN_CMD ${pkgs.git}/bin/git clean -fd
-#         $DRY_RUN_CMD ${pkgs.git}/bin/git reset --hard HEAD
-#         $DRY_RUN_CMD ${pkgs.git}/bin/git fetch origin
-#         $DRY_RUN_CMD ${pkgs.git}/bin/git reset --hard origin/main
-#        else
-#         # If directory doesn't exist, clone it
-#         $DRY_RUN_CMD ${pkgs.git}/bin/git clone git@github.com:cbaconnier/nvim.git "$nvimConfigPath" \
-#           --config core.sshCommand="${pkgs.openssh}/bin/ssh -i ${config.home.homeDirectory}/.ssh/id_rsa"
-#         fi
-#     '';
-#
-#     makeNvimConfigWritable = lib.hm.dag.entryAfter ["cloneNvimConfig"] ''
-#       $DRY_RUN_CMD chmod -R u+w "${config.home.homeDirectory}/.config/nvim"
-#     '';
-#   };
-
+  # Clone my nvim configuration with write access when not already present.
 home.activation = {
   cloneNvimConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
     nvimConfigPath="${config.home.homeDirectory}/.config/nvim"
