@@ -12,6 +12,7 @@
   ./nvim
   ./pipewire
   ./rofi
+  ./tmux
   ./vesktop
   ./wallpapers
   ./zsh

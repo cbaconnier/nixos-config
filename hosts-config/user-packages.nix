@@ -3,6 +3,7 @@
   users.users.clement = {
     packages = with pkgs; [ 
      neofetch
+     tmux
      zip
      unzip
      ripgrep # run with `rg`
