@@ -81,6 +81,10 @@
 
   services = {
     gvfs.enable = true; # When installed, Thunar will show the trash can, removable media, and remote filesystems 
+    syncthing = {
+      enable = true;
+      openDefaultPorts = true;
+    };
   };
 }
 
