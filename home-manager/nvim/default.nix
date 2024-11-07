@@ -24,6 +24,14 @@
       nodePackages.vscode-langservers-extracted
       tailwindcss-language-server
 
+      # Formatters
+      nodePackages.prettier
+      blade-formatter
+      stylua
+      php83Packages.php-cs-fixer
+      # pint -- this one use ./vendor/bin/pint
+      
+
       # Additional useful tools
       fd
 
