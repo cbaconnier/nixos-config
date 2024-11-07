@@ -56,6 +56,7 @@
      lutris
      wine
      gamescope
+     protonup-qt
 
      fd # fast and user friendly alternative to `find`
 
