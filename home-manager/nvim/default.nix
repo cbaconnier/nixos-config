@@ -24,6 +24,11 @@
       nodePackages.vscode-langservers-extracted
       tailwindcss-language-server
 
+      # nodePackages.vtsls 
+      # waiting for one or the other
+      # - https://github.com/NixOS/nixpkgs/pull/319501
+      # - https://github.com/NixOS/nixpkgs/pull/347284
+
       # Formatters
       nodePackages.prettier
       blade-formatter
