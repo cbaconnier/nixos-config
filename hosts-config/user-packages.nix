@@ -25,6 +25,7 @@
      xboxdrv # xbox controller driver
      vesktop
      lazygit
+     gh
      yazi # ranger like
      libnotify
      clipse # TUI-based clipboard manager application
