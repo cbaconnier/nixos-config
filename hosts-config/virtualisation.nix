@@ -20,6 +20,7 @@
     
     qemu            # Machine emulator and virtualizer
     quickemu        # Quickly create and run optimised Windows, macOS and Linux virtual machines   
+    kubectl
   ];
 
   virtualisation.oci-containers = {
