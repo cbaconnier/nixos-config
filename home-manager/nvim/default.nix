@@ -42,6 +42,7 @@
 
       # Other LSP
       nixd
+      rust-analyzer
     ];
   };
  

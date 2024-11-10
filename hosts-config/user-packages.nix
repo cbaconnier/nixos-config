@@ -46,6 +46,9 @@
      gcc # C compiler
      nodejs
 
+     cargo
+     rustc
+     
      sqlite
      mariadb-client
 
