@@ -13,6 +13,12 @@
    ];
   };
 
+  # Enable archives action on thunar.
+  # todo: use xarchiver instead, but couldn't make it work
+  file-roller = { 
+    enable = true;
+  };
+
   # Running steam game with gamescope (Steam Deck Virtual Desktop)
   # https://github.com/sonic2kk/steamtinkerlaunch/wiki/GameScope
   # https://github.com/NixOS/nixpkgs/issues/162562#issuecomment-1229444338
