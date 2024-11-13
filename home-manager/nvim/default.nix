@@ -1,5 +1,4 @@
-{ config, pkgs, lib, ... }:
-{
+{ config, pkgs, lib, ... }: {
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-unwrapped;
@@ -14,7 +13,7 @@
       ripgrep
       tree-sitter
       git
-      
+
       # PHP/Laravel Development
       nodePackages.intelephense
       phpactor
@@ -33,8 +32,8 @@
       nodePackages.prettier
       stylua
       php83Packages.php-cs-fixer
+      nixfmt
       # pint -- this one use ./vendor/bin/pint
-      
 
       # Additional useful tools
       fd
@@ -44,26 +43,25 @@
       rust-analyzer
     ];
   };
- 
+
   # Clone my nvim configuration with write access when not already present.
-home.activation = {
-  cloneNvimConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    nvimConfigPath="${config.home.homeDirectory}/.config/nvim"
+  home.activation = {
+    cloneNvimConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      nvimConfigPath="${config.home.homeDirectory}/.config/nvim"
 
-    # Check if nvim directory exists and has a git repo
-    if [ ! -d "$nvimConfigPath" ] || [ ! -d "$nvimConfigPath/.git" ]; then
+      # Check if nvim directory exists and has a git repo
+      if [ ! -d "$nvimConfigPath" ] || [ ! -d "$nvimConfigPath/.git" ]; then
 
-      # Clone the repository
-      $DRY_RUN_CMD ${pkgs.git}/bin/git clone \
-        --config core.sshCommand="${pkgs.openssh}/bin/ssh -i ${config.home.homeDirectory}/.ssh/id_rsa" \
-        git@github.com:cbaconnier/nvim.git "$nvimConfigPath"
-      
-      $DRY_RUN_CMD chmod -R u+w "${config.home.homeDirectory}/.config/nvim"
+        # Clone the repository
+        $DRY_RUN_CMD ${pkgs.git}/bin/git clone \
+          --config core.sshCommand="${pkgs.openssh}/bin/ssh -i ${config.home.homeDirectory}/.ssh/id_rsa" \
+          git@github.com:cbaconnier/nvim.git "$nvimConfigPath"
+        
+        $DRY_RUN_CMD chmod -R u+w "${config.home.homeDirectory}/.config/nvim"
 
-    fi
-  '';
+      fi
+    '';
   };
-
 
 }
 
