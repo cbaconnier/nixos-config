@@ -31,7 +31,6 @@
 
       # Formatters
       nodePackages.prettier
-      blade-formatter
       stylua
       php83Packages.php-cs-fixer
       # pint -- this one use ./vendor/bin/pint
