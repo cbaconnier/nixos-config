@@ -18,6 +18,7 @@
      ethtool # query or control network driver and hardware settings
      pciutils # PCI utilities: include `lspci`, `setpci`, `update-pciids` and `pcilmr` commands
      usbutils # USB utilities: include `lsusb`, `usb-devices` and `usbhid-dump`
+     dnsutils # Network utilities: include `dig`, `nslookup` and `nsupdate`
      firefox
      pavucontrol
      mangohud # A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more. https://wiki.archlinux.org/title/MangoHud
