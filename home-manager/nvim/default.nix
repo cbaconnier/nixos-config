@@ -32,7 +32,7 @@
       nodePackages.prettier
       stylua
       php83Packages.php-cs-fixer
-      nixfmt
+      nixfmt-classic
       # pint -- this one use ./vendor/bin/pint
 
       # Additional useful tools
