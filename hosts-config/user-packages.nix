@@ -64,6 +64,8 @@
       gamescope
       protonup-qt
 
+      atlauncher # launcher minecraft
+
       fd # fast and user friendly alternative to `find`
 
       appimage-run
