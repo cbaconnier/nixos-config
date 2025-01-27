@@ -53,11 +53,11 @@
       if [ ! -d "$nvimConfigPath" ] || [ ! -d "$nvimConfigPath/.git" ]; then
 
         # Clone the repository
-        $DRY_RUN_CMD ${pkgs.git}/bin/git clone \
+        run ${pkgs.git}/bin/git clone \
           --config core.sshCommand="${pkgs.openssh}/bin/ssh -i ${config.home.homeDirectory}/.ssh/id_rsa" \
           git@github.com:cbaconnier/nvim.git "$nvimConfigPath"
         
-        $DRY_RUN_CMD chmod -R u+w "${config.home.homeDirectory}/.config/nvim"
+        run chmod -R u+w "${config.home.homeDirectory}/.config/nvim"
 
       fi
     '';
