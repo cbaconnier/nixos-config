@@ -64,7 +64,7 @@
       gamescope
       protonup-qt
 
-      atlauncher # launcher minecraft
+      prismlauncher # minecraft launcher
 
       fd # fast and user friendly alternative to `find`
 
