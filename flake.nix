@@ -2,7 +2,8 @@
   inputs = {
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    hyprland.url = "github:hyprwm/Hyprland?submodules=1&ref=v0.45.0&submodules=1";
+    hyprland.url =
+      "github:hyprwm/Hyprland?submodules=1&ref=v0.47.0&submodules=1";
     swww.url = "github:LGFae/swww";
     #hy3 = {
     #  url = "github:outfoxxed/hy3?ref=hl0.41.2"; 
@@ -10,8 +11,8 @@
     #};
   };
 
-  outputs =  { self, nixpkgs, home-manager, ... }@inputs: 
-    let 
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+    let
       system = "x86_64-linux";
       inherit (self) outputs;
     in {
@@ -29,7 +30,7 @@
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
             home-manager.users.clement = import ./hosts/home/clement.nix;
-            home-manager.extraSpecialArgs = {inherit inputs outputs; };
+            home-manager.extraSpecialArgs = { inherit inputs outputs; };
 
             #wayland.windowManager.hyprland.plugins = [ hy3.packages.x86_64-linux.hy3 ];
           }
