@@ -9,9 +9,9 @@ let
   userIconsDir = "${config.home.homeDirectory}/.local/share/icons";
 in {
   home.sessionVariables = {
-    HYPRCURSOR_THEME = "catppuccin-latte-teal-cursors";
+    HYPRCURSOR_THEME = "Bibata-Modern-Ice";
     HYPRCURSOR_SIZE = "24";
-    XCURSOR_THEME = "catppuccin-latte-teal-cursors";
+    XCURSOR_THEME = "Bibata-Modern-Ice";
     XCURSOR_SIZE = "24";
     GTK_THEME = "catppuccin-latte-teal-standard";
   };
@@ -38,8 +38,8 @@ in {
     };
 
     cursorTheme = {
-      package = pkgs.catppuccin-cursors.latteTeal;
-      name = "catppuccin-latte-teal-cursors";
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
       size = 24;
     };
 
@@ -104,7 +104,11 @@ in {
       pkgs.colloid-icon-theme.override { colorVariants = [ "teal" ]; };
   };
 
-  home.packages = with pkgs; [ numix-icon-theme-circle colloid-icon-theme ];
+  home.packages = with pkgs; [
+    numix-icon-theme-circle
+    colloid-icon-theme
+    bibata-cursors
+  ];
 
   # Script to make theme available system-wide
   home.activation.publish-theme =
@@ -122,12 +126,14 @@ in {
          fi
 
       # Cursor Theme
-         cursor_theme_path="${config.gtk.cursorTheme.package}/share/icons/catppuccin-latte-teal-cursors"
-         user_cursor_theme_path="${userIconsDir}/catppuccin-latte-teal-cursors"
+         cursor_theme_path="${config.gtk.cursorTheme.package}/share/icons/Bibata-Modern-Ice"
+         user_cursor_theme_path="${userIconsDir}/Bibata-Modern-Ice"
          run mkdir -p "${userIconsDir}"
          if [ ! -e "$user_cursor_theme_path" ]; then
            run ln -sf "$cursor_theme_path" "$user_cursor_theme_path"
          fi
+
+        ${pkgs.hyprland}/bin/hyprctl setcursor Bibata-Modern-Ice 24
 
       # Icon Theme
          icon_theme_path="${config.gtk.iconTheme.package}/share/icons/Papirus-Light"
