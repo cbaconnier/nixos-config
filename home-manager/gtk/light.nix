@@ -14,8 +14,6 @@ in {
     XCURSOR_THEME = "catppuccin-latte-teal-cursors";
     XCURSOR_SIZE = "24";
     GTK_THEME = "catppuccin-latte-teal-standard";
-    XCURSOR_PATH =
-      "${config.home.homeDirectory}/.local/share/icons:${config.home.homeDirectory}/.icons:/usr/share/icons";
   };
 
   qt = {
@@ -126,15 +124,10 @@ in {
       # Cursor Theme
          cursor_theme_path="${config.gtk.cursorTheme.package}/share/icons/catppuccin-latte-teal-cursors"
          user_cursor_theme_path="${userIconsDir}/catppuccin-latte-teal-cursors"
-         default_cursor_path="${config.home.homeDirectory}/.local/share/icons/default"
          run mkdir -p "${userIconsDir}"
          if [ ! -e "$user_cursor_theme_path" ]; then
            run ln -sf "$cursor_theme_path" "$user_cursor_theme_path"
-           run rm -f "$default_cursor_path"
-           run ln -sf "$cursor_theme_path" "$default_cursor_path"
          fi
-
-      ${pkgs.hyprland}/bin/hyprctl setcursor catppuccin-latte-teal-cursors 24
 
       # Icon Theme
          icon_theme_path="${config.gtk.iconTheme.package}/share/icons/Papirus-Light"
