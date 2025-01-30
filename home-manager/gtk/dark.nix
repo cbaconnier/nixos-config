@@ -109,6 +109,12 @@ in {
     bibata-cursors
   ];
 
+  home.file.".icons/default".source =
+    "${config.gtk.cursorTheme.package}/share/icons/Bibata-Modern-Ice";
+
+  home.file.".icons/Bibata-Modern-Ice".source =
+    "${config.gtk.cursorTheme.package}/share/icons/Bibata-Modern-Ice";
+
   # Script to make theme available system-wide
   home.activation.publish-theme =
     config.lib.dag.entryAfter [ "writeBoundary" ] ''
