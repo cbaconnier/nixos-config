@@ -5,25 +5,26 @@
 
 {
   imports = [
-     ./hardware-configuration.nix
+    ./hardware-configuration.nix
 
-      ./../../hosts-config/audio.nix
-      ./../../hosts-config/virtualisation.nix
-      ./../../hosts-config/fonts.nix
-      ./../../hosts-config/greetd.nix
-      ./../../hosts-config/hyprland.nix
-      ./../../hosts-config/locale.nix
-      ./../../hosts-config/network.nix
-      ./../../hosts-config/nvidia.nix
-      ./../../hosts-config/php.nix
-      ./../../hosts-config/printer.nix
-      ./../../hosts-config/programs.nix
-      ./../../hosts-config/proxy.nix
-      ./../../hosts-config/shell.nix
-      ./../../hosts-config/system-packages.nix
-      ./../../hosts-config/user-packages.nix
-      ./../../scripts
-    ];
+    ./../../hosts-config/audio.nix
+    ./../../hosts-config/virtualisation.nix
+    ./../../hosts-config/fonts.nix
+    ./../../hosts-config/glib.nix
+    ./../../hosts-config/greetd.nix
+    ./../../hosts-config/hyprland.nix
+    ./../../hosts-config/locale.nix
+    ./../../hosts-config/network.nix
+    ./../../hosts-config/nvidia.nix
+    ./../../hosts-config/php.nix
+    ./../../hosts-config/printer.nix
+    ./../../hosts-config/programs.nix
+    ./../../hosts-config/proxy.nix
+    ./../../hosts-config/shell.nix
+    ./../../hosts-config/system-packages.nix
+    ./../../hosts-config/user-packages.nix
+    ./../../scripts
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -31,19 +32,19 @@
   # Limit the number of generations to keep
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.timeout = 2;
-  
-  boot.consoleLogLevel = 3;   
+
+  boot.consoleLogLevel = 3;
   boot.kernelParams = [ "quiet" ];
   boot.initrd.enable = true;
   boot.initrd.systemd.enable = true;
 
-  boot.blacklistedKernelModules = ["nouveau"];
+  boot.blacklistedKernelModules = [ "nouveau" ];
 
- # boot.plymouth = {
- #  enable = true;
- #  theme = "circle_hud";
- #  themePackages = [(pkgs.adi1090x-plymouth-themes.override {selected_themes = ["circle_hud"];})];
- # };
+  # boot.plymouth = {
+  #  enable = true;
+  #  theme = "circle_hud";
+  #  themePackages = [(pkgs.adi1090x-plymouth-themes.override {selected_themes = ["circle_hud"];})];
+  # };
 
   # Perform garbage collection weekly to maintain low disk usage
   nix.gc = {
@@ -52,15 +53,12 @@
     options = "--delete-older-than 7d";
   };
 
-  networking.hostName = "home"; 
+  networking.hostName = "home";
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-
-
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.clement = {
