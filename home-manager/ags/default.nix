@@ -3,7 +3,7 @@
 let
   ags-config = pkgs.stdenv.mkDerivation {
     name = "ags-config";
-    src = ./.; 
+    src = ./.;
     buildInputs = [ pkgs.bun ];
     buildPhase = ''
       mkdir -p $out
@@ -16,19 +16,14 @@ let
       cp -r $src/src $out/
       cp $src/style.css $out/
       cp $src/tsconfig.json $out/
-      ln -s ${pkgs.ags}/share/com.github.Aylur.ags/types $out/types
+      # ln -s ${pkgs.ags}/share/com.github.Aylur.ags/types $out/types
       mv $out/main.js $out/config.js
     '';
   };
-in
-{
-  home.packages = with pkgs; [
-    bun
-  ];
+in {
+  home.packages = with pkgs; [ bun ];
 
-  home.file = {
-    ".config/ags".source = ags-config;
-  };
+  home.file = { ".config/ags".source = ags-config; };
 
   # Ensure the tmp directory exists
   home.activation = {
