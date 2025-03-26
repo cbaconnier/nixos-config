@@ -17,6 +17,7 @@ in {
       which
       tree
       vlc
+      freetube
       btop
       ethtool # query or control network driver and hardware settings
       pciutils # PCI utilities: include `lspci`, `setpci`, `update-pciids` and `pcilmr` commands
