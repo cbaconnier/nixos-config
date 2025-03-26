@@ -26,7 +26,7 @@ in {
       pavucontrol
       mangohud # A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more. https://wiki.archlinux.org/title/MangoHud
       hyprpicker
-      vesktop
+      discord
       lazygit
       gh
       yazi # ranger like
