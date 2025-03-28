@@ -23,6 +23,7 @@
       source=$path/keybinds.conf
       source=$path/behavior.conf
       source=$path/input.conf
+      source=$path/app_keybinds.conf
     '';
 
     #plugins = [ inputs.hy3.packages.x86_64-linux.hy3 ];
@@ -32,7 +33,7 @@
   };
 
   # https://wiki.hyprland.org/Hypr-Ecosystem/
-  home.packages = with pkgs; [ wl-clipboard hyprcursor ];
+  home.packages = with pkgs; [ wl-clipboard hyprcursor wtype ];
 
   home.file = {
     #  ".config/hypr/hyprland.conf".source = ./hyprland.conf;
@@ -43,5 +44,6 @@
     ".config/hypr/windows.conf".source = ./windows.conf;
     ".config/hypr/input.conf".source = ./input.conf;
     ".config/hypr/startup_apps.conf".source = ./startup_apps.conf;
+    ".config/hypr/app_keybinds.conf".source = ./app_keybinds.conf;
   };
 }
