@@ -46,6 +46,7 @@ in {
       signal-desktop
       obs-studio
       spotify
+      parsec-bin
 
       libreoffice
 
