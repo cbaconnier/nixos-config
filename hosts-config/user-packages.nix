@@ -89,6 +89,24 @@ in {
     (final: prev: {
       ags = prev.ags.overrideAttrs
         (old: { buildInputs = old.buildInputs ++ [ pkgs.libdbusmenu-gtk3 ]; });
+
+      freetube = prev.freetube.overrideAttrs (old:
+        let
+          _src = prev.fetchFromGitHub {
+            owner = "FreeTubeApp";
+            repo = "FreeTube";
+            tag = "v0.23.3-beta";
+            hash = "sha256-EpcYNUtGbEFvetroo1zAyfKxW70vD1Lk0aJKWcaV39I=";
+          };
+        in {
+          version = "0.23.3";
+          src = _src;
+
+          yarnOfflineCache = prev.fetchYarnDeps {
+            yarnLock = "${_src}/yarn.lock";
+            hash = "sha256-xiJGzvmfrvvB6/rdwALOxhWSWAZ31cbySYygtG8+QpQ=";
+          };
+        });
     })
   ];
 
