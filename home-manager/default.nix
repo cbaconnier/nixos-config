@@ -16,10 +16,6 @@
     ./zsh
   ];
 
-  home.packages = with pkgs; [
-    ente-photos
-    geforcenow-electron
-    flameshot-unstable
-  ];
+  home.packages = with pkgs; [ geforcenow-electron flameshot-unstable ];
 
 }

@@ -5,6 +5,5 @@ pkgs: {
   noise-suppression-for-voice =
     pkgs.callPackage ./noise-suppression-for-voice { };
   geforcenow-electron = pkgs.callPackage ./geforcenow-electron { };
-  ente-photos = pkgs.callPackage ./ente-photos { };
   flameshot-unstable = pkgs.libsForQt5.callPackage ./flameshot { };
 }
