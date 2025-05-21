@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{ config, inputs, pkgs, ... }:
+{ config, inputs, pkgs, services, ... }:
 
 {
   imports = [
@@ -39,6 +39,11 @@
   boot.initrd.systemd.enable = true;
 
   boot.blacklistedKernelModules = [ "nouveau" ];
+
+  services.udev.extraRules = ''
+    # Rules for Santroller
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2882", MODE="0666", TAG+="uaccess"
+  '';
 
   # boot.plymouth = {
   #  enable = true;

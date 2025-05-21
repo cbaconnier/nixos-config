@@ -70,6 +70,8 @@ in {
       gamescope
       protonup-qt
 
+      clonehero
+
       prismlauncher # minecraft launcher
 
       fd # fast and user friendly alternative to `find`
