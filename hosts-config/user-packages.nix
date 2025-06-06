@@ -35,6 +35,7 @@ in {
       clipse # TUI-based clipboard manager application
       rsync
       veracrypt
+      httpie
 
       grim
       slurp
