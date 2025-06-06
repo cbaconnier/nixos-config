@@ -40,11 +40,6 @@
 
   boot.blacklistedKernelModules = [ "nouveau" ];
 
-  services.udev.extraRules = ''
-    # Rules for Santroller
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2882", MODE="0666", TAG+="uaccess"
-  '';
-
   # boot.plymouth = {
   #  enable = true;
   #  theme = "circle_hud";
