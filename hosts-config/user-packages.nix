@@ -79,7 +79,7 @@ in {
 
       appimage-run
 
-      inputs.swww.packages.${pkgs.system}.swww # Wallpaper https://github.com/LGFae/swww
+      swww # Wallpaper https://github.com/LGFae/swww
 
       yt-dlp # Command-line tool to download videos from YouTube.com and other sites
 

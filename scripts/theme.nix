@@ -7,7 +7,9 @@ pkgs.writeShellScriptBin "theme" ''
     exit 1
   fi
 
-  GENERATIONS=$(${lib.getExe home-manager} generations | ${pkgs.gawk}/bin/awk -v FS='( : id | -> )' -v OFS="\t" '{print $3}')
+  GENERATIONS=$(${
+    lib.getExe home-manager
+  } generations | ${pkgs.gawk}/bin/awk -v FS='( : id | -> )' -v OFS="\t" '{print $3}')
 
   MAIN_GENERATION=""
   while IFS= read -r generation; do

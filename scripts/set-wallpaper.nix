@@ -1,6 +1,7 @@
-{ pkgs, lib, swww, ... }:
+{ pkgs, lib }:
 
-pkgs.writeShellScriptBin "set-wallpaper" ''
+let swwwExe = lib.getExe pkgs.swww;
+in pkgs.writeShellScriptBin "set-wallpaper" ''
   #!${pkgs.bash}/bin/bash
 
 
@@ -39,7 +40,7 @@ pkgs.writeShellScriptBin "set-wallpaper" ''
 
   update_wallpaper() {
     if [ -L "$CURRENT_WALLPAPER_FILE" ]; then
-      ${lib.getExe swww} img "$CURRENT_WALLPAPER_FILE"
+      ${swwwExe} img "$CURRENT_WALLPAPER_FILE"
     else
       echo "No wallpaper symlink found at $CURRENT_WALLPAPER_FILE" >&2
       exit 1
