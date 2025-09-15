@@ -37,6 +37,7 @@
   boot.kernelParams = [ "quiet" ];
   boot.initrd.enable = true;
   boot.initrd.systemd.enable = true;
+  boot.initrd.compressor = "gzip";
 
   boot.blacklistedKernelModules = [ "nouveau" ];
 
