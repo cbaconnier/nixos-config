@@ -24,6 +24,7 @@ in {
       usbutils # USB utilities: include `lsusb`, `usb-devices` and `usbhid-dump`
       dnsutils # Network utilities: include `dig`, `nslookup` and `nsupdate`
       firefox
+      brave
       pavucontrol
       mangohud # A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more. https://wiki.archlinux.org/title/MangoHud
       hyprpicker
