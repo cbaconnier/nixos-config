@@ -34,7 +34,7 @@
           "/var/run/docker.sock:/var/run/docker.sock"
           "portainer_data:/data"
         ];
-        ports = [ "9000:9000" ];
+        ports = [ "9001:9000" ];
       };
     };
   };
