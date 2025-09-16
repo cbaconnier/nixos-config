@@ -1,26 +1,12 @@
-* {
-    bg-col:  #eff1f5;
-    bg-col-light: #eff1f5;
-    border-col: #eff1f5;
-    selected-col: #eff1f5;
-    blue: #1e66f5;
-    fg-col: #4c4f69;
-    fg-col2: #d20f39;
-    grey: #9ca0b0;
-
-    width: 600;
-    font: "JetBrainsMono Nerd Font 14";
-}
-
 element-text, element-icon , mode-switcher {
     background-color: inherit;
     text-color:       inherit;
 }
 
 window {
-    height: 360px;
-    border: 3px;
-    border-color: @border-col;
+    height: 600px;
+    border: 2px;
+    border-color: @teal;
     background-color: @bg-col;
 }
 
@@ -59,8 +45,8 @@ listview {
     border: 0px 0px 0px;
     padding: 6px 0px 0px;
     margin: 10px 0px 0px 20px;
-    columns: 2;
-    lines: 5;
+    columns: 1;
+    lines: 10;
     background-color: @bg-col;
 }
 
@@ -76,7 +62,7 @@ element-icon {
 
 element selected {
     background-color:  @selected-col ;
-    text-color: @fg-col2  ;
+    text-color: @teal  ;
 }
 
 mode-switcher {

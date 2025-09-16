@@ -1,0 +1,18 @@
+configuration {
+    modi: "drun";
+    icon-theme: "Numix-Circle";
+    show-icons: false;
+    disable-history: false;
+    drun-display-format: "{name}";
+    hide-scrollbar: true;
+    display-drun: "  Projects ";
+    sidebar-mode: true;
+    font: "JetBrains Mono Regular 13";
+    terminal: "kitty";
+
+    // mouse behavior
+    click-to-exit: true;
+    me-select-entry: "";  // Disable mouse select
+    me-accept-entry: "MousePrimary"; // Left click to accept/launch
+    scroll-method: 1;
+}

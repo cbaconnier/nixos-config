@@ -1,18 +1,3 @@
-* {
-    bg-col:  #24273a;
-    bg-col-light: #24273a;
-    border-col: #24273a;
-    selected-col: #24273a;
-    blue: #8aadf4;
-    fg-col: #cad3f5;
-    fg-col2: #ed8796;
-    grey: #6e738d;
-    teal: #8bd5ca;
-
-    width: 600;
-    border-radius: 15px;
-}
-
 element-text, element-icon , mode-switcher {
     background-color: inherit;
     text-color:       inherit;
@@ -67,8 +52,8 @@ listview {
 
 element {
     padding: 5px;
-    background-color: @bg-col;
-    text-color: @fg-col  ;
+    background-color: transparent;
+    text-color: @fg-col;
 }
 
 element-icon {
@@ -76,8 +61,8 @@ element-icon {
 }
 
 element selected {
-    background-color:  @selected-col ;
-    text-color: @teal  ;
+    background-color:  @selected-col;
+    text-color: @teal;
 }
 
 mode-switcher {

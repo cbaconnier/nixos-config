@@ -1,41 +1,58 @@
-{ pkgs, lib, config, ... }:
-
-{
+{ pkgs, lib, config, ... }: {
   programs.rofi = {
     enable = true;
     plugins = [ pkgs.rofi-calc ];
-
-    font = "JetBrains Mono Regular 13";
-    location = "center";
-    terminal = "kitty";
-
-    extraConfig = {
-      modi = "drun";
-      icon-theme = "Numix-Circle";
-      show-icons = true;
-      disable-history = false;
-      drun-display-format = "{icon} {name}";
-      hide-scrollbar = true;
-      display-drun = "   Apps ";
-      sidebar-mode = true;
-      border-radius = 10;
-    };
-
   };
 
+  # Light specialization configuration
   specialisation.light.configuration = {
-    programs.rofi.theme = "~/.config/rofi/themes/catppuccin-latte.rasi";
+    home.file = {
+      ".config/rofi/config.rasi".text = ''
+        @import "~/.config/rofi/configs/config-base.rasi"
+        @theme "~/.config/rofi/themes/catppuccin-latte-base.rasi"
+      '';
+      ".config/rofi/config-long.rasi".text = ''
+        @import "~/.config/rofi/configs/config-long.rasi"
+        @theme "~/.config/rofi/themes/catppuccin-latte-long.rasi"
+      '';
+    };
   };
 
+  # Dark specialization configuration
   specialisation.dark.configuration = {
-    programs.rofi.theme = "~/.config/rofi/themes/catppuccin-macchiato.rasi";
+    home.file = {
+      ".config/rofi/config.rasi".text = ''
+        @import "~/.config/rofi/configs/config-base.rasi"
+        @theme "~/.config/rofi/themes/catppuccin-macchiato-base.rasi"
+      '';
+      ".config/rofi/config-long.rasi".text = ''
+        @import "~/.config/rofi/configs/config-long.rasi"
+        @theme "~/.config/rofi/themes/catppuccin-macchiato-long.rasi"
+      '';
+    };
   };
 
+  # Merge and copy theme and layout files
   home.file = {
-    ".config/rofi/themes/catppuccin-macchiato.rasi".source =
-      ./catppuccin-macchiato.rasi;
-    ".config/rofi/themes/catppuccin-latte.rasi".source =
-      ./catppuccin-latte.rasi;
-  };
+    ".config/rofi/themes/catppuccin-macchiato-base.rasi".text = ''
+      ${builtins.readFile ./themes/catppuccin-macchiato.rasi}
+      ${builtins.readFile ./layouts/layout-base.rasi}
+    '';
+    ".config/rofi/themes/catppuccin-macchiato-long.rasi".text = ''
+      ${builtins.readFile ./themes/catppuccin-macchiato.rasi}
+      ${builtins.readFile ./layouts/layout-long.rasi}
+    '';
+    ".config/rofi/themes/catppuccin-latte-base.rasi".text = ''
+      ${builtins.readFile ./themes/catppuccin-latte.rasi}
+      ${builtins.readFile ./layouts/layout-base.rasi}
+    '';
+    ".config/rofi/themes/catppuccin-latte-long.rasi".text = ''
+      ${builtins.readFile ./themes/catppuccin-latte.rasi}
+      ${builtins.readFile ./layouts/layout-long.rasi}
+    '';
 
+    # Original files for reference
+    ".config/rofi/configs/config-base.rasi".source = ./configs/config-base.rasi;
+    ".config/rofi/configs/config-long.rasi".source = ./configs/config-long.rasi;
+  };
 }
