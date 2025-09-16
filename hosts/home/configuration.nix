@@ -41,11 +41,15 @@
 
   boot.blacklistedKernelModules = [ "nouveau" ];
 
-  # boot.plymouth = {
-  #  enable = true;
-  #  theme = "circle_hud";
-  #  themePackages = [(pkgs.adi1090x-plymouth-themes.override {selected_themes = ["circle_hud"];})];
-  # };
+  boot.plymouth = {
+    enable = true;
+    theme = "circle_hud";
+    themePackages = [
+      (pkgs.adi1090x-plymouth-themes.override {
+        selected_themes = [ "circle_hud" ];
+      })
+    ];
+  };
 
   # Perform garbage collection weekly to maintain low disk usage
   nix.gc = {
