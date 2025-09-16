@@ -38,6 +38,7 @@ in {
       rsync
       veracrypt
       httpie
+      insomnia
 
       grim
       slurp
