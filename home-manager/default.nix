@@ -8,6 +8,7 @@
     ./gtk
     ./hyprland
     ./kitty
+    ./mime
     ./nvim
     ./pipewire
     ./rofi
