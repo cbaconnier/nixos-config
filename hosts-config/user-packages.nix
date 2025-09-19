@@ -36,7 +36,6 @@ in {
       libnotify
       clipse # TUI-based clipboard manager application
       rsync
-      veracrypt
       httpie
       insomnia
 
@@ -50,7 +49,6 @@ in {
       signal-desktop
       obs-studio
       spotify
-      parsec-bin
 
       libreoffice
 
@@ -63,6 +61,9 @@ in {
       sqlite
       mariadb-client
 
+      rawtherapee
+      pinta
+      feh
       imv # Image viewer, also provide `imv-dir` that auto-selects the folder where the image is located, so that the next and previous commands function works in the same way as other image viewers.
 
       ags # GTK widgets https://aylur.github.io/ags-docs/
