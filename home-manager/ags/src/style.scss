@@ -1,0 +1,63 @@
+// https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
+
+$fg-color: #{"@theme_fg_color"};
+$bg-color: #{"@theme_bg_color"};
+
+window.Bar {
+  background: transparent;
+  color: $fg-color;
+  font-weight: bold;
+
+  >centerbox {
+    background: $bg-color;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  button {
+    border-radius: 4px;
+    margin: 2px;
+    background: transparent;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &:active,
+    &:checked {
+      background: rgba(255, 255, 255, 0.1);
+      color: #{"@theme_text_color"};
+    }
+
+    &:focus {
+      background: transparent;
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  workspaces {
+    button {
+      background: transparent;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      &:active {
+        background: #{"@theme_selected_bg_color"};
+      }
+    }
+
+    .focused {
+      background-color: #{"@theme_selected_bg_color"};
+      color: #{"@theme_bg_color"};
+
+      &:hover {
+        color: #ffffff;
+      }
+    }
+  }
+}

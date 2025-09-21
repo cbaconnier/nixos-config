@@ -2,8 +2,15 @@
   inputs = {
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    hyprland.url =
-      "github:hyprwm/Hyprland?submodules=1&ref=v0.50.1&submodules=1";
+    hyprland.url = "github:hyprwm/Hyprland?submodules=1&ref=v0.50.1";
+
+    astal.url = "github:aylur/astal";
+
+    ags = {
+      url = "github:aylur/ags/v3";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     #swww.url = "github:LGFae/swww";
     #hy3 = {
     #  url = "github:outfoxxed/hy3?ref=hl0.41.2"; 
