@@ -2,10 +2,9 @@ import app from "ags/gtk4/app";
 import { Astal, Gdk, Gtk } from "ags/gtk4";
 import Clock from "./Clock";
 import Tray from "./Tray";
-import Volume from "./Volume";
 import { Workspaces } from "./Workspaces";
 import Notification from "./Notification";
-import Welcome from "./Welcome";
+import Menu from "./Menu";
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
@@ -30,9 +29,9 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         </box>
 
         <box $type="end">
-          <Volume />
           <Clock />
           <Tray />
+          <Menu />
         </box>
       </centerbox>
     </window>

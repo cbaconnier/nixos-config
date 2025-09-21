@@ -9,4 +9,15 @@ npm install
 
 ```bash
 ags quit && ags run .
+
+```
+
+# Resources
+
+ - https://aylur.github.io/ags/guide/intrinsics.html
+ - 
+
+ ```
+# icons name
+nix-shell -p pantheon.elementary-iconbrowser
 ```
