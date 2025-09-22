@@ -8,8 +8,15 @@ npm install
 # Run
 
 ```bash
-ags quit && ags run .
+ags quit
+ags run .
 
+```
+
+# Debug 
+
+``` bash
+GTK_DEBUG=interactive ags run .
 ```
 
 # Resources
