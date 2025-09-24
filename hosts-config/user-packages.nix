@@ -89,6 +89,7 @@
       nix
 
       ente-desktop
+      filen-desktop
     ];
   };
 
