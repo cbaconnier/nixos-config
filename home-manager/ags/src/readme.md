@@ -26,5 +26,8 @@ GTK_DEBUG=interactive ags run .
 
  ```
 # icons name
+find .local/share/icons/Papirus-Dark/ -name "*"
+
 nix-shell -p pantheon.elementary-iconbrowser
+ > io.elementary.iconbrowser
 ```
