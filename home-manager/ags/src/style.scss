@@ -32,13 +32,21 @@ window.Bar {
     }
 
     &:focus {
-      // --- currently the focus is kept when clincking outside
+      // --- currently the focus is kept when clincking outside. I don't want that
       // background: transparent;
       // outline: 1px solid #{"@theme_selected_bg_color"};
       // outline-offset: 1px;
       background: transparent;
       outline: none;
       box-shadow: none;
+    }
+
+    &.disabled {
+      opacity: 0.6;
+
+      &:hover {
+        background: color-mix(in srgb, #{"@theme_destructive_bg_color"} 15%, transparent);
+      }
     }
   }
 
@@ -53,6 +61,7 @@ window.Bar {
         background: #{"@theme_selected_bg_color"};
         color: #{"@theme_selected_fg_color"};
       }
+
     }
 
     .focused {

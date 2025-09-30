@@ -4,6 +4,7 @@ import Clock from "./Clock";
 import Tray from "./Tray";
 import { Workspaces } from "./Workspaces";
 import Notification from "./Notification";
+import ToggleNotification from "./ToggleNotification";
 import Menu from "./Menu";
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
@@ -31,6 +32,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         <box $type="end">
           <Clock />
           <Tray />
+          <ToggleNotification />
           <Menu />
         </box>
       </centerbox>

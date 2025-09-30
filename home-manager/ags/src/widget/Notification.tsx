@@ -1,5 +1,6 @@
 import AstalNotifd from "gi://AstalNotifd";
 import { createState } from "ags";
+import { notificationsEnabled } from "./ToggleNotification";
 
 export default function Notification() {
   const notifd = AstalNotifd.get_default();
@@ -10,6 +11,8 @@ export default function Notification() {
 
   // Listen for new notifications
   notifd.connect("notified", (_, id) => {
+    if (!notificationsEnabled.get()) return;
+
     const notification = notifd.get_notification(id);
     setActiveNotifications((prev) => [notification, ...prev]);
 
@@ -27,9 +30,12 @@ export default function Notification() {
   return (
     <box
       class="notification"
-      visible={activeNotifications((notifications) => notifications.length > 0)}
+      visible={activeNotifications(
+        (notifications) =>
+          notifications.length > 0 && notificationsEnabled.get(),
+      )}
     >
-      <image iconName="preferences-system-notifications-symbolic" />
+      <image iconName="notification-symbolic" />
       <label
         label={activeNotifications(
           (notifications) => notifications[0]?.summary || "",
