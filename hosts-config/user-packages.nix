@@ -43,6 +43,8 @@
       slurp
       satty
 
+      rofi
+
       cbonsai # Grow bonsai trees in your terminal
 
       tigervnc

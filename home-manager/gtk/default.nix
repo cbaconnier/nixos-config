@@ -1,7 +1,11 @@
-{ specialisation, ... }: {
+{
+# specialisation, 
+... }: {
 
-  specialisation.dark.configuration = { imports = [ ./dark.nix ]; };
+  imports = [ ./dark.nix ];
 
-  specialisation.light.configuration = { imports = [ ./light.nix ]; };
+  # specialisation.dark.configuration = { imports = [ ./dark.nix ]; };
+
+  # specialisation.light.configuration = { imports = [ ./light.nix ]; };
 
 }

@@ -1,40 +1,23 @@
 { pkgs, lib, config, ... }: {
   programs.rofi = {
-    enable = true;
+    enable = false;
     plugins = [ pkgs.rofi-calc ];
+    extraConfig = { };
   };
 
-  # Light specialization configuration
-  specialisation.light.configuration = {
-    home.file = {
-      ".config/rofi/config.rasi".text = ''
-        @import "~/.config/rofi/configs/config-base.rasi"
-        @theme "~/.config/rofi/themes/catppuccin-latte-base.rasi"
-      '';
-      ".config/rofi/config-long.rasi".text = ''
-        @import "~/.config/rofi/configs/config-long.rasi"
-        @theme "~/.config/rofi/themes/catppuccin-latte-long.rasi"
-      '';
-    };
-  };
-
-  # Dark specialization configuration
-  specialisation.dark.configuration = {
-    home.file = {
-      ".config/rofi/config.rasi".text = ''
-        @import "~/.config/rofi/configs/config-base.rasi"
-        @theme "~/.config/rofi/themes/catppuccin-macchiato-base.rasi"
-      '';
-      ".config/rofi/config-long.rasi".text = ''
-        @import "~/.config/rofi/configs/config-long.rasi"
-        @theme "~/.config/rofi/themes/catppuccin-macchiato-long.rasi"
-      '';
-    };
-  };
-
-  # Merge and copy theme and layout files
   home.file = {
-    ".config/rofi/themes/catppuccin-macchiato-base.rasi".text = ''
+    # Dark theme as default - now this should work!
+    ".config/rofi/config.rasi".text = ''
+      @import "~/.config/rofi/configs/config-base.rasi"
+      @theme "~/.config/rofi/themes/catppuccin-macchiato-complete.rasi"
+    '';
+    ".config/rofi/config-long.rasi".text = ''
+      @import "~/.config/rofi/configs/config-long.rasi"
+      @theme "~/.config/rofi/themes/catppuccin-macchiato-long.rasi"
+    '';
+
+    # Complete theme files (theme + layout combined)
+    ".config/rofi/themes/catppuccin-macchiato-complete.rasi".text = ''
       ${builtins.readFile ./themes/catppuccin-macchiato.rasi}
       ${builtins.readFile ./layouts/layout-base.rasi}
     '';
@@ -42,7 +25,7 @@
       ${builtins.readFile ./themes/catppuccin-macchiato.rasi}
       ${builtins.readFile ./layouts/layout-long.rasi}
     '';
-    ".config/rofi/themes/catppuccin-latte-base.rasi".text = ''
+    ".config/rofi/themes/catppuccin-latte-complete.rasi".text = ''
       ${builtins.readFile ./themes/catppuccin-latte.rasi}
       ${builtins.readFile ./layouts/layout-base.rasi}
     '';
