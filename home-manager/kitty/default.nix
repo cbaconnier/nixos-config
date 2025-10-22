@@ -25,7 +25,7 @@
   #};
 
   # specialisation.dark.configuration = {
-  programs.kitty.theme = "Catppuccin-Mocha";
+  programs.kitty.themeFile = "Catppuccin-Mocha";
   # };
 
   home.file = {

@@ -17,7 +17,7 @@ in {
 
   qt = {
     enable = true;
-    platformTheme = "gtk3";
+    platformTheme.name = "gtk3";
     style = {
       package = pkgs.catppuccin-kvantum;
       name = "Catppuccin-Macchiato-Blue";
