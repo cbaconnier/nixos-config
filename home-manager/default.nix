@@ -3,7 +3,6 @@
     ./ags
     ./clipse
     ./easyeffects
-    ./flameshot
     ./git
     ./gtk
     ./hyprland
@@ -17,6 +16,6 @@
     ./zsh
   ];
 
-  home.packages = with pkgs; [ geforcenow-electron flameshot-unstable ];
+  home.packages = with pkgs; [ geforcenow-electron ];
 
 }

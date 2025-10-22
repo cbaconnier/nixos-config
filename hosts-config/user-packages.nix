@@ -41,6 +41,7 @@
 
       grim
       slurp
+      satty
 
       cbonsai # Grow bonsai trees in your terminal
 
