@@ -27,6 +27,9 @@
     ./../../scripts
   ];
 
+  # specifics for the laptop
+  programs.nm-applet.enable = true;
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -69,7 +72,7 @@
     isNormalUser = true;
     description = "clement";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [ ];
+    packages = with pkgs; [ networkmanagerapplet ];
   };
 
   systemd.services.home-manager-clement = {
