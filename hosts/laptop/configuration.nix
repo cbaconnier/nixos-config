@@ -72,7 +72,7 @@
     isNormalUser = true;
     description = "clement";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [ networkmanagerapplet ];
+    packages = with pkgs; [ networkmanagerapplet wdisplays ];
   };
 
   systemd.services.home-manager-clement = {
