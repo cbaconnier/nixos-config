@@ -1,14 +1,9 @@
-{ pkgs, ... }:
-
-# Power management for ThinkPad Z16
-{
-  # Enable laptop power management
+{ pkgs, ... }: {
   powerManagement = {
     enable = true;
     powertop.enable = true;
   };
 
-  # Battery optimization
   services.upower = {
     enable = true;
     percentageLow = 15;
@@ -17,9 +12,8 @@
     criticalPowerAction = "Hibernate";
   };
 
-  # TLP for advanced power management
   services.tlp = {
-    enable = false; # conflicting with services.power-profiles-daemon.enable
+    enable = true;
     settings = {
       # CPU settings
       CPU_SCALING_GOVERNOR_ON_AC = "performance";
@@ -46,9 +40,15 @@
       RUNTIME_PM_ON_BAT = "auto";
 
       # Battery care (limits charge to extend battery life)
-      # Uncomment and adjust values if needed
-      # START_CHARGE_THRESH_BAT0 = 75;
-      # STOP_CHARGE_THRESH_BAT0 = 80;
+      START_CHARGE_THRESH_BAT0 = 40;
+      STOP_CHARGE_THRESH_BAT0 = 80;
+
+      # Optimizations
+      WIFI_PWR_ON_AC = "off";
+      WIFI_PWR_ON_BAT = "on";
+
+      SOUND_POWER_SAVE_ON_AC = 0;
+      SOUND_POWER_SAVE_ON_BAT = 1;
 
       # Disable USB autosuspend for certain devices if needed
       # USB_DENYLIST = "1234:5678";  # Add device IDs that shouldn't be suspended
@@ -71,9 +71,5 @@
   services.thermald.enable = true;
 
   # System packages for power monitoring
-  environment.systemPackages = with pkgs; [ acpi powertop tlp ];
-
-  # Note: If using power-profiles-daemon instead of TLP, use this:
-  # services.power-profiles-daemon.enable = true;
-  # (Comment out the tlp section above)
+  environment.systemPackages = with pkgs; [ acpi powertop ];
 }

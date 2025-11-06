@@ -48,19 +48,4 @@
     radeontop # GPU monitoring
     clinfo # OpenCL info
   ];
-
-  # Power management for laptops
-  services.power-profiles-daemon.enable = true;
-
-  # Or use TLP instead (comment out power-profiles-daemon if using TLP)
-  # services.tlp = {
-  #   enable = true;
-  #   settings = {
-  #     CPU_SCALING_GOVERNOR_ON_AC = "performance";
-  #     CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-  #     
-  #     CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-  #     CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-  #   };
-  # };
 }
