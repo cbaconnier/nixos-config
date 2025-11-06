@@ -4,7 +4,24 @@
   home.username = "clement";
   home.homeDirectory = "/home/clement";
 
-  imports = [ ./../../home-manager ];
+  imports = [
+    ./../../home-manager/ags
+    ./../../home-manager/clipse
+    ./../../home-manager/easyeffects
+    ./../../home-manager/git
+    ./../../home-manager/gtk
+    ./../../home-manager/hyprland/home.nix
+    ./../../home-manager/kitty
+    ./../../home-manager/mime
+    ./../../home-manager/nvim
+    ./../../home-manager/pipewire
+    ./../../home-manager/rofi
+    ./../../home-manager/tmux
+    ./../../home-manager/wallpapers
+    ./../../home-manager/zsh
+  ];
+
+  home.packages = with pkgs; [ geforcenow-electron ];
 
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -34,7 +51,7 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  home.stateVersion = "24.11";
   programs.home-manager.enable = true;
 
+  home.stateVersion = "24.11";
 }

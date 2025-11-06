@@ -64,7 +64,7 @@
       rustc
 
       sqlite
-      mariadb-client
+      mariadb.client
 
       rawtherapee
       pinta
@@ -73,8 +73,7 @@
       feh
       imv # Image viewer, also provide `imv-dir` that auto-selects the folder where the image is located, so that the next and previous commands function works in the same way as other image viewers.
 
-      #ags # GTK widgets https://aylur.github.io/ags-docs/
-      inputs.ags.packages.${pkgs.system}.agsFull
+      inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.agsFull
       libdbusmenu-gtk3 # Library for passing menu structures across DBus, Used by AGS for the system tray
       home-manager
 
