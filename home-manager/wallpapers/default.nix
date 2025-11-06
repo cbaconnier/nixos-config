@@ -11,7 +11,9 @@ in {
   home.activation.set-wallpaper =
     config.lib.dag.entryAfter [ "writeBoundary" ] ''
       ${pkgs.bash}/bin/bash -c '
-         ${set_wallpaper_script}/bin/set-wallpaper "$(${pkgs.findutils}/bin/find ${wallpapers_dir} -name "dark.*" | ${pkgs.coreutils}/bin/head -n 1)"
+        if [ -d ${wallpapers_dir} ]; then
+          ${set_wallpaper_script}/bin/set-wallpaper "$(${pkgs.findutils}/bin/find ${wallpapers_dir} -name "dark.*" | ${pkgs.coreutils}/bin/head -n 1)"
+        fi
       '
     '';
   # };

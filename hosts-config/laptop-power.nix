@@ -19,7 +19,7 @@
 
   # TLP for advanced power management
   services.tlp = {
-    enable = true;
+    enable = false; # conflicting with services.power-profiles-daemon.enable
     settings = {
       # CPU settings
       CPU_SCALING_GOVERNOR_ON_AC = "performance";
@@ -61,11 +61,11 @@
     lidSwitchDocked = "ignore";
     lidSwitchExternalPower = "suspend";
 
-    extraConfig = ''
-      HandlePowerKey=suspend
-      IdleAction=suspend
-      IdleActionSec=30min
-    '';
+    settings.Login = {
+      HandlePowerKey="suspend";
+      IdleAction="suspend";
+      IdleActionSec="30min";
+    };
   };
 
   # Enable thermald for thermal management

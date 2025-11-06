@@ -39,19 +39,19 @@
         ];
       };
 
-      # nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
-      #   inherit system;
-      #   specialArgs = { inherit inputs outputs; };
-      #   modules = [
-      #     ./hosts/laptop/configuration.nix
-      #     home-manager.nixosModules.home-manager
-      #     {
-      #       home-manager.useUserPackages = true;
-      #       home-manager.backupFileExtension = "backup";
-      #       home-manager.users.clement = import ./hosts/laptop/clement.nix;
-      #       home-manager.extraSpecialArgs = { inherit inputs outputs; };
-      #     }
-      #   ];
-      # };
+      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs outputs; };
+        modules = [
+          ./hosts/laptop/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
+            home-manager.users.clement = import ./hosts/laptop/clement.nix;
+            home-manager.extraSpecialArgs = { inherit inputs outputs; };
+          }
+        ];
+      };
     };
 }
