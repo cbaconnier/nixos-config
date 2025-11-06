@@ -57,14 +57,13 @@
 
   # Auto-suspend when idle
   services.logind = {
-    lidSwitch = "suspend";
-    lidSwitchDocked = "ignore";
-    lidSwitchExternalPower = "suspend";
-
     settings.Login = {
-      HandlePowerKey="suspend";
-      IdleAction="suspend";
-      IdleActionSec="30min";
+      HandleLidSwitch = "suspend";
+      HandleLidSwitchDocked = "ignore";
+      HandleLidSwitchExternalPower = "suspend";
+      HandlePowerKey = "suspend";
+      IdleAction = "suspend";
+      IdleActionSec = "30min";
     };
   };
 
