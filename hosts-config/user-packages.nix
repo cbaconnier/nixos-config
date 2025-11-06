@@ -52,6 +52,7 @@
       signal-desktop
       obs-studio
       spotify
+      deezer-enhanced
 
       libreoffice
 
