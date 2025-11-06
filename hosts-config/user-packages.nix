@@ -38,6 +38,7 @@
       httpie
       insomnia
       speedcrunch
+      speedtest-cli
 
       grim
       slurp
