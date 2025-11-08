@@ -54,6 +54,7 @@
       obs-studio
       spotify
       deezer-enhanced
+      playerctl
 
       libreoffice
 
