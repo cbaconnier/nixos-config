@@ -47,5 +47,7 @@
     # AMD-specific tools
     radeontop # GPU monitoring
     clinfo # OpenCL info
+    nvtopPackages.amd
+    mesa-demos
   ];
 }

@@ -9,6 +9,7 @@
     vulkan-headers
     vulkan-loader
     vulkan-validation-layers
+    nvtopPackages.nvidia
   ];
 
   hardware.graphics = {
