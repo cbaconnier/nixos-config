@@ -8,6 +8,7 @@
       home-manager = pkgs.home-manager;
     })
     (import ./power-menu.nix { inherit pkgs; })
+    (import ./restart-ags.nix { inherit pkgs; })
     # (import ./tmux-open.nix { inherit pkgs; })
     (import ./open-project.nix { inherit pkgs; })
   ];
