@@ -40,7 +40,8 @@
       RUNTIME_PM_ON_BAT = "auto";
 
       # Battery care (limits charge to extend battery life)
-      START_CHARGE_THRESH_BAT0 = 40;
+      # https://linrunner.de/tlp/settings/bc-vendors.html#lenovo-thinkpads
+      START_CHARGE_THRESH_BAT0 = 75;
       STOP_CHARGE_THRESH_BAT0 = 80;
 
       # Optimizations
@@ -60,7 +61,8 @@
     settings.Login = {
       HandleLidSwitch = "suspend";
       HandleLidSwitchDocked = "ignore";
-      HandleLidSwitchExternalPower = "suspend";
+      # HandleLidSwitchExternalPower = "suspend";
+      HandleLidSwitchExternalPower = "ignore";
       HandlePowerKey = "suspend";
       IdleAction = "suspend";
       IdleActionSec = "30min";
