@@ -75,7 +75,7 @@
           ###   MONITORS   ###
           ####################
 
-          monitor={{$laptop.Name}},1920x1200@60,0x0,1
+          monitor = , preferred, auto, 1
 
           ####################
           ###  WORKSPACES  ###
@@ -104,7 +104,7 @@
           ###   MONITORS   ###
           ####################
 
-          monitor={{$laptop.Name}},1920x1200@60,2560x1680,1
+          monitor={{$laptop.Name}},1920x1200@60,2560x1680,1.5
           monitor={{$external1.Name}},2560x1440@60,0x1440,1
           monitor={{$external2.Name}},2560x1440@60,0x0,1
 
