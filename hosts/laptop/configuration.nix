@@ -39,6 +39,8 @@
 
   boot.consoleLogLevel = 3;
   boot.kernelParams = [
+    # https://discourse.nixos.org/t/external-mouse-and-keyboard-sleep-when-they-stay-untouched-for-a-few-seconds/14900/11
+    "usbcore.autosuspend=-1"
     "quiet"
     "resume=/dev/disk/by-uuid/4b7e06e2-7ff3-44e3-8767-4c1c1d198726"
     "resume_offset=384231424"
