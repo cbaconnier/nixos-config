@@ -46,9 +46,14 @@
     "resume_offset=384231424"
   ];
   boot.resumeDevice = "/dev/disk/by-uuid/4b7e06e2-7ff3-44e3-8767-4c1c1d198726";
-  boot.initrd.enable = true;
-  boot.initrd.systemd.enable = true;
-  boot.initrd.compressor = "gzip";
+
+  boot.initrd = {
+    enable = true;
+    systemd.enable = true;
+    compressor = "gzip";
+    availableKernelModules = [ ];
+    kernelModules = [ ];
+  };
 
   boot.plymouth = {
     enable = true;
