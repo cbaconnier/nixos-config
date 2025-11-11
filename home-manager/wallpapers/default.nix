@@ -8,14 +8,14 @@ in {
   # todo: Add default wallpapers
 
   # specialisation.dark.configuration = {
-  home.activation.set-wallpaper =
-    config.lib.dag.entryAfter [ "writeBoundary" ] ''
-      ${pkgs.bash}/bin/bash -c '
-        if [ -d ${wallpapers_dir} ]; then
-          ${set_wallpaper_script}/bin/set-wallpaper "$(${pkgs.findutils}/bin/find ${wallpapers_dir} -name "dark.*" | ${pkgs.coreutils}/bin/head -n 1)"
-        fi
-      '
-    '';
+  # home.activation.set-wallpaper =
+  #   config.lib.dag.entryAfter [ "writeBoundary" ] ''
+  #     ${pkgs.bash}/bin/bash -c '
+  #       if [ -d ${wallpapers_dir} ]; then
+  #         ${set_wallpaper_script}/bin/set-wallpaper "$(${pkgs.findutils}/bin/find ${wallpapers_dir} -name "dark.*" | ${pkgs.coreutils}/bin/head -n 1)"
+  #       fi
+  #     '
+  #   '';
   # };
 
   # specialisation.light.configuration = {
