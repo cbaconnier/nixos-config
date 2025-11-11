@@ -2,7 +2,6 @@
 
 ```bash
 ags types -d .
-npm install
 ``` 
 
 # Run
