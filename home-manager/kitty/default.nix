@@ -1,5 +1,7 @@
 { pkgs, ... }:
 
+# https://sw.kovidgoyal.net/kitty/conf/
+
 {
   programs.kitty = {
     enable = true;
@@ -11,12 +13,21 @@
       cursor_trail_decay = "0.1 0.4";
 
     };
+
     keybindings = {
-      "kitty_mod+t" = "new_tab_with_cwd";
-      "kitty_mod+enter" = "new_window_with_cwd";
       "kitty_mod+f12" = "increase_font_size";
       "kitty_mod+f11" = "decrease_font_size";
       "kitty_mod+f10" = "reset_font_size";
+
+      "kitty_mod+t" = "new_tab_with_cwd";
+      "kitty_mod+enter" = "new_window_with_cwd";
+
+      "kitty_mod+h" = "previous_tab";
+      "kitty_mod+l" = "next_tab";
+      "kitty_mod+j" = "next_window";
+      "kitty_mod+k" = "previous_window";
+
+      "kitty_mod+p" = "next_layout";
     };
   };
 
