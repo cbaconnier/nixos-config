@@ -31,11 +31,14 @@
   programs.nm-applet.enable = true;
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  # Limit the number of generations to keep
-  boot.loader.systemd-boot.configurationLimit = 10;
-  boot.loader.timeout = 2;
+  boot.loader = {
+    systemd-boot.enable = true;
+    # Limit the number of generations to keep
+    systemd-boot.configurationLimit = 10;
+    timeout = 2;
+
+    efi.canTouchEfiVariables = true;
+  };
 
   boot.consoleLogLevel = 3;
   boot.kernelParams = [
