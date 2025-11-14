@@ -69,7 +69,7 @@
   users.users.clement = {
     isNormalUser = true;
     description = "clement";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "gamemode" ];
     packages = with pkgs; [ ];
   };
 

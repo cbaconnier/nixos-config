@@ -30,6 +30,7 @@
     # Gamemode is a daemon and library combo for Linux that allows games to request a set of optimisations be temporarily applied to the host OS and/or a game process. 
     # https://wiki.archlinux.org/title/gamemode
     # On steam games you would use it this way: gamemoderun %command%
+    # Run `gamemoded -d` to verify it's working correctly
     gamemode.enable = true;
 
     # dconf is a low-level configuration system for storing application settings.
