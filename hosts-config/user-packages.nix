@@ -54,6 +54,7 @@
       spotify
       deezer-enhanced
       playerctl
+      brightnessctl
 
       libreoffice
 
