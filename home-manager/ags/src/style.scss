@@ -14,6 +14,27 @@ window.Bar {
     font-weight: bold;
   }
 
+  .separator {
+    min-width: 1px;
+    min-height: 16px;
+    margin-left: 8px;
+    margin-right: 8px;
+    background: color-mix(in srgb, #{"@borders"} 100%, transparent);
+  }
+
+  .media-player {
+    .media-title {
+      font-size: 0.9em;
+      font-weight: bold;
+    }
+
+    .media-artist {
+      font-size: 0.8em;
+      opacity: 0.8;
+      font-weight: normal;
+    }
+  }
+
   button {
     border-radius: 4px;
     margin: 1px;
