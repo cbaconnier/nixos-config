@@ -54,15 +54,9 @@ export default function MediaPlayer() {
                 </button>
               </box>
 
-              <box
-                overflow={Gtk.Overflow.HIDDEN}
-                css="border-radius: 8px;"
-                heightRequest={28}
-                widthRequest={28}
-              >
+              <box overflow={Gtk.Overflow.HIDDEN} css="border-radius: 8px;">
                 <image
-                  heightRequest={28}
-                  widthRequest={28}
+                  iconSize={Gtk.IconSize.LARGE}
                   file={createBinding(player, "coverArt")}
                   name="image"
                 />
