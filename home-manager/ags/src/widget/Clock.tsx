@@ -1,8 +1,8 @@
-import { Gtk } from "ags/gtk4";
-import { createPoll } from "ags/time";
+import { Gtk } from "ags/gtk4"
+import { createPoll } from "ags/time"
 
 export default function Clock() {
-  const time = createPoll("", 1000, "date '+%H:%M:%S - %e %b.'");
+  const time = createPoll("", 1000, "date '+%H:%M:%S - %e %b.'")
 
   return (
     <menubutton $type="end" hexpand halign={Gtk.Align.CENTER}>
@@ -11,5 +11,5 @@ export default function Clock() {
         <Gtk.Calendar />
       </popover>
     </menubutton>
-  );
+  )
 }
