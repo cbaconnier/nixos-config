@@ -36,7 +36,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           <Notification />
         </box>
 
-        <box $type="end">
+        <box hexpand halign={Gtk.Align.END} $type="end">
           <Clock />
           <Separator />
           <Tray />
