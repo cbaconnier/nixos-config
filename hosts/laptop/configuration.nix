@@ -17,6 +17,7 @@
     ./../../hosts-config/laptop-power.nix
     ./../../hosts-config/locale.nix
     ./../../hosts-config/network.nix
+    ./../../hosts-config/nix-ld.nix
     ./../../hosts-config/php.nix
     ./../../hosts-config/printer.nix
     ./../../hosts-config/programs.nix
