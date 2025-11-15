@@ -30,6 +30,7 @@
       kchat
       lazygit
       gh
+      github-copilot-cli
       yazi # ranger like
       libnotify
       clipse # TUI-based clipboard manager application
