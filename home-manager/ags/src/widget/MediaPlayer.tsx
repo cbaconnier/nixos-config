@@ -10,11 +10,17 @@ export default function MediaPlayer() {
     <box class="media-player" spacing={8}>
       <For each={players}>
         {(player) => {
+          const ALLOWED_APPS = ["deezer", "spotify", "mpv", "vlc", "rhythmbox"]
+
           const isPreferred = players((list) => {
+            const filtered = list.filter((p) =>
+              ALLOWED_APPS.some((app) => p.busName.toLowerCase().includes(app)),
+            )
+
             const preferred =
-              list.find(
+              filtered.find(
                 (p) => p.playbackStatus === AstalMpris.PlaybackStatus.PLAYING,
-              ) || list[0]
+              ) || filtered[0]
 
             return preferred?.busName === player.busName
           })
