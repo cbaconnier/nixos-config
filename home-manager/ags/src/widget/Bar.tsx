@@ -6,14 +6,13 @@ import { Workspaces } from "./Workspaces"
 import Notification from "./Notification"
 import ToggleNotification from "./ToggleNotification"
 import Menu from "./Menu"
-import MediaPlayer from "./MediaPlayer"
+import MediaPlayer, { isAnyPlayerShown } from "./MediaPlayer"
+import Separator from "./Separator"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
 
-  function Separator() {
-    return <box class="separator" valign={Gtk.Align.CENTER} />
-  }
+  const showMediaSeparator = isAnyPlayerShown()
 
   return (
     <window
@@ -28,7 +27,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       <centerbox cssName="centerbox">
         <box $type="start">
           <Workspaces gdkmonitor={gdkmonitor} />
-          <Separator />
+          <Separator visible={showMediaSeparator} />
           <MediaPlayer />
         </box>
 

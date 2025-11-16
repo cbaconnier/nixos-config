@@ -2,6 +2,22 @@ import AstalMpris from "gi://AstalMpris"
 import { createBinding, For } from "ags"
 import { Gtk } from "ags/gtk4"
 
+const ALLOWED_APPS = ["deezer", "spotify", "mpv", "vlc", "rhythmbox"]
+
+export function isAnyPlayerShown() {
+  const mpris = AstalMpris.get_default()
+
+  return createBinding(
+    mpris,
+    "players",
+  )((players) => {
+    const filtered = players.filter((p) =>
+      ALLOWED_APPS.some((app) => p.busName.toLowerCase().includes(app)),
+    )
+    return filtered.length > 0
+  })
+}
+
 export default function MediaPlayer() {
   const mpris = AstalMpris.get_default()
   const players = createBinding(mpris, "players")
@@ -10,8 +26,6 @@ export default function MediaPlayer() {
     <box class="media-player" spacing={8}>
       <For each={players}>
         {(player) => {
-          const ALLOWED_APPS = ["deezer", "spotify", "mpv", "vlc", "rhythmbox"]
-
           const isPreferred = players((list) => {
             const filtered = list.filter((p) =>
               ALLOWED_APPS.some((app) => p.busName.toLowerCase().includes(app)),
