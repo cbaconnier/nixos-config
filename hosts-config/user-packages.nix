@@ -35,6 +35,7 @@
       libnotify
       clipse # TUI-based clipboard manager application
       rsync
+      localsend
       httpie
       insomnia
       speedcrunch
