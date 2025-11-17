@@ -7,6 +7,7 @@
   imports = [
     ./../../home-manager/ags
     ./../../home-manager/clipse
+    ./../../home-manager/deezer
     ./../../home-manager/easyeffects
     ./../../home-manager/git
     ./../../home-manager/gtk
