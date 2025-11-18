@@ -82,6 +82,7 @@
 
       lutris
       wine
+      mono
       gamescope
       protonup-qt
 
