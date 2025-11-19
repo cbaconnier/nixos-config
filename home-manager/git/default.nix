@@ -15,7 +15,7 @@
         branch = "auto";
       };
       push = { autoSetupRemote = true; };
-      pull = { ff = "only"; };
+      pull = { rebase = true; };
       alias = {
         lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
         lola = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
