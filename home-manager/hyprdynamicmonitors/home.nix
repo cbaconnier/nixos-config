@@ -17,7 +17,6 @@
       disabled = false
       timeout_ms = 5000
 
-      # Profile 1: Dual Monitors
       [profiles.dual_monitors]
       config_file = "hyprconfigs/dual-monitors.go.tmpl"
       config_file_type = "template"
@@ -30,12 +29,10 @@
       name = "DP-3"
       monitor_tag = "monitor2"
 
-      # Profile 4: Fallback
-      [profiles.fallback]
-      config_file = "hyprconfigs/fallback.go.tmpl"
-      config_file_type = "template"
+      [fallback_profile]
+      config_file = "hyprconfigs/fallback.conf"
+      config_file_type = "static"
     '';
-
     extraFiles = {
       "hyprdynamicmonitors/hyprconfigs/dual-monitors.go.tmpl" =
         pkgs.writeText "dual-monitors.go.tmpl" ''
@@ -58,7 +55,6 @@
           workspace=3,monitor:{{$monitor1.Name}}
           workspace=4,monitor:{{$monitor1.Name}}
           workspace=5,monitor:{{$monitor1.Name}}
-
           workspace=6,monitor:{{$monitor2.Name}},default:true
           workspace=7,monitor:{{$monitor2.Name}}
           workspace=8,monitor:{{$monitor2.Name}}
@@ -66,9 +62,8 @@
           workspace=10,monitor:{{$monitor2.Name}}
         '';
 
-      # Fallback configuration (default Hyprland behavior)
-      "hyprdynamicmonitors/hyprconfigs/fallback.go.tmpl" =
-        pkgs.writeText "fallback.go.tmpl" ''
+      "hyprdynamicmonitors/hyprconfigs/fallback.conf" =
+        pkgs.writeText "fallback.conf" ''
           ####################
           ###   MONITORS   ###
           ####################
@@ -91,7 +86,6 @@
           workspace=10
         '';
     };
-
     systemdTarget = "graphical-session.target";
   };
 }
