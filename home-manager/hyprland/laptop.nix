@@ -25,7 +25,6 @@
       source=$path/app_keybinds.conf
     '';
 
-    #plugins = [ inputs.hy3.packages.x86_64-linux.hy3 ];
     # disabled because it will start with the login manager
     # also it causes conflicts with our config
     systemd.enable = false;
@@ -42,7 +41,8 @@
     ".config/hypr/behavior.conf".source = ./behavior.conf;
     ".config/hypr/windows.conf".source = ./windows.conf;
     ".config/hypr/input.conf".source = ./input.conf;
-    ".config/hypr/startup_apps.conf".source = ./startup_apps.conf;
     ".config/hypr/app_keybinds.conf".source = ./app_keybinds.conf;
+
+    ".config/hypr/startup_apps.conf".source = ./laptop/startup_apps.conf;
   };
 }

@@ -11,7 +11,7 @@
     ./../../home-manager/easyeffects
     ./../../home-manager/git
     ./../../home-manager/gtk
-    ./../../home-manager/hyprdynamicmonitors
+    ./../../home-manager/hyprdynamicmonitors/laptop.nix
     ./../../home-manager/hyprland/laptop.nix
     ./../../home-manager/kitty
     ./../../home-manager/mime
