@@ -1,27 +1,7 @@
 { pkgs, ... }:
 
-let
-  feh-wrapper = pkgs.writeShellScript "feh-wrapper" ''
-    #!/bin/sh
-    feh --theme default --start-at "$1" "$(dirname "$1")"
-  '';
-in {
-
+{
   xdg.desktopEntries = {
-    feh-custom = {
-      name = "feh";
-      exec = "${feh-wrapper} %f";
-      mimeType = [
-        "image/jpeg"
-        "image/png"
-        "image/gif"
-        "image/bmp"
-        "image/tiff"
-        "image/webp"
-      ];
-      noDisplay = true;
-    };
-
     nvim-terminal = {
       name = "neovim";
       exec = "kitty nvim %F";
