@@ -15,6 +15,24 @@
           composer install --ignore-platform-reqs
       '';
     };
+
+    initContent = ''
+      vapor () {
+        local VAPOR_PATH=~/.config/composer/vendor/bin/vapor
+        if [[ "$*" == *"production"* ]]; then
+            echo -n "Enter \"''${PWD##*/}\" to confirm: "
+            read answer
+            if [ "$answer" = ''${PWD##*/} ]; then
+                $VAPOR_PATH "$@"
+            else
+               echo "Failed"
+            fi
+        else
+            $VAPOR_PATH "$@"
+        fi
+      }
+    '';
+
     oh-my-zsh = {
       enable = true;
       theme = "refined";
@@ -25,5 +43,6 @@
       enable = true;
       plugins = [{ name = "jessarcher/zsh-artisan"; }];
     };
+
   };
 }
