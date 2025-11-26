@@ -4,10 +4,11 @@ import Clock from "./Clock"
 import Tray from "./Tray"
 import { Workspaces } from "./Workspaces"
 import Notification from "./Notification"
-import ToggleNotification from "./ToggleNotification"
+// import ToggleNotification, { notificationsEnabled } from "./ToggleNotification"
 import Menu from "./Menu"
 import MediaPlayer, { isAnyPlayerShown } from "./MediaPlayer"
 import Separator from "./Separator"
+// import { microphoneMuted, speakerMuted, Microphone, Speaker } from "./Volume"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
@@ -39,7 +40,11 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           <Clock />
           <Separator />
           <Tray />
-          <ToggleNotification />
+          {/* <Speaker visible={speakerMuted} /> */}
+          {/* <Microphone visible={microphoneMuted} /> */}
+          {/* <ToggleNotification */}
+          {/*   visible={notificationsEnabled((enabled) => !enabled)} */}
+          {/* /> */}
           <Menu />
         </box>
       </centerbox>
