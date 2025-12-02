@@ -15,6 +15,7 @@
       which
       tree
       vlc
+      file-roller # Archive manager
       freetube
       btop
       ethtool # query or control network driver and hardware settings
