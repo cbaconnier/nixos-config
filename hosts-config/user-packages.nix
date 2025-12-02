@@ -39,6 +39,7 @@
       localsend
       httpie
       insomnia
+      bruno
       speedcrunch
       speedtest-cli
 
