@@ -54,7 +54,6 @@
       tigervnc
       wayvnc
       signal-desktop
-      obs-studio
       spotify
       deezer-enhanced
       playerctl
