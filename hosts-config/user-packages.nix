@@ -42,6 +42,7 @@
       bruno
       speedcrunch
       speedtest-cli
+      protonvpn-gui
 
       grim
       slurp
