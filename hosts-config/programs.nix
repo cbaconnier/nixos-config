@@ -3,8 +3,8 @@
 
     thunar = {
       enable = true;
-      plugins = with pkgs.xfce; [
-        exo # Open Terminal Here
+      plugins = with pkgs; [
+        xfce4-exo # Open Terminal Here
         mousepad
         thunar-archive-plugin
         thunar-volman # Automatic management of removeable devices in Thunar.
