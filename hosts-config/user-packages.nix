@@ -77,6 +77,8 @@
       ffmpeg
       imv # Image viewer, also provide `imv-dir` that auto-selects the folder where the image is located, so that the next and previous commands function works in the same way as other image viewers.
 
+      poppler-utils # Adds pdfattach, pdfdetach, pdffonts, pdfimages, pdfinfo, pdfseparate, pdfsig, pdftocario, pdftohtml, pdftoppm pdftops pdftotext pdfunite
+
       inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.agsFull
       libdbusmenu-gtk3 # Library for passing menu structures across DBus, Used by AGS for the system tray
       home-manager
@@ -107,12 +109,10 @@
   };
 
   services = {
-    gvfs.enable =
-      true; # When installed, Thunar will show the trash can, removable media, and remote filesystems
+    gvfs.enable = true; # When installed, Thunar will show the trash can, removable media, and remote filesystems
     syncthing = {
       enable = true;
       openDefaultPorts = true;
     };
   };
 }
-
