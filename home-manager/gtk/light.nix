@@ -7,7 +7,8 @@
 let
   userThemesDir = "${config.home.homeDirectory}/.local/share/themes";
   userIconsDir = "${config.home.homeDirectory}/.local/share/icons";
-in {
+in
+{
   home.sessionVariables = {
     HYPRCURSOR_THEME = "Bibata-Modern-Ice";
     HYPRCURSOR_SIZE = "24";
@@ -45,15 +46,21 @@ in {
 
     iconTheme = {
       name = "Papirus-Light";
-      package = pkgs.catppuccin-papirus-folders.override {
-        accent = "teal";
-        flavor = "latte";
-      };
+      package = pkgs.catppuccin-papirus-folders-custom-icons (
+        pkgs.catppuccin-papirus-folders.override {
+          accent = "teal";
+          flavor = "latte";
+        }
+      );
     };
 
-    gtk3.extraConfig = { gtk-application-prefer-dark-theme = false; };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = false;
+    };
 
-    gtk4.extraConfig = { gtk-application-prefer-dark-theme = false; };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = false;
+    };
   };
 
   dconf.settings = {
@@ -100,8 +107,7 @@ in {
   };
 
   nixpkgs.config.packageOverrides = pkgs: {
-    colloid-icon-theme =
-      pkgs.colloid-icon-theme.override { colorVariants = [ "teal" ]; };
+    colloid-icon-theme = pkgs.colloid-icon-theme.override { colorVariants = [ "teal" ]; };
   };
 
   home.packages = with pkgs; [
@@ -117,36 +123,34 @@ in {
     "${config.gtk.cursorTheme.package}/share/icons/Bibata-Modern-Ice";
 
   # Script to make theme available system-wide
-  home.activation.publish-theme =
-    config.lib.dag.entryAfter [ "writeBoundary" ] ''
-      # Set the current specialisation name, so Hyprland will initialize it on the next boot
-         run mkdir -p "$HOME/.cache"
-         run echo "light" > "$HOME/.cache/.current_theme"
+  home.activation.publish-theme = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+    # Set the current specialisation name, so Hyprland will initialize it on the next boot
+       run mkdir -p "$HOME/.cache"
+       run echo "light" > "$HOME/.cache/.current_theme"
 
-      # GTK Theme
-         gtk_theme_path="${config.gtk.theme.package}/share/themes/catppuccin-latte-teal-standard"
-         user_gtk_theme_path="${userThemesDir}/catppuccin-latte-teal-standard"
-         run mkdir -p "${userThemesDir}"
-         if [ ! -e "$user_gtk_theme_path" ]; then
-           run ln -sf "$gtk_theme_path" "$user_gtk_theme_path"
-         fi
+    # GTK Theme
+       gtk_theme_path="${config.gtk.theme.package}/share/themes/catppuccin-latte-teal-standard"
+       user_gtk_theme_path="${userThemesDir}/catppuccin-latte-teal-standard"
+       run mkdir -p "${userThemesDir}"
+       if [ ! -e "$user_gtk_theme_path" ]; then
+         run ln -sf "$gtk_theme_path" "$user_gtk_theme_path"
+       fi
 
-      # Cursor Theme
-         cursor_theme_path="${config.gtk.cursorTheme.package}/share/icons/Bibata-Modern-Ice"
-         user_cursor_theme_path="${userIconsDir}/Bibata-Modern-Ice"
-         run mkdir -p "${userIconsDir}"
-         if [ ! -e "$user_cursor_theme_path" ]; then
-           run ln -sf "$cursor_theme_path" "$user_cursor_theme_path"
-         fi
+    # Cursor Theme
+       cursor_theme_path="${config.gtk.cursorTheme.package}/share/icons/Bibata-Modern-Ice"
+       user_cursor_theme_path="${userIconsDir}/Bibata-Modern-Ice"
+       run mkdir -p "${userIconsDir}"
+       if [ ! -e "$user_cursor_theme_path" ]; then
+         run ln -sf "$cursor_theme_path" "$user_cursor_theme_path"
+       fi
 
-        ${pkgs.hyprland}/bin/hyprctl setcursor Bibata-Modern-Ice 24
+      ${pkgs.hyprland}/bin/hyprctl setcursor Bibata-Modern-Ice 24
 
-      # Icon Theme
-         icon_theme_path="${config.gtk.iconTheme.package}/share/icons/Papirus-Light"
-         user_icon_theme_path="${userIconsDir}/Papirus-Light"
-         if [ ! -e "$user_icon_theme_path" ]; then
-           run ln -sf "$icon_theme_path" "$user_icon_theme_path"
-         fi
-    '';
+    # Icon Theme
+       icon_theme_path="${config.gtk.iconTheme.package}/share/icons/Papirus-Light"
+       user_icon_theme_path="${userIconsDir}/Papirus-Light"
+       if [ ! -e "$user_icon_theme_path" ]; then
+         run ln -sf "$icon_theme_path" "$user_icon_theme_path"
+       fi
+  '';
 }
-

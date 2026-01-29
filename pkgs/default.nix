@@ -2,7 +2,9 @@
 # You can build them using 'nix build .#example'
 
 pkgs: {
-  noise-suppression-for-voice =
-    pkgs.callPackage ./noise-suppression-for-voice { };
+  noise-suppression-for-voice = pkgs.callPackage ./noise-suppression-for-voice { };
   geforcenow-electron = pkgs.callPackage ./geforcenow-electron { };
+  catppuccin-papirus-folders-custom-icons =
+    pkgs.callPackage ./catppuccin-papirus-folders-custom-icons
+      { };
 }

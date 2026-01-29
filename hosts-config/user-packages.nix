@@ -59,6 +59,7 @@
       deezer-enhanced
       playerctl
       brightnessctl
+      alarm-clock-applet
 
       libreoffice
 

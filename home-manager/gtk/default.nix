@@ -1,6 +1,9 @@
 {
-# specialisation, 
-pkgs, config, ... }:
+  # specialisation,
+  pkgs,
+  config,
+  ...
+}:
 
 # specialisation.dark.configuration = { imports = [ ./dark.nix ]; };
 
@@ -9,7 +12,8 @@ pkgs, config, ... }:
 let
   userThemesDir = "${config.home.homeDirectory}/.local/share/themes";
   userIconsDir = "${config.home.homeDirectory}/.local/share/icons";
-in {
+in
+{
   home.sessionVariables = {
     HYPRCURSOR_THEME = "Bibata-Modern-Ice";
     HYPRCURSOR_SIZE = "24";
@@ -45,19 +49,27 @@ in {
 
     iconTheme = {
       name = "Papirus-Dark";
-      package = pkgs.catppuccin-papirus-folders.override {
-        accent = "blue";
-        flavor = "macchiato";
-      };
+      package = pkgs.catppuccin-papirus-folders-custom-icons (
+        pkgs.catppuccin-papirus-folders.override {
+          accent = "blue";
+          flavor = "macchiato";
+        }
+      );
     };
 
-    gtk3.extraConfig = { gtk-application-prefer-dark-theme = true; };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
 
-    gtk4.extraConfig = { gtk-application-prefer-dark-theme = true; };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
   };
 
   dconf.settings = {
-    "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; };
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
   };
 
   # Update style without reload: https://discourse.nixos.org/t/setting-nautiilus-gtk-theme/38958/7
@@ -71,8 +83,7 @@ in {
   };
 
   nixpkgs.config.packageOverrides = pkgs: {
-    colloid-icon-theme =
-      pkgs.colloid-icon-theme.override { colorVariants = [ "default" ]; };
+    colloid-icon-theme = pkgs.colloid-icon-theme.override { colorVariants = [ "default" ]; };
   };
 
   home.packages = with pkgs; [
@@ -103,4 +114,3 @@ in {
   # Cache file to track current theme (if needed by other scripts)
   home.file.".cache/.current_theme".text = "dark";
 }
-
