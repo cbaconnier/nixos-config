@@ -75,7 +75,11 @@
       rawtherapee
       pinta
       footage # video editor
+      # openshot-qt # video editor - currently insecure
+      libsForQt5.libopenshot
+      pitivi # video editor
       ffmpeg
+
       imv # Image viewer, also provide `imv-dir` that auto-selects the folder where the image is located, so that the next and previous commands function works in the same way as other image viewers.
 
       poppler-utils # Adds pdfattach, pdfdetach, pdffonts, pdfimages, pdfinfo, pdfseparate, pdfsig, pdftocario, pdftohtml, pdftoppm pdftops pdftotext pdfunite
