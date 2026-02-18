@@ -1,4 +1,11 @@
-{ config, pkgs, lib, inputs, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+{
 
   environment.systemPackages = [
     (import ./select-theme.nix { inherit pkgs; })
@@ -11,6 +18,8 @@
     (import ./restart-ags.nix { inherit pkgs; })
     # (import ./tmux-open.nix { inherit pkgs; })
     (import ./open-project.nix { inherit pkgs; })
+    (import ./tea.nix { inherit pkgs; })
+    (import ./remind.nix { inherit pkgs; })
   ];
 
 }
