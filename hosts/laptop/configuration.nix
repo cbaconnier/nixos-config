@@ -1,13 +1,20 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{ config, inputs, pkgs, services, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  services,
+  ...
+}:
 
 {
   imports = [
     ./hardware-configuration.nix
 
     ./../../hosts-config/audio.nix
+    ./../../hosts-config/bluetooth.nix
     ./../../hosts-config/virtualisation.nix
     ./../../hosts-config/fonts.nix
     ./../../hosts-config/glib.nix
@@ -81,18 +88,31 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.clement = {
     isNormalUser = true;
     description = "clement";
-    extraGroups = [ "networkmanager" "wheel" "docker" "gamemode" ];
-    packages = with pkgs; [ networkmanagerapplet wdisplays ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "gamemode"
+    ];
+    packages = with pkgs; [
+      networkmanagerapplet
+      wdisplays
+    ];
   };
 
   systemd.services.home-manager-clement = {
-    serviceConfig = { RemainAfterExit = "yes"; };
+    serviceConfig = {
+      RemainAfterExit = "yes";
+    };
   };
 
   # This value determines the NixOS release from which the default
