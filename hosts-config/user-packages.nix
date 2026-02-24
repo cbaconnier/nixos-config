@@ -30,6 +30,7 @@
       hyprpicker
       discord
       teamspeak6-client
+      gnome-sound-recorder
       kchat
       lazygit
       gh
