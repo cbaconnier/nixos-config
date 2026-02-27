@@ -43,7 +43,7 @@
       description = "GIGA-BYTE TECHNOLOGY CO. LTD. G27QC A 0x0000046B"
       monitor_tag = "external2"
 
-      # Profile 2: Docked - Lid Closed
+      # Profile 3: Docked - Lid Closed
       [profiles.docked_lid_closed]
       config_file = "hyprconfigs/docked-lid-closed.go.tmpl"
       config_file_type = "template"
@@ -62,36 +62,47 @@
       [[profiles.docked_lid_closed.conditions.required_monitors]]
       description = "GIGA-BYTE TECHNOLOGY CO. LTD. G27QC A 0x0000046B"
       monitor_tag = "external2"
+
+      # Profile 4: Beamer
+      [profiles.beamer]
+      config_file = "hyprconfigs/beamer.go.tmpl"
+      config_file_type = "template"
+
+      [[profiles.beamer.conditions.required_monitors]]
+      name = "eDP-1"
+      monitor_tag = "laptop"
+
+      [[profiles.beamer.conditions.required_monitors]]
+      description = "Acer Technologies PD1520Us 0x00000001"
+      monitor_tag = "beamer"
     '';
 
-    # Install monitor profile templates
     extraFiles = {
       # Laptop only profile
-      "hyprdynamicmonitors/hyprconfigs/laptop-only.go.tmpl" =
-        pkgs.writeText "laptop-only.go.tmpl" ''
-          {{- $laptop := index .MonitorsByTag "laptop" -}}
+      "hyprdynamicmonitors/hyprconfigs/laptop-only.go.tmpl" = pkgs.writeText "laptop-only.go.tmpl" ''
+        {{- $laptop := index .MonitorsByTag "laptop" -}}
 
-          ####################
-          ###   MONITORS   ###
-          ####################
+        ####################
+        ###   MONITORS   ###
+        ####################
 
-          monitor = , preferred, auto, 1
+        monitor = , preferred, auto, 1
 
-          ####################
-          ###  WORKSPACES  ###
-          ####################
+        ####################
+        ###  WORKSPACES  ###
+        ####################
 
-          workspace=1,monitor:{{$laptop.Name}},default:true
-          workspace=2,monitor:{{$laptop.Name}}
-          workspace=3,monitor:{{$laptop.Name}}
-          workspace=4,monitor:{{$laptop.Name}}
-          workspace=5,monitor:{{$laptop.Name}}
-          workspace=6,monitor:{{$laptop.Name}}
-          workspace=7,monitor:{{$laptop.Name}}
-          workspace=8,monitor:{{$laptop.Name}}
-          workspace=9,monitor:{{$laptop.Name}}
-          workspace=10,monitor:{{$laptop.Name}}
-        '';
+        workspace=1,monitor:{{$laptop.Name}},default:true
+        workspace=2,monitor:{{$laptop.Name}}
+        workspace=3,monitor:{{$laptop.Name}}
+        workspace=4,monitor:{{$laptop.Name}}
+        workspace=5,monitor:{{$laptop.Name}}
+        workspace=6,monitor:{{$laptop.Name}}
+        workspace=7,monitor:{{$laptop.Name}}
+        workspace=8,monitor:{{$laptop.Name}}
+        workspace=9,monitor:{{$laptop.Name}}
+        workspace=10,monitor:{{$laptop.Name}}
+      '';
 
       # Docked with lid open (triple monitor setup)
       "hyprdynamicmonitors/hyprconfigs/docked-lid-open.go.tmpl" =
@@ -157,6 +168,35 @@
           workspace=9,monitor:{{$external2.Name}}
           workspace=10,monitor:{{$external2.Name}}
         '';
+
+      # Beamer profile
+      "hyprdynamicmonitors/hyprconfigs/beamer.go.tmpl" = pkgs.writeText "beamer.go.tmpl" ''
+        {{- $laptop := index .MonitorsByTag "laptop" -}}
+        {{- $beamer := index .MonitorsByTag "beamer" -}}
+
+        ####################
+        ###   MONITORS   ###
+        ####################
+
+        monitor={{$laptop.Name}},1920x1200@60,0x0,1
+        monitor={{$beamer.Name}},1920x1080@60,1920x0,1
+
+        ####################
+        ###  WORKSPACES  ###
+        ####################
+
+        workspace=1,monitor:{{$laptop.Name}},default:true
+        workspace=2,monitor:{{$laptop.Name}}
+        workspace=3,monitor:{{$laptop.Name}}
+        workspace=4,monitor:{{$laptop.Name}}
+        workspace=5,monitor:{{$laptop.Name}}
+        workspace=6,monitor:{{$laptop.Name}}
+        workspace=7,monitor:{{$laptop.Name}}
+        workspace=8,monitor:{{$laptop.Name}}
+        workspace=9,monitor:{{$laptop.Name}}
+
+        workspace=10,monitor:{{$beamer.Name}},default:true
+      '';
     };
 
     extraFlags = [ "--enable-lid-events" ];
