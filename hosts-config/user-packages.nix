@@ -3,7 +3,7 @@
 {
   users.users.clement = {
     packages = with pkgs; [
-      neofetch
+      fastfetch
       tmux
       zip
       unzip
