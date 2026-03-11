@@ -2,7 +2,7 @@
   inputs = {
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    hyprland.url = "github:hyprwm/Hyprland?submodules=1&ref=v0.52.1";
+    hyprland.url = "github:hyprwm/Hyprland?submodules=1&ref=v0.54.2";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,11 +18,18 @@
     hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
     let
       system = "x86_64-linux";
       inherit (self) outputs;
-    in {
+    in
+    {
 
       overlays = import ./overlays { inherit inputs; };
 
