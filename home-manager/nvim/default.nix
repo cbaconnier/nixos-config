@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-unwrapped;
@@ -41,8 +47,7 @@
       rust-analyzer
 
       # Required for image.nvim
-      luarocks
-
+      imagemagick
     ];
   };
 
@@ -66,4 +71,3 @@
   };
 
 }
-
