@@ -9,8 +9,6 @@
     enable = true;
     package = pkgs.neovim-unwrapped;
 
-    plugins = with pkgs.vimPlugins; [ image-nvim ];
-
     # Install the required packages that were previously in extraPackages
     extraPackages = with pkgs; [
       # NVChad Requirements
