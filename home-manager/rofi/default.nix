@@ -1,4 +1,10 @@
-{ pkgs, lib, config, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
   programs.rofi = {
     enable = false;
     plugins = [ pkgs.rofi-calc ];
@@ -6,7 +12,7 @@
   };
 
   home.file = {
-    # Dark theme as default - now this should work!
+    # Dark theme as default
     ".config/rofi/config.rasi".text = ''
       @import "~/.config/rofi/configs/config-base.rasi"
       @theme "~/.config/rofi/themes/catppuccin-macchiato-complete.rasi"
