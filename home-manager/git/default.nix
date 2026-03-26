@@ -3,6 +3,7 @@
 {
   programs.git = {
     enable = true;
+    signing.format = null;
     settings = {
       init.defaultBranch = "main";
       user = {
@@ -14,13 +15,16 @@
         status = "auto";
         branch = "auto";
       };
-      push = { autoSetupRemote = true; };
-      pull = { rebase = true; };
+      push = {
+        autoSetupRemote = true;
+      };
+      pull = {
+        rebase = true;
+      };
       alias = {
         lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
         lola = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
-        recent-branches =
-          "!git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(refname:short)' | nl -w2 -s'> ' ";
+        recent-branches = "!git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(refname:short)' | nl -w2 -s'> ' ";
       };
     };
   };
