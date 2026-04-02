@@ -18,6 +18,7 @@
       file-roller # Archive manager
       freetube
       btop
+      nethogs # Small 'net top' tool, grouping bandwidth by process
       ethtool # query or control network driver and hardware settings
       pciutils # PCI utilities: include `lspci`, `setpci`, `update-pciids` and `pcilmr` commands
       usbutils # USB utilities: include `lsusb`, `usb-devices` and `usbhid-dump`
