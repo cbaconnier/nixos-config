@@ -4,6 +4,26 @@
   lib,
   ...
 }:
+let
+  phpantom_lsp = pkgs.stdenv.mkDerivation rec {
+    pname = "phpantom_lsp";
+    version = "0.6.0";
+
+    src = pkgs.fetchurl {
+      url = "https://github.com/AJenbo/phpantom_lsp/releases/download/${version}/phpantom_lsp-x86_64-unknown-linux-gnu.tar.gz";
+      sha256 = "sha256:936b5e72475b5283aa736e06b82fd9472bbf6e80c65abf83de4e4e338bb4c5c0";
+    };
+
+    nativeBuildInputs = [ pkgs.autoPatchelfHook ];
+    buildInputs = [ pkgs.stdenv.cc.cc.lib ];
+
+    sourceRoot = ".";
+
+    installPhase = ''
+      install -Dm755 phpantom_lsp $out/bin/phpantom_lsp
+    '';
+  };
+in
 {
   programs.neovim = {
     enable = true;
@@ -21,7 +41,8 @@
       git
 
       # PHP/Laravel Development
-      nodePackages.intelephense
+      phpantom_lsp
+      # nodePackages.intelephense
       phpactor
 
       # Web Development
