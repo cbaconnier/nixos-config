@@ -13,6 +13,7 @@
     extraHosts = ''
       127.0.0.1 host.docker.internal
       127.0.0.1 minio
+      127.0.0.1 rustfs
     '';
   };
 
@@ -44,7 +45,10 @@
   services.dnsmasq = {
     enable = true;
     settings = {
-      server = [ "9.9.9.9" "149.112.112.112" ]; # quad9 DNS
+      server = [
+        "9.9.9.9"
+        "149.112.112.112"
+      ]; # quad9 DNS
       address = "/.test/127.0.0.1";
       listen-address = "127.0.0.1";
     };
