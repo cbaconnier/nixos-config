@@ -1,5 +1,6 @@
 import app from "ags/gtk4/app"
 import { Astal, Gdk, Gtk } from "ags/gtk4"
+import { onCleanup } from "ags"
 import Clock from "./Clock"
 import Tray from "./Tray"
 import { Workspaces } from "./Workspaces"
@@ -12,18 +13,19 @@ import Separator from "./Separator"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
-
+  const connector = gdkmonitor.get_connector() ?? String(Math.random())
   const showMediaSeparator = isAnyPlayerShown()
 
   return (
     <window
       visible
-      name="bar"
+      name={`bar-${connector}`}
       class="Bar"
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       anchor={TOP | LEFT | RIGHT}
       application={app}
+      $={(self) => onCleanup(() => self.destroy())}
     >
       <centerbox cssName="centerbox">
         <box $type="start">
@@ -31,11 +33,9 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           <Separator visible={showMediaSeparator} />
           <MediaPlayer />
         </box>
-
         <box hexpand halign={Gtk.Align.CENTER} $type="center">
           <Notification />
         </box>
-
         <box hexpand halign={Gtk.Align.END} $type="end">
           <Clock />
           <Separator />
