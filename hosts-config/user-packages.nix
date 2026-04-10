@@ -106,7 +106,7 @@
 
       appimage-run
 
-      swww # Wallpaper https://github.com/LGFae/swww
+      awww # Wallpaper https://codeberg.org/LGFae/awww
 
       yt-dlp # Command-line tool to download videos from YouTube.com and other sites
 

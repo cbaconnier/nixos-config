@@ -1,13 +1,15 @@
 { pkgs, lib }:
 
-let swwwExe = lib.getExe pkgs.swww;
-in pkgs.writeShellScriptBin "set-wallpaper" ''
+let
+  awwwExe = lib.getExe pkgs.awww;
+in
+pkgs.writeShellScriptBin "set-wallpaper" ''
   #!${pkgs.bash}/bin/bash
 
 
-  # set-wallpaper: A script to manage wallpapers using swww
+  # set-wallpaper: A script to manage wallpapers using awww
   #
-  # This script provides functionality to set and update wallpapers using the swww (Simple Wayland Wallpaper) utility.
+  # This script provides functionality to set and update wallpapers using the awww (Simple Wayland Wallpaper) utility.
   # It manages wallpapers in a dedicated directory and maintains a symlink to the current wallpaper.
   #
   # Usage:
@@ -30,7 +32,7 @@ in pkgs.writeShellScriptBin "set-wallpaper" ''
   # $HOME/.config/wallpapers/                  : Directory for storing theme wallpapers
   # $HOME/.config/wallpapers/current_wallpaper : Symlink to the current wallpaper
   #
-  # Note: This script requires swww to be installed and available in the PATH.
+  # Note: This script requires awww to be installed and available in the PATH.
 
 
   set -euo pipefail
@@ -40,7 +42,7 @@ in pkgs.writeShellScriptBin "set-wallpaper" ''
 
   update_wallpaper() {
     if [ -L "$CURRENT_WALLPAPER_FILE" ]; then
-      ${swwwExe} img "$CURRENT_WALLPAPER_FILE"
+      ${awwwExe} img "$CURRENT_WALLPAPER_FILE"
     else
       echo "No wallpaper symlink found at $CURRENT_WALLPAPER_FILE" >&2
       exit 1
