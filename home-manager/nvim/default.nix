@@ -7,11 +7,11 @@
 let
   phpantom_lsp = pkgs.stdenv.mkDerivation rec {
     pname = "phpantom_lsp";
-    version = "0.6.0";
+    version = "0.7.0";
 
     src = pkgs.fetchurl {
       url = "https://github.com/AJenbo/phpantom_lsp/releases/download/${version}/phpantom_lsp-x86_64-unknown-linux-gnu.tar.gz";
-      sha256 = "sha256:936b5e72475b5283aa736e06b82fd9472bbf6e80c65abf83de4e4e338bb4c5c0";
+      sha256 = "sha256:a593da7e62adcef3ec63ca273f855ae269d55f2eed1f5d01ea0e3347f1597a5c";
     };
 
     nativeBuildInputs = [ pkgs.autoPatchelfHook ];
@@ -28,6 +28,8 @@ in
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-unwrapped;
+    withRuby = false;
+    withPython3 = false;
 
     # Install the required packages that were previously in extraPackages
     extraPackages = with pkgs; [
@@ -42,17 +44,17 @@ in
 
       # PHP/Laravel Development
       phpantom_lsp
-      # nodePackages.intelephense
+      # intelephense
       phpactor
 
       # Web Development
-      nodePackages.typescript-language-server
-      nodePackages.vscode-langservers-extracted
+      typescript-language-server
+      vscode-langservers-extracted
       tailwindcss-language-server
       vtsls
 
       # Formatters
-      nodePackages.prettier
+      prettier
       stylua
       php83Packages.php-cs-fixer
       nixfmt
