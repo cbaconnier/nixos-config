@@ -9,6 +9,7 @@ import Notification from "./Notification"
 import Menu from "./Menu"
 import MediaPlayer, { isAnyPlayerShown } from "./MediaPlayer"
 import Separator from "./Separator"
+import Battery from "./Battery"
 // import { microphoneMuted, speakerMuted, Microphone, Speaker } from "./Volume"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
@@ -37,6 +38,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           <Notification />
         </box>
         <box hexpand halign={Gtk.Align.END} $type="end">
+          <Battery />
           <Clock />
           <Separator />
           <Tray />
