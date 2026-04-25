@@ -36,6 +36,7 @@
       lazygit
       gh
       github-copilot-cli
+      claude-code
       yazi # ranger like
       libnotify
       clipse # TUI-based clipboard manager application
