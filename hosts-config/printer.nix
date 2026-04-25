@@ -47,6 +47,14 @@
     openFirewall = true;
   };
 
-  users.users.clement = { packages = with pkgs; [ system-config-printer ]; };
+  hardware.sane = {
+    enable = true;
+    extraBackends = [ pkgs.sane-airscan ];
+  };
+
+  users.users.clement = {
+    packages = with pkgs; [ system-config-printer simple-scan ];
+    extraGroups = [ "scanner" "lp" ];
+  };
 
 }
