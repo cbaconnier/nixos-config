@@ -44,7 +44,7 @@ in
 
       # PHP/Laravel Development
       phpantom_lsp
-      # intelephense
+      intelephense
       phpactor
 
       # Web Development
