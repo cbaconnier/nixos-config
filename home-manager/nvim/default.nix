@@ -72,6 +72,9 @@ in
     ];
   };
 
+  # Prevent home-manager from managing init.lua
+  xdg.configFile."nvim/init.lua".enable = lib.mkForce false;
+
   # Clone my nvim configuration with write access when not already present.
   home.activation = {
     cloneNvimConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
