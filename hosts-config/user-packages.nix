@@ -82,7 +82,7 @@
       pinta
       footage # video editor
       # openshot-qt # video editor - currently insecure
-      libsForQt5.libopenshot
+      libopenshot
       pitivi # video editor
       ffmpeg
 
