@@ -7,19 +7,19 @@
 let
   phpantom_lsp = pkgs.stdenv.mkDerivation rec {
     pname = "phpantom_lsp";
-    version = "0.7.0";
+    version = "0.8.0";
 
-    src = pkgs.fetchurl {
-      url = "https://github.com/AJenbo/phpantom_lsp/releases/download/${version}/phpantom_lsp-x86_64-unknown-linux-gnu.tar.gz";
-      sha256 = "sha256:a593da7e62adcef3ec63ca273f855ae269d55f2eed1f5d01ea0e3347f1597a5c";
+    src = pkgs.fetchzip {
+      url = "https://github.com/AJenbo/phpantom_lsp/releases/download/${version}/phpantom_lsp-x86_64-unknown-linux-gnu.zip";
+      hash = "sha256-AchV3YnwRC5/04096m6xiTzd0RXecpaj3c7mc5Y/IhQ=";
+      stripRoot = false;
     };
 
     nativeBuildInputs = [ pkgs.autoPatchelfHook ];
     buildInputs = [ pkgs.stdenv.cc.cc.lib ];
 
-    sourceRoot = ".";
-
     installPhase = ''
+      tar -xzf phpantom_lsp-x86_64-unknown-linux-gnu.tar.gz
       install -Dm755 phpantom_lsp $out/bin/phpantom_lsp
     '';
   };
