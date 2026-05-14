@@ -48,6 +48,7 @@
       speedcrunch
       speedtest-cli
       proton-vpn
+      transmission_4-gtk
 
       grim
       slurp
