@@ -83,7 +83,7 @@
     options = "--delete-older-than 7d";
   };
 
-  networking.hostName = "melba";
+  networking.hostName = "laptop";
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
