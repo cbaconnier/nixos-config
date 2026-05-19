@@ -71,6 +71,7 @@
 
       gcc # C compiler
       nodejs
+      python3
 
       cargo
       rustc
