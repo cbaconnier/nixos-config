@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, withSleepOptions ? false }:
 
 pkgs.writeShellScriptBin "power-menu" ''
 
@@ -6,12 +6,12 @@ run_rofi() {
     ${pkgs.rofi}/bin/rofi -theme ~/.config/rofi/config.rasi "$@"
 }
 
-chosen=$(printf "1\tShutdown\n2\tReboot\n3\tLogout\n4\tShutdown at" | \
+chosen=$(printf "1\tShutdown\n2\tReboot\n3\tLogout\n4\tShutdown at${lib.optionalString withSleepOptions "\\n5\\tSleep\\n6\\tHibernate"}" | \
      run_rofi -dmenu -i -p "Power Menu" \
     -kb-custom-1 "1" \
     -kb-custom-2 "2" \
     -kb-custom-3 "3" \
-    -kb-custom-4 "4" \
+    -kb-custom-4 "4" \${lib.optionalString withSleepOptions "\n    -kb-custom-5 \"5\" \\\n    -kb-custom-6 \"6\" \\"}
     -selected-row 0)
 
 rofi_exit=$?
@@ -47,18 +47,28 @@ execute_action() {
               fi
             fi
             ;;
-    esac
+${lib.optionalString withSleepOptions ''
+        *"Sleep")
+            ${pkgs.systemd}/bin/systemctl suspend
+            ;;
+        *"Hibernate")
+            ${pkgs.systemd}/bin/systemctl hibernate
+            ;;
+''}    esac
 }
 
 # Check if a custom key was pressed or if Enter was used
-if [ $rofi_exit -ge 10 ] && [ $rofi_exit -le 13 ]; then
+if [ $rofi_exit -ge 10 ] && [ $rofi_exit -le ${if withSleepOptions then "15" else "13"} ]; then
     # Custom key was pressed
     case $rofi_exit in
         10) execute_action "Shutdown" ;;
         11) execute_action "Reboot" ;;
         12) execute_action "Logout" ;;
         13) execute_action "Shutdown at" ;;
-    esac
+${lib.optionalString withSleepOptions ''
+        14) execute_action "Sleep" ;;
+        15) execute_action "Hibernate" ;;
+''}    esac
 else
     # Enter was pressed, execute based on the selection
     notify-send "_ $chosen _"
