@@ -1,4 +1,4 @@
-{ pkgs, lib, home-manager, ... }:
+{ pkgs, ... }:
 
 pkgs.writeShellScriptBin "theme" ''
   THEME_NAME="$1"
@@ -7,24 +7,15 @@ pkgs.writeShellScriptBin "theme" ''
     exit 1
   fi
 
-  GENERATIONS=$(${
-    lib.getExe home-manager
-  } generations | ${pkgs.gawk}/bin/awk -v FS='( : id | -> )' -v OFS="\t" '{print $3}')
+  GEN=$(${pkgs.systemd}/bin/systemctl show "home-manager-$USER" -p ExecStart \
+    | ${pkgs.gnugrep}/bin/grep -oP '/nix/store/[a-z0-9]+-home-manager-generation')
 
-  MAIN_GENERATION=""
-  while IFS= read -r generation; do
-    if [ -d "$generation/specialisation" ]; then
-      MAIN_GENERATION="$generation"
-      break
-    fi
-  done <<< "$GENERATIONS"
-
-  if [ -z "$MAIN_GENERATION" ]; then
-    echo "No specialisations found."
+  if [ -z "$GEN" ]; then
+    echo "Could not find home-manager generation."
     exit 1
   fi
 
-  THEME_PATH="$MAIN_GENERATION/specialisation/$THEME_NAME"
+  THEME_PATH="$GEN/specialisation/$THEME_NAME"
 
   if [ ! -f "$THEME_PATH/activate" ]; then
     echo "Theme '$THEME_NAME' not found."
@@ -33,4 +24,11 @@ pkgs.writeShellScriptBin "theme" ''
 
   echo "Activating theme: $THEME_NAME"
   "$THEME_PATH/activate"
+
+  [ -x "$HOME/.cache/theme-apply.sh" ] && "$HOME/.cache/theme-apply.sh"
+
+  ags quit 2>/dev/null || true
+  sleep 0.5
+  ags run &>/dev/null &
+  disown
 ''

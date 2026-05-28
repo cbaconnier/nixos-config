@@ -31,14 +31,6 @@
     };
   };
 
-  # specialisation.light.configuration = {
-  #   programs.kitty.theme = "Catppuccin-Latte";
-  #};
-
-  # specialisation.dark.configuration = {
-  programs.kitty.themeFile = "Catppuccin-Mocha";
-  # };
-
   home.file = {
     #  ".config/kitty/themes/macchiato.conf".source = ./macchiato.conf;
     ".config/kitty/themes/mocha.conf".source = ./mocha.conf;

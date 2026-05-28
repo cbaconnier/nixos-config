@@ -49,6 +49,7 @@ window.Bar {
     background: transparent;
     color: #{"@theme_fg_color"};
     border: none;
+    box-shadow: none;
 
     &:hover {
       background: color-mix(in srgb, #{"@theme_selected_bg_color"} 15%, transparent);
@@ -61,10 +62,6 @@ window.Bar {
     }
 
     &:focus {
-      // --- currently the focus is kept when clincking outside. I don't want that
-      // background: transparent;
-      // outline: 1px solid #{"@theme_selected_bg_color"};
-      // outline-offset: 1px;
       background: transparent;
       outline: none;
       box-shadow: none;
@@ -78,6 +75,11 @@ window.Bar {
       }
     }
 
+  }
+
+  menubutton {
+    border: none;
+    box-shadow: none;
   }
 
   workspaces {

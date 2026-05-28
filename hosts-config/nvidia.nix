@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 # https://nixos.wiki/wiki/Nvidia
 
@@ -41,14 +46,19 @@
 
   xdg.portal = {
     enable = true;
-    config.common.default = "*";
+    config.common = {
+      default = [
+        "hyprland"
+        "gtk"
+      ];
+      "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
+    };
     extraPortals = [
       pkgs.xdg-desktop-portal-gtk
-      # pkgs.xdg-desktop-portal-hyprland
     ];
   };
 
-  # Fix: DRM kernel driver 'nvidia-drm' in use. NVK requires nouveau 
+  # Fix: DRM kernel driver 'nvidia-drm' in use. NVK requires nouveau
   # The error has been seen when running lutris
   # environment.variables = {
   #    VK_ICD_FILENAMES = "${config.hardware.nvidia.package}/share/vulkan/icd.d/nvidia_icd.x86_64.json";

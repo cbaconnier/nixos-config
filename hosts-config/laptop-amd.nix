@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 # AMD Graphics configuration for ThinkPad Z16
 # https://nixos.wiki/wiki/AMD_GPU
@@ -29,10 +34,15 @@
   # XDG Portal configuration
   xdg.portal = {
     enable = true;
-    config.common.default = "*";
+    config.common = {
+      default = [
+        "hyprland"
+        "gtk"
+      ];
+      "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
+    };
     extraPortals = [
       pkgs.xdg-desktop-portal-gtk
-      # pkgs.xdg-desktop-portal-hyprland
     ];
   };
 

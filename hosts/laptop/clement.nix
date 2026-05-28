@@ -1,4 +1,9 @@
-{ inputs, outputs, pkgs, ... }:
+{
+  inputs,
+  outputs,
+  pkgs,
+  ...
+}:
 
 {
   home.username = "clement";
@@ -11,6 +16,7 @@
     ./../../home-manager/easyeffects
     ./../../home-manager/git
     ./../../home-manager/gtk
+    ./../../home-manager/theme
     ./../../home-manager/hyprdynamicmonitors/laptop.nix
     ./../../home-manager/hypridle/laptop.nix
     ./../../home-manager/hyprland/laptop.nix
