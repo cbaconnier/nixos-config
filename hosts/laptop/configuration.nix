@@ -109,6 +109,8 @@
     ];
   };
 
+  security.pam.services.hyprlock = {};
+
   systemd.services.home-manager-clement = {
     serviceConfig = {
       RemainAfterExit = "yes";
