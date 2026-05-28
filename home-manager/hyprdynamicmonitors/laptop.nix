@@ -201,6 +201,6 @@
 
     extraFlags = [ "--enable-lid-events" ];
 
-    systemdTarget = "graphical-session.target";
+    systemdTarget = "default.target";
   };
 }
