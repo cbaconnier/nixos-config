@@ -34,57 +34,55 @@
       config_file_type = "static"
     '';
     extraFiles = {
-      "hyprdynamicmonitors/hyprconfigs/dual-monitors.go.tmpl" =
-        pkgs.writeText "dual-monitors.go.tmpl" ''
-          {{- $monitor1 := index .MonitorsByTag "monitor1" -}}
-          {{- $monitor2 := index .MonitorsByTag "monitor2" -}}
+      "hyprdynamicmonitors/hyprconfigs/dual-monitors.go.tmpl" = pkgs.writeText "dual-monitors.go.tmpl" ''
+        {{- $monitor1 := index .MonitorsByTag "monitor1" -}}
+        {{- $monitor2 := index .MonitorsByTag "monitor2" -}}
 
-          ####################
-          ###   MONITORS   ###
-          ####################
+        ####################
+        ###   MONITORS   ###
+        ####################
 
-          monitor={{$monitor2.Name}},2560x1440@164.80,0x0,1
-          monitor={{$monitor1.Name}},2560x1440@164.80,0x1440,1
+        monitor={{$monitor2.Name}},2560x1440@164.80,0x0,1
+        monitor={{$monitor1.Name}},2560x1440@164.80,0x1440,1
 
-          ####################
-          ###  WORKSPACES  ###
-          ####################
+        ####################
+        ###  WORKSPACES  ###
+        ####################
 
-          workspace=1,monitor:{{$monitor1.Name}},default:true
-          workspace=2,monitor:{{$monitor1.Name}}
-          workspace=3,monitor:{{$monitor1.Name}}
-          workspace=4,monitor:{{$monitor1.Name}}
-          workspace=5,monitor:{{$monitor1.Name}}
-          workspace=6,monitor:{{$monitor2.Name}},default:true
-          workspace=7,monitor:{{$monitor2.Name}}
-          workspace=8,monitor:{{$monitor2.Name}}
-          workspace=9,monitor:{{$monitor2.Name}}
-          workspace=10,monitor:{{$monitor2.Name}}
-        '';
+        workspace=1,monitor:{{$monitor1.Name}},default:true
+        workspace=2,monitor:{{$monitor1.Name}}
+        workspace=3,monitor:{{$monitor1.Name}}
+        workspace=4,monitor:{{$monitor1.Name}}
+        workspace=5,monitor:{{$monitor1.Name}}
+        workspace=6,monitor:{{$monitor2.Name}},default:true
+        workspace=7,monitor:{{$monitor2.Name}}
+        workspace=8,monitor:{{$monitor2.Name}}
+        workspace=9,monitor:{{$monitor2.Name}}
+        workspace=10,monitor:{{$monitor2.Name}}
+      '';
 
-      "hyprdynamicmonitors/hyprconfigs/fallback.conf" =
-        pkgs.writeText "fallback.conf" ''
-          ####################
-          ###   MONITORS   ###
-          ####################
+      "hyprdynamicmonitors/hyprconfigs/fallback.conf" = pkgs.writeText "fallback.conf" ''
+        ####################
+        ###   MONITORS   ###
+        ####################
 
-          monitor=,preferred,auto,1
+        monitor=,preferred,auto,1
 
-          ####################
-          ###  WORKSPACES  ###
-          ####################
+        ####################
+        ###  WORKSPACES  ###
+        ####################
 
-          workspace=1,default:true
-          workspace=2
-          workspace=3
-          workspace=4
-          workspace=5
-          workspace=6
-          workspace=7
-          workspace=8
-          workspace=9
-          workspace=10
-        '';
+        workspace=1,default:true
+        workspace=2
+        workspace=3
+        workspace=4
+        workspace=5
+        workspace=6
+        workspace=7
+        workspace=8
+        workspace=9
+        workspace=10
+      '';
     };
     systemdTarget = "default.target";
   };
