@@ -1,0 +1,6 @@
+{
+  "device": "alsa_output.pci-0000_c7_00.6.HiFi__Speaker__sink",
+  "device-description": "Ryzen HD Audio Controller Speaker",
+  "device-profile": "Speaker",
+  "preset-name": "thinkpad_z13_gen1_output"
+}

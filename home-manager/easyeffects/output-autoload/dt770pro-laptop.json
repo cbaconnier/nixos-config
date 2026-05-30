@@ -1,0 +1,6 @@
+{
+    "device": "alsa_output.pci-0000_c7_00.6.HiFi__Headphones__sink",
+    "device-description": "DT 770 PRO - Laptop",
+    "device-profile": "Headphones",
+    "preset-name": "Beyerdynamic DT 770 Pro (80 Ohm)"
+}
