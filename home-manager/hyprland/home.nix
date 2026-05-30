@@ -5,6 +5,8 @@
 # https://nixos.wiki/wiki/Hyprland#Using_Home_Manager
 
 {
+  wayland.systemd.target = "default.target";
+
   wayland.windowManager.hyprland = {
     enable = true;
     package =

@@ -84,6 +84,5 @@
         workspace=10
       '';
     };
-    systemdTarget = "default.target";
   };
 }

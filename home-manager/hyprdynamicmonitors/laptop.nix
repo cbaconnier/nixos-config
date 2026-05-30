@@ -200,7 +200,5 @@
     };
 
     extraFlags = [ "--enable-lid-events" ];
-
-    systemdTarget = "default.target";
   };
 }
