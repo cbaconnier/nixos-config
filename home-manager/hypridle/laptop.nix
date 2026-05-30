@@ -1,5 +1,6 @@
 { ... }: {
   services.hypridle = {
+    systemdTarget = "default.target";
     enable = true;
     settings = {
       general = {
