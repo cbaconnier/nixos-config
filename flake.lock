@@ -572,6 +572,40 @@
         "type": "github"
       }
     },
+    "nixpkgs_5": {
+      "locked": {
+        "lastModified": 1779560665,
+        "narHash": "sha256-tpyBcxPpcQb8ukyNF7DoCwfSY3VPsxHoYwj00Cayv5o=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "64c08a7ca051951c8eae34e3e3cb1e202fe36786",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "plymouth-theme-cat": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_5"
+      },
+      "locked": {
+        "lastModified": 1780346434,
+        "narHash": "sha256-fE1Uooi0gKu3B631sazgNLi6un+UmZVbQ720HuWRKq4=",
+        "owner": "cbaconnier",
+        "repo": "PlymouthTheme-Cat",
+        "rev": "08300f725fc4f2e3fecdc37cd04f1484c6cd3100",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cbaconnier",
+        "repo": "PlymouthTheme-Cat",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -602,7 +636,8 @@
         "home-manager": "home-manager",
         "hyprdynamicmonitors": "hyprdynamicmonitors",
         "hyprland": "hyprland",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_4",
+        "plymouth-theme-cat": "plymouth-theme-cat"
       }
     },
     "systems": {

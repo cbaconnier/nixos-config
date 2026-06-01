@@ -8,7 +8,6 @@
   services,
   ...
 }:
-
 {
   imports = [
     ./hardware-configuration.nix
@@ -68,12 +67,8 @@
 
   boot.plymouth = {
     enable = true;
-    theme = "circle_hud";
-    themePackages = [
-      (pkgs.adi1090x-plymouth-themes.override {
-        selected_themes = [ "circle_hud" ];
-      })
-    ];
+    theme = "cat";
+    themePackages = [ inputs.plymouth-theme-cat.packages.${pkgs.stdenv.hostPlatform.system}.default ];
   };
 
   # Perform garbage collection weekly to maintain low disk usage
@@ -109,7 +104,7 @@
     ];
   };
 
-  security.pam.services.hyprlock = {};
+  security.pam.services.hyprlock = { };
 
   systemd.services.home-manager-clement = {
     serviceConfig = {

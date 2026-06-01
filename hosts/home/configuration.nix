@@ -1,7 +1,13 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{ config, inputs, pkgs, services, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  services,
+  ...
+}:
 
 {
   imports = [
@@ -44,12 +50,8 @@
 
   boot.plymouth = {
     enable = true;
-    theme = "circle_hud";
-    themePackages = [
-      (pkgs.adi1090x-plymouth-themes.override {
-        selected_themes = [ "circle_hud" ];
-      })
-    ];
+    theme = "cat";
+    themePackages = [ inputs.plymouth-theme-cat.packages.${pkgs.stdenv.hostPlatform.system}.default ];
   };
 
   # Perform garbage collection weekly to maintain low disk usage
@@ -64,18 +66,28 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.clement = {
     isNormalUser = true;
     description = "clement";
-    extraGroups = [ "networkmanager" "wheel" "docker" "gamemode" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "gamemode"
+    ];
     packages = with pkgs; [ ];
   };
 
   systemd.services.home-manager-clement = {
-    serviceConfig = { RemainAfterExit = "yes"; };
+    serviceConfig = {
+      RemainAfterExit = "yes";
+    };
   };
 
   # This value determines the NixOS release from which the default

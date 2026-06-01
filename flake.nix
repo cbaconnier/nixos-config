@@ -16,6 +16,8 @@
     };
 
     hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
+
+    plymouth-theme-cat.url = "github:cbaconnier/PlymouthTheme-Cat";
   };
 
   outputs =
