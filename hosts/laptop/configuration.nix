@@ -57,8 +57,15 @@
   boot.resumeDevice = "/dev/disk/by-uuid/4b7e06e2-7ff3-44e3-8767-4c1c1d198726";
 
   boot.initrd = {
-    availableKernelModules = [ ];
-    kernelModules = [ ];
+    availableKernelModules = [
+      "typec"
+      "typec_ucsi"
+      "ucsi_acpi"
+      "typec_displayport"
+    ];
+    kernelModules = [
+      "amdgpu"
+    ];
   };
 
   # Perform garbage collection weekly to maintain low disk usage
