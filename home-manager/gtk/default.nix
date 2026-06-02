@@ -28,6 +28,17 @@ in
     gtk4.theme = null;
   };
 
+  xdg.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    configPackages = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common = {
+      default = [ "hyprland" "gtk" ];
+      "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
+    };
+  };
+
   home.packages = with pkgs; [
     numix-icon-theme-circle
     colloid-icon-theme
