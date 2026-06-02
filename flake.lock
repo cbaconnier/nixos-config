@@ -593,11 +593,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1780346434,
-        "narHash": "sha256-fE1Uooi0gKu3B631sazgNLi6un+UmZVbQ720HuWRKq4=",
+        "lastModified": 1780402020,
+        "narHash": "sha256-F9x97NIdgL+tzFI9Ud+pPgVdQgSg+yuTWVZ9fuaXGUM=",
         "owner": "cbaconnier",
         "repo": "PlymouthTheme-Cat",
-        "rev": "08300f725fc4f2e3fecdc37cd04f1484c6cd3100",
+        "rev": "0a408ce3639e4e6171af22fd35f5ab6df216f916",
         "type": "github"
       },
       "original": {
