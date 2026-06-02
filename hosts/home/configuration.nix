@@ -14,6 +14,7 @@
     ./hardware-configuration.nix
 
     ./../../hosts-config/audio.nix
+    ./../../hosts-config/boot-plymouth.nix
     ./../../hosts-config/virtualisation.nix
     ./../../hosts-config/fonts.nix
     ./../../hosts-config/glib.nix
@@ -40,19 +41,7 @@
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.timeout = 2;
 
-  boot.consoleLogLevel = 3;
-  boot.kernelParams = [ "quiet" ];
-  boot.initrd.enable = true;
-  boot.initrd.systemd.enable = true;
-  boot.initrd.compressor = "gzip";
-
   boot.blacklistedKernelModules = [ "nouveau" ];
-
-  boot.plymouth = {
-    enable = true;
-    theme = "cat";
-    themePackages = [ inputs.plymouth-theme-cat.packages.${pkgs.stdenv.hostPlatform.system}.default ];
-  };
 
   # Perform garbage collection weekly to maintain low disk usage
   nix.gc = {

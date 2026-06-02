@@ -14,6 +14,7 @@
 
     ./../../hosts-config/audio.nix
     ./../../hosts-config/bluetooth.nix
+    ./../../hosts-config/boot-plymouth.nix
     ./../../hosts-config/virtualisation.nix
     ./../../hosts-config/fonts.nix
     ./../../hosts-config/glib.nix
@@ -47,28 +48,17 @@
     efi.canTouchEfiVariables = true;
   };
 
-  boot.consoleLogLevel = 3;
   boot.kernelParams = [
     # https://discourse.nixos.org/t/external-mouse-and-keyboard-sleep-when-they-stay-untouched-for-a-few-seconds/14900/11
     "usbcore.autosuspend=-1"
-    "quiet"
     "resume=/dev/disk/by-uuid/4b7e06e2-7ff3-44e3-8767-4c1c1d198726"
     "resume_offset=384231424"
   ];
   boot.resumeDevice = "/dev/disk/by-uuid/4b7e06e2-7ff3-44e3-8767-4c1c1d198726";
 
   boot.initrd = {
-    enable = true;
-    systemd.enable = true;
-    compressor = "gzip";
     availableKernelModules = [ ];
     kernelModules = [ ];
-  };
-
-  boot.plymouth = {
-    enable = true;
-    theme = "cat";
-    themePackages = [ inputs.plymouth-theme-cat.packages.${pkgs.stdenv.hostPlatform.system}.default ];
   };
 
   # Perform garbage collection weekly to maintain low disk usage
