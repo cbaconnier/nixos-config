@@ -59,6 +59,8 @@
         workspace=8,monitor:{{$monitor2.Name}}
         workspace=9,monitor:{{$monitor2.Name}}
         workspace=10,monitor:{{$monitor2.Name}}
+        workspace=11,monitor:{{$monitor2.Name}}
+        workspace=12,monitor:{{$monitor2.Name}}
       '';
 
       "hyprdynamicmonitors/hyprconfigs/fallback.conf" = pkgs.writeText "fallback.conf" ''
@@ -82,6 +84,8 @@
         workspace=8
         workspace=9
         workspace=10
+        workspace=11
+        workspace=12
       '';
     };
   };

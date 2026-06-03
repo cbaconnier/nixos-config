@@ -102,6 +102,8 @@
         workspace=8,monitor:{{$laptop.Name}}
         workspace=9,monitor:{{$laptop.Name}}
         workspace=10,monitor:{{$laptop.Name}}
+        workspace=11,monitor:{{$laptop.Name}}
+        workspace=12,monitor:{{$laptop.Name}}
       '';
 
       # Docked with lid open (triple monitor setup)
@@ -135,6 +137,8 @@
           workspace=9,monitor:{{$external2.Name}}
 
           workspace=10,monitor:{{$laptop.Name}},default:true
+          workspace=11,monitor:{{$laptop.Name}}
+          workspace=12,monitor:{{$laptop.Name}}
         '';
 
       # Docked with lid closed (dual external monitors only)
@@ -167,6 +171,8 @@
           workspace=8,monitor:{{$external2.Name}}
           workspace=9,monitor:{{$external2.Name}}
           workspace=10,monitor:{{$external2.Name}}
+          workspace=11,monitor:{{$external2.Name}}
+          workspace=12,monitor:{{$external2.Name}}
         '';
 
       # Beamer profile
@@ -196,6 +202,8 @@
         workspace=9,monitor:{{$laptop.Name}}
 
         workspace=10,monitor:{{$beamer.Name}},default:true
+        workspace=11,monitor:{{$beamer.Name}}
+        workspace=12,monitor:{{$beamer.Name}}
       '';
     };
 
