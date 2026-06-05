@@ -7,4 +7,5 @@ pkgs: {
   catppuccin-papirus-folders-custom-icons =
     pkgs.callPackage ./catppuccin-papirus-folders-custom-icons
       { };
+  hue-bridge-tui = pkgs.callPackage ./hue-bridge-tui { };
 }

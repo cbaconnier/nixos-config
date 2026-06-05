@@ -16,6 +16,7 @@
     ./../../home-manager/easyeffects
     ./../../home-manager/git
     ./../../home-manager/gtk
+    ./../../home-manager/hue
     ./../../home-manager/theme
     ./../../home-manager/hyprdynamicmonitors/laptop.nix
     ./../../home-manager/hypridle/laptop.nix
