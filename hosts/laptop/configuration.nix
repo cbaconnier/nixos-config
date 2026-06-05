@@ -33,6 +33,7 @@
     ./../../hosts-config/system-packages.nix
     ./../../hosts-config/user-packages.nix
     ./../../scripts
+    ./../../hosts-config/agenix.nix
   ];
 
   # specifics for the laptop

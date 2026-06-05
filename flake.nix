@@ -18,6 +18,11 @@
     hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
 
     plymouth-theme-cat.url = "github:cbaconnier/PlymouthTheme-Cat";
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
