@@ -12,6 +12,7 @@
 
     extraHosts = ''
       127.0.0.1 host.docker.internal
+      127.0.0.1 meilisearch
       127.0.0.1 minio
       127.0.0.1 rustfs
     '';
