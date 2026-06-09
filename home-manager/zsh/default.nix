@@ -1,8 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   programs.zsh = {
     enable = true;
+    dotDir = "${config.xdg.configHome}/zsh";
     syntaxHighlighting.enable = true;
     shellAliases = {
       sail = "sh $([ -f sail ] && echo sail || echo vendor/bin/sail)";
