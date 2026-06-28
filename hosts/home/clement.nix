@@ -17,6 +17,7 @@
     ./../../home-manager/hyprland/home.nix
     ./../../home-manager/kitty
     ./../../home-manager/mime
+    ./../../home-manager/xfce4
     ./../../home-manager/nvim
     ./../../home-manager/pipewire
     ./../../home-manager/rofi
