@@ -8,4 +8,5 @@ pkgs: {
     pkgs.callPackage ./catppuccin-papirus-folders-custom-icons
       { };
   hue-bridge-tui = pkgs.callPackage ./hue-bridge-tui { };
+  kenku-fm = pkgs.callPackage ./kenku-fm { };
 }

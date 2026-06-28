@@ -26,7 +26,10 @@
     ./../../home-manager/zsh
   ];
 
-  home.packages = with pkgs; [ geforcenow-electron ];
+  home.packages = with pkgs; [
+    geforcenow-electron
+    kenku-fm
+  ];
 
   home.sessionVariables = {
     EDITOR = "nvim";
