@@ -73,6 +73,8 @@
       nodejs
       python3
 
+      openssl
+
       cargo
       rustc
 
