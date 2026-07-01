@@ -33,7 +33,7 @@ execute_action() {
             ${pkgs.systemd}/bin/reboot
             ;;
         *"Logout")
-            ${pkgs.hyprland}/bin/hyprctl dispatch exit
+            ${pkgs.hyprland}/bin/hyprctl dispatch "hl.dsp.exit()"
             ;;
         *"Shutdown at")
 	          shutdown_time=$(get_shutdown_time)

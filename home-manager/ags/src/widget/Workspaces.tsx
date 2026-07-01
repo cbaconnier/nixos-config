@@ -21,7 +21,7 @@ export function Workspaces({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
   );
 
   const handleWorkspaceClick = (id: number) => {
-    hyprland.dispatch("workspace", id.toString());
+    hyprland.message(`dispatch hl.dsp.focus({ workspace = ${id} })`);
   };
 
   return (

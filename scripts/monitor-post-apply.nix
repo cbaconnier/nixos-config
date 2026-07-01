@@ -5,11 +5,11 @@ pkgs.writeShellScriptBin "monitor-post-apply" ''
   hyprctl -j workspacerules 2>/dev/null \
     | ${pkgs.jq}/bin/jq -r '.[] | select(.monitor != "") | "\(.workspaceString) \(.monitor)"' \
     | while read -r ws monitor; do
-        hyprctl dispatch moveworkspacetomonitor "$ws" "$monitor" 2>/dev/null || true
-        hyprctl dispatch focusmonitor "$monitor" 2>/dev/null || true
-        hyprctl dispatch workspace "$ws" 2>/dev/null || true
+        hyprctl dispatch "hl.dsp.workspace.move({ workspace = \"$ws\", monitor = \"$monitor\" })" 2>/dev/null || true
+        hyprctl dispatch "hl.dsp.focus({ monitor = \"$monitor\" })" 2>/dev/null || true
+        hyprctl dispatch "hl.dsp.focus({ workspace = \"$ws\" })" 2>/dev/null || true
       done
-  [ -n "$current_ws" ] && hyprctl dispatch workspace "$current_ws" 2>/dev/null || true
+  [ -n "$current_ws" ] && hyprctl dispatch "hl.dsp.focus({ workspace = \"$current_ws\" })" 2>/dev/null || true
   set-wallpaper 2>/dev/null || true
   restart-ags 2>/dev/null || true
 ''
