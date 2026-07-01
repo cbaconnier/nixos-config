@@ -17,5 +17,5 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("easyeffects --gapplication-service &")
 
 	hl.exec_cmd("sleep 2 && filen-desktop &")
-	hl.exec_cmd("sleep 2 && discord", { workspace = "10 silent" })
+	hl.exec_cmd("sleep 2 && discord", { workspace = "10" })
 end)
