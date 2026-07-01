@@ -1,10 +1,11 @@
 [x] toggle notifications
 [x] power menu
 [x] app menu
-[ ] battery
-[ ] bluetooth
-[ ] toggle perfs
+[x] battery
+[x] bluetooth
 [ ] luminosity
-[ ] better notifications
 [ ] hue
+[ ] hyprsunset
 [ ] hyprpicker ?
+[ ] better notifications
+[ ] toggle perfs
