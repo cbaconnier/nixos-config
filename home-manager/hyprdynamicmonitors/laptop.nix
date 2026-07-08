@@ -23,6 +23,9 @@
       config_file = "hyprconfigs/laptop-only.go.tmpl"
       config_file_type = "template"
 
+      [profiles.laptop_only.conditions]
+      lid_state = "Opened"
+
       [[profiles.laptop_only.conditions.required_monitors]]
       name = "eDP-1"
       monitor_tag = "laptop"
