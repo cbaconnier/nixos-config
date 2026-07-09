@@ -11,20 +11,27 @@ export const microphoneMuted = createBinding(wp.defaultMicrophone, "mute")
 export function Speaker({
   visible = true,
   showSlider = false,
+  hexpand = false,
 }: {
   visible?: boolean | Accessor<boolean>
   showSlider?: boolean
+  hexpand?: boolean
 }) {
   const { defaultSpeaker: speaker } = AstalWp.get_default()!
 
   if (showSlider) {
     return (
-      <box orientation={Gtk.Orientation.HORIZONTAL} visible={visible}>
+      <box
+        orientation={Gtk.Orientation.HORIZONTAL}
+        visible={visible}
+        hexpand={hexpand}
+      >
         <button onClicked={() => speaker.set_mute(!speaker.get_mute())}>
           <image iconName={createBinding(speaker, "volumeIcon")} />
         </button>
         <slider
-          widthRequest={260}
+          hexpand
+          widthRequest={200}
           onChangeValue={({ value }) => speaker.set_volume(value)}
           value={createBinding(speaker, "volume")}
         />
@@ -51,9 +58,11 @@ export function Speaker({
 export function Microphone({
   visible = true,
   showSlider = false,
+  hexpand = false,
 }: {
   visible?: boolean | Accessor<boolean>
   showSlider?: boolean
+  hexpand?: boolean
 }) {
   const { defaultMicrophone: microphone } = AstalWp.get_default()!
 
@@ -72,12 +81,17 @@ export function Microphone({
 
   if (showSlider) {
     return (
-      <box orientation={Gtk.Orientation.HORIZONTAL} visible={visible}>
+      <box
+        orientation={Gtk.Orientation.HORIZONTAL}
+        visible={visible}
+        hexpand={hexpand}
+      >
         <button onClicked={() => microphone.set_mute(!microphone.get_mute())}>
           <image iconName={volumeIcon} />
         </button>
         <slider
-          widthRequest={260}
+          hexpand
+          widthRequest={200}
           onChangeValue={({ value }) => microphone.set_volume(value)}
           value={createBinding(microphone, "volume")}
         />

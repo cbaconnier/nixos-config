@@ -30,6 +30,26 @@ window.Bar {
     background: color-mix(in srgb, #{"@borders"} 100%, transparent);
   }
 
+  .audio-picker {
+    min-width: 0;
+
+    >image {
+      opacity: 0.7;
+    }
+  }
+
+  .audio-device {
+    padding: 2px 6px;
+
+    label {
+      font-weight: normal;
+    }
+
+    &.active {
+      background: color-mix(in srgb, #{"@theme_selected_bg_color"} 20%, transparent);
+    }
+  }
+
   .media-player {
     .media-title {
       font-size: 0.8em;

@@ -1,5 +1,6 @@
 import { Gtk } from "ags/gtk4"
 import { Speaker, Microphone } from "./Volume"
+import { DevicePicker } from "./AudioDevices"
 import ToggleNotification from "./ToggleNotification"
 import { execAsync } from "ags/process"
 
@@ -21,8 +22,14 @@ export default function Menu() {
           widthRequest={350}
           spacing={8}
         >
-          <Speaker showSlider />
-          <Microphone showSlider />
+          <box spacing={4}>
+            <Speaker showSlider hexpand />
+            <DevicePicker kind="speakers" />
+          </box>
+          <box spacing={4}>
+            <Microphone showSlider hexpand />
+            <DevicePicker kind="microphones" />
+          </box>
 
           <box class="menu-separator" />
 
