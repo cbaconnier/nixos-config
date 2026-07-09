@@ -10,7 +10,12 @@ import Menu from "./Menu"
 import MediaPlayer, { isAnyPlayerShown } from "./MediaPlayer"
 import Separator from "./Separator"
 import Battery from "./Battery"
-// import { microphoneMuted, speakerMuted, Microphone, Speaker } from "./Volume"
+import {
+  microphoneMuted,
+  // speakerMuted,
+  Microphone,
+  // Speaker
+} from "./Volume"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
@@ -43,7 +48,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           <Separator />
           <Tray />
           {/* <Speaker visible={speakerMuted} /> */}
-          {/* <Microphone visible={microphoneMuted} /> */}
+          <Microphone visible={microphoneMuted((muted) => !muted)} />
           {/* <ToggleNotification */}
           {/*   visible={notificationsEnabled((enabled) => !enabled)} */}
           {/* /> */}
