@@ -54,8 +54,6 @@
     "usbcore.autosuspend=-1"
     "resume=/dev/disk/by-uuid/4b7e06e2-7ff3-44e3-8767-4c1c1d198726"
     "resume_offset=384231424"
-    # Disable PSR (DC_DISABLE_PSR): avoids amdgpu DMCUB flip_done timeouts on undock.
-    "amdgpu.dcdebugmask=0x10"
   ];
   boot.resumeDevice = "/dev/disk/by-uuid/4b7e06e2-7ff3-44e3-8767-4c1c1d198726";
 
