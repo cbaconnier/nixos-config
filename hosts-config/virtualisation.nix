@@ -25,6 +25,12 @@
     kubernetes-helm
   ];
 
+  #
+  environment.sessionVariables = {
+    # Prevent SPICE from grabbing keyboard/mouse so host shortcuts (e.g. Super+1) aren't captured by the VM window
+    SPICE_NOGRAB = "1";
+  };
+
   # QEMU built-in SMB (quickemu --public-dir)
   systemd.tmpfiles.rules = [
     "d /usr/sbin 0755 root root -"
