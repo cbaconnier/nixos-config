@@ -68,6 +68,7 @@
       alarm-clock-applet
 
       libreoffice
+      kdePackages.okular # PDF viewer
 
       gcc # C compiler
       nodejs
