@@ -25,6 +25,15 @@
     kubernetes-helm
   ];
 
+  # QEMU built-in SMB (quickemu --public-dir)
+  systemd.tmpfiles.rules = [
+    "d /usr/sbin 0755 root root -"
+    "L+ /usr/sbin/smbd - - - - ${pkgs.samba}/bin/smbd"
+  ];
+
+  # Starts VM Windows with KVM
+  boot.extraModprobeConfig = "options kvm ignore_msrs=1";
+
   virtualisation.oci-containers = {
     backend = "docker";
     containers = {
