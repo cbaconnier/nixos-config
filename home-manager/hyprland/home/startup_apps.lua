@@ -10,12 +10,12 @@ hl.on("hyprland.start", function()
 	-- Restore the last home-manager specialisation theme, or default to dark.
 	hl.exec_cmd([[{ cat ~/.cache/.current_theme 2>/dev/null || echo 'dark'; } | xargs theme]])
 
-	hl.exec_cmd("ags run &")
+	-- ags is started (and restarted on theme switch) by the theme script above
 	hl.exec_cmd("awww-daemon --format xrgb")
 
 	hl.exec_cmd("clipse -listen")
-	hl.exec_cmd("easyeffects --gapplication-service &")
+	hl.exec_cmd("systemctl --user start easyeffects")
 
-	hl.exec_cmd("sleep 2 && filen-desktop &")
-	hl.exec_cmd("sleep 2 && discord", { workspace = "10" })
+	hl.exec_cmd("wait-for-tray && filen-desktop &")
+	hl.exec_cmd("wait-for-tray && discord", { workspace = "10" })
 end)
