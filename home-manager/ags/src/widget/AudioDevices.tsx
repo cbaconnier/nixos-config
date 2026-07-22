@@ -79,7 +79,12 @@ export function DevicePicker({ kind }: { kind: "speakers" | "microphones" }) {
   seed()
 
   return (
-    <menubutton class="audio-picker">
+    <menubutton
+      class="audio-picker"
+      tooltipText={
+        kind === "speakers" ? "Changer de haut-parleur" : "Changer de microphone"
+      }
+    >
       <image iconName="pan-down-symbolic" />
       <popover>
         <box

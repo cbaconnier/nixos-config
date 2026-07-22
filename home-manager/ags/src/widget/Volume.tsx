@@ -18,6 +18,9 @@ export function Speaker({
   hexpand?: boolean
 }) {
   const { defaultSpeaker: speaker } = AstalWp.get_default()!
+  const muteTooltip = createBinding(speaker, "mute").as((m) =>
+    m ? "Réactiver le son" : "Couper le son",
+  )
 
   if (showSlider) {
     return (
@@ -26,7 +29,10 @@ export function Speaker({
         visible={visible}
         hexpand={hexpand}
       >
-        <button onClicked={() => speaker.set_mute(!speaker.get_mute())}>
+        <button
+          onClicked={() => speaker.set_mute(!speaker.get_mute())}
+          tooltipText={muteTooltip}
+        >
           <image iconName={createBinding(speaker, "volumeIcon")} />
         </button>
         <slider
@@ -49,6 +55,7 @@ export function Speaker({
       class="toggle-speaker"
       onClicked={() => speaker.set_mute(!speaker.get_mute())}
       visible={visible}
+      tooltipText={muteTooltip}
     >
       <image iconName={createBinding(speaker, "volumeIcon")} />
     </button>
@@ -79,6 +86,10 @@ export function Microphone({
   microphone.connect("notify::mute", () => setVolumeIcon(getVolumeIcon()))
   microphone.connect("notify::volume", () => setVolumeIcon(getVolumeIcon()))
 
+  const muteTooltip = createBinding(microphone, "mute").as((m) =>
+    m ? "Réactiver le micro" : "Couper le micro",
+  )
+
   if (showSlider) {
     return (
       <box
@@ -86,7 +97,10 @@ export function Microphone({
         visible={visible}
         hexpand={hexpand}
       >
-        <button onClicked={() => microphone.set_mute(!microphone.get_mute())}>
+        <button
+          onClicked={() => microphone.set_mute(!microphone.get_mute())}
+          tooltipText={muteTooltip}
+        >
           <image iconName={volumeIcon} />
         </button>
         <slider
@@ -109,6 +123,7 @@ export function Microphone({
       class="toggle-microphone"
       onClicked={() => microphone.set_mute(!microphone.get_mute())}
       visible={visible}
+      tooltipText={muteTooltip}
     >
       <image iconName={volumeIcon} />
     </button>

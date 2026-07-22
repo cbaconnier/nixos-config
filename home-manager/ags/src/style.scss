@@ -95,6 +95,17 @@ window.Bar {
       }
     }
 
+    &.keep-awake-active {
+      background: color-mix(in srgb, #{"@theme_selected_bg_color"} 25%, transparent);
+      color: #{"@theme_text_color"};
+    }
+
+  }
+
+  .keep-awake-indicator {
+    color: #{"@theme_selected_bg_color"};
+    margin-left: 4px;
+    margin-right: 4px;
   }
 
   menubutton {

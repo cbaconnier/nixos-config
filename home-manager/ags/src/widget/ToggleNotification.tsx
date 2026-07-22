@@ -16,6 +16,9 @@ export default function ToggleNotification({
       class="toggle-notification"
       onClicked={toggleNotifications}
       visible={visible}
+      tooltipText={notificationsEnabled((enabled) =>
+        enabled ? "Désactiver les notifications" : "Activer les notifications",
+      )}
     >
       <image
         iconName={notificationsEnabled((enabled) =>

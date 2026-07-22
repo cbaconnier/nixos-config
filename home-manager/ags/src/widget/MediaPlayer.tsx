@@ -52,6 +52,7 @@ export default function MediaPlayer() {
                 <button
                   onClicked={() => player.previous()}
                   sensitive={canGoPrevious}
+                  tooltipText="Précédent"
                 >
                   <image iconName="media-skip-backward-symbolic" />
                 </button>
@@ -59,6 +60,9 @@ export default function MediaPlayer() {
                 <button
                   onClicked={() => player.play_pause()}
                   sensitive={canControl}
+                  tooltipText={playbackStatus((s) =>
+                    s === AstalMpris.PlaybackStatus.PLAYING ? "Pause" : "Lecture",
+                  )}
                 >
                   <image
                     iconName={playbackStatus((s) =>
@@ -69,7 +73,11 @@ export default function MediaPlayer() {
                   />
                 </button>
 
-                <button onClicked={() => player.next()} sensitive={canGoNext}>
+                <button
+                  onClicked={() => player.next()}
+                  sensitive={canGoNext}
+                  tooltipText="Suivant"
+                >
                   <image iconName="media-skip-forward-symbolic" />
                 </button>
               </box>

@@ -2,6 +2,7 @@ import { Gtk } from "ags/gtk4"
 import { Speaker, Microphone } from "./Volume"
 import { DevicePicker } from "./AudioDevices"
 import ToggleNotification from "./ToggleNotification"
+import ToggleKeepAwake, { refreshKeepAwake } from "./KeepAwake"
 import { execAsync } from "ags/process"
 
 export default function Menu() {
@@ -14,9 +15,9 @@ export default function Menu() {
   }
 
   return (
-    <menubutton>
+    <menubutton tooltipText="Menu">
       <image iconName="view-more-symbolic" />
-      <popover>
+      <popover onShow={refreshKeepAwake}>
         <box
           orientation={Gtk.Orientation.VERTICAL}
           widthRequest={350}
@@ -35,12 +36,13 @@ export default function Menu() {
 
           <box orientation={Gtk.Orientation.HORIZONTAL} spacing={8} homogeneous>
             <ToggleNotification />
+            <ToggleKeepAwake />
 
-            <button onClicked={openAppMenu}>
+            <button onClicked={openAppMenu} tooltipText="Applications">
               <image iconName="view-app-grid-symbolic" />
             </button>
 
-            <button onClicked={openPowerMenu}>
+            <button onClicked={openPowerMenu} tooltipText="Alimentation">
               <image iconName="system-shutdown-symbolic" />
             </button>
           </box>

@@ -72,7 +72,7 @@ export default function Battery() {
   const hasConsumption = createBinding(battery, "energyRate").as((r) => r > 0)
 
   return (
-    <menubutton class="battery">
+    <menubutton class="battery" tooltipText={pct}>
       <box spacing={4}>
         <image iconName={createBinding(battery, "batteryIconName")} />
         <label label={pct} visible={isFull.as((f) => !f)} />

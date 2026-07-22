@@ -7,6 +7,7 @@ import { Workspaces } from "./Workspaces"
 import Notification from "./Notification"
 // import ToggleNotification, { notificationsEnabled } from "./ToggleNotification"
 import Menu from "./Menu"
+import { keepAwake } from "./KeepAwake"
 import MediaPlayer, { isAnyPlayerShown } from "./MediaPlayer"
 import Separator from "./Separator"
 import Battery from "./Battery"
@@ -49,6 +50,11 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           <Tray />
           {/* <Speaker visible={speakerMuted} /> */}
           <Microphone visible={microphoneMuted((muted) => !muted)} />
+          <image
+            class="keep-awake-indicator"
+            iconName="changes-allow-symbolic"
+            visible={keepAwake((m) => m)}
+          />
           {/* <ToggleNotification */}
           {/*   visible={notificationsEnabled((enabled) => !enabled)} */}
           {/* /> */}
