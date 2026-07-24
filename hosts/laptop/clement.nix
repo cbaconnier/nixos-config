@@ -36,6 +36,7 @@
 
   home.packages = with pkgs; [
     geforcenow-electron
+    amsel-suite
     kenku-fm
   ];
 
