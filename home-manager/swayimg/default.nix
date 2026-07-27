@@ -1,130 +1,121 @@
-{ pkgs, ... }:
+{ ... }:
 
 # https://github.com/artemsen/swayimg
+# swayimg 5.x replaced the ini config with a Lua init file.
+# This keeps swayimg's built-in default bindings and only layers our
+# customisations (vim navigation, fixed zoom, custom modes, etc.) on top.
 
 {
   programs.swayimg = {
     enable = true;
-    settings = {
-      list.all = "yes";
+    initLua = ''
+      local V = swayimg.viewer
+      local G = swayimg.gallery
+      local S = swayimg.slideshow
 
-      "keys.viewer" = {
-        # Navigation
-        "j" = "next_file";
-        "k" = "prev_file";
-        "Right" = "next_file";
-        "Left" = "prev_file";
-        "Home" = "first_file";
-        "End" = "last_file";
+      -- old list.all = "yes": open every file from the same directory
+      swayimg.imagelist.enable_adjacent(true)
 
-        # Pan/move viewport 
-        "Shift+h" = "step_left 10";
-        "Shift+j" = "step_down 10";
-        "Shift+k" = "step_up 10";
-        "Shift+l" = "step_right 10";
-        "Shift+Left" = "step_left 10";
-        "Shift+Right" = "step_right 10";
-        "Shift+Up" = "step_up 10";
-        "Shift+Down" = "step_down 10";
+      local function info_toggle()
+        if swayimg.text.visible() then
+          swayimg.text.hide()
+        else
+          swayimg.text.show()
+        end
+      end
 
-        # Zoom
-        "Shift+Plus" = "zoom +10";
-        "Minus" = "zoom -10";
-        "1" = "zoom optimal";
-        "2" = "zoom fit";
-        "3" = "zoom fill";
-        "4" = "zoom width";
-        "5" = "zoom height";
-        "6" = "zoom real";
+      -- move image by a fraction of the window size
+      local function move(mode, dx, dy)
+        local wnd = swayimg.get_window_size()
+        local pos = mode.get_position()
+        mode.set_abs_position(
+          math.floor(pos.x + wnd.width * dx),
+          math.floor(pos.y + wnd.height * dy))
+      end
 
-        # Rotation & flip
-        "r" = "rotate_right";
-        "Shift+r" = "rotate_left";
-        "v" = "flip_vertical";
-        "Shift+v" = "flip_horizontal";
+      -- relative zoom around the window centre
+      local function zoom(mode, factor)
+        local scale = mode.get_scale()
+        mode.set_abs_scale(scale + scale * factor)
+      end
 
-        # Modes
-        "g" = "mode gallery";
-        "s" = "mode slideshow";
-        "f" = "fullscreen";
-        "Return" = "mode gallery";
+      local function remove_current(get_image)
+        local img = get_image()
+        os.remove(img.path)
+        swayimg.text.set_status("Removed: " .. img.path)
+      end
 
-        # Other
-        "i" = "info";
-        "Space" = "next_file";
-        "BackSpace" = "prev_file";
-        "Delete" = "exec rm -f '%' && echo 'File removed: %'; skip_file";
+      -- ===== Viewer =====
+      V.on_key("j", function() V.switch_image("next") end)
+      V.on_key("k", function() V.switch_image("prev") end)
+      V.on_key("Left", function() V.switch_image("prev") end)
+      V.on_key("Right", function() V.switch_image("next") end)
+      V.on_key("Home", function() V.switch_image("first") end)
+      V.on_key("End", function() V.switch_image("last") end)
+      V.on_key("space", function() V.switch_image("next") end)
+      V.on_key("BackSpace", function() V.switch_image("prev") end)
 
-        # Animation
-        "a" = "animation"; # Toggle animation
-        "period" = "next_frame";
-        "comma" = "prev_frame";
+      V.on_key("Shift-h", function() move(V, 0.1, 0) end)
+      V.on_key("Shift-l", function() move(V, -0.1, 0) end)
+      V.on_key("Shift-k", function() move(V, 0, 0.1) end)
+      V.on_key("Shift-j", function() move(V, 0, -0.1) end)
+      V.on_key("Shift-Left", function() move(V, 0.1, 0) end)
+      V.on_key("Shift-Right", function() move(V, -0.1, 0) end)
+      V.on_key("Shift-Up", function() move(V, 0, 0.1) end)
+      V.on_key("Shift-Down", function() move(V, 0, -0.1) end)
 
-        # Exit
-        "q" = "exit";
-        "Escape" = "exit";
+      V.on_key("1", function() V.set_fix_scale("optimal") end)
+      V.on_key("2", function() V.set_fix_scale("fit") end)
+      V.on_key("3", function() V.set_fix_scale("fill") end)
+      V.on_key("4", function() V.set_fix_scale("width") end)
+      V.on_key("5", function() V.set_fix_scale("height") end)
+      V.on_key("6", function() V.set_fix_scale("real") end)
 
-        # Mouse
-        "Ctrl+ScrollUp" = "prev_file";
-        "Ctrl+ScrollDown" = "next_file";
-        "ScrollUp" = "zoom +10";
-        "ScrollDown" = "zoom -10";
-        "MouseLeft" = "drag";
-      };
+      V.on_key("r", function() V.rotate(90) end)
+      V.on_key("Shift-r", function() V.rotate(270) end)
+      V.on_key("v", function() V.flip_vertical() end)
+      V.on_key("Shift-v", function() V.flip_horizontal() end)
 
-      "keys.gallery" = {
-        # Arrow navigation in gallery grid
-        "Left" = "step_left";
-        "Right" = "step_right";
-        "Up" = "step_up";
-        "Down" = "step_down";
-        "h" = "step_left";
-        "j" = "step_down";
-        "k" = "step_up";
-        "l" = "step_right";
+      V.on_key("g", function() swayimg.set_mode("gallery") end)
+      V.on_key("Return", function() swayimg.set_mode("gallery") end)
+      V.on_key("i", info_toggle)
+      V.on_key("q", function() swayimg.exit() end)
 
-        # Page navigation
-        "Prior" = "page_up";
-        "Next" = "page_down";
-        "Space" = "page_down";
+      V.on_key("a", function() V.set_animation() end)
+      V.on_key("period", function() V.next_frame() end)
+      V.on_key("comma", function() V.prev_frame() end)
 
-        # Mode switching
-        "Return" = "mode viewer";
-        "v" = "mode viewer";
-        "s" = "mode slideshow";
-        "Escape" = "mode viewer";
+      V.on_key("Delete", function() remove_current(V.get_image) end)
 
-        # Thumbnail size
-        "Plus" = "thumb +20";
-        "Equal" = "thumb +20";
-        "Minus" = "thumb -20";
+      V.on_mouse("Ctrl-ScrollUp", function() V.switch_image("prev") end)
+      V.on_mouse("Ctrl-ScrollDown", function() V.switch_image("next") end)
+      V.on_mouse("ScrollUp", function() zoom(V, 0.1) end)
+      V.on_mouse("ScrollDown", function() zoom(V, -0.1) end)
 
-        # Other
-        "f" = "fullscreen";
-        "i" = "info";
-        "Delete" = "exec rm -f '%' && echo 'File removed: %'; skip_file";
-        "q" = "exit";
+      -- ===== Gallery =====
+      G.on_key("h", function() G.switch_image("left") end)
+      G.on_key("j", function() G.switch_image("down") end)
+      G.on_key("k", function() G.switch_image("up") end)
+      G.on_key("l", function() G.switch_image("right") end)
+      G.on_key("space", function() G.switch_image("pgdown") end)
+      G.on_key("v", function() swayimg.set_mode("viewer") end)
+      G.on_key("i", info_toggle)
+      G.on_key("q", function() swayimg.exit() end)
+      G.on_key("equal", function() G.set_thumb_size(G.get_thumb_size() + 20) end)
+      G.on_key("Delete", function() remove_current(G.get_image) end)
+      G.on_mouse("ScrollUp", function() G.set_thumb_size(G.get_thumb_size() + 20) end)
+      G.on_mouse("ScrollDown", function() G.set_thumb_size(G.get_thumb_size() - 20) end)
 
-        # Mouse
-        "MouseLeft" = "mode viewer";
-        "ScrollUp" = "thumb +20";
-        "ScrollDown" = "thumb -20";
-      };
-
-      "keys.slideshow" = {
-        "Space" = "pause"; # Space to pause/play
-        "Right" = "next_file";
-        "Left" = "prev_file";
-        "Home" = "first_file";
-        "End" = "last_file";
-        "g" = "mode gallery";
-        "v" = "mode viewer";
-        "f" = "fullscreen";
-        "i" = "info";
-        "q" = "exit";
-        "Escape" = "exit";
-      };
-    };
+      -- ===== Slideshow =====
+      S.on_key("Left", function() S.switch_image("prev") end)
+      S.on_key("Right", function() S.switch_image("next") end)
+      S.on_key("Home", function() S.switch_image("first") end)
+      S.on_key("End", function() S.switch_image("last") end)
+      S.on_key("space", function() swayimg.set_mode("viewer") end) -- no pause API; drop to viewer
+      S.on_key("g", function() swayimg.set_mode("gallery") end)
+      S.on_key("v", function() swayimg.set_mode("viewer") end)
+      S.on_key("i", info_toggle)
+      S.on_key("q", function() swayimg.exit() end)
+    '';
   };
-
 }
