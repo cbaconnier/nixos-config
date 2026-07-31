@@ -15,4 +15,14 @@ configuration {
     me-select-entry: "";  // Disable mouse select
     me-accept-entry: "MousePrimary"; // Left click to accept/launch
     scroll-method: 1;
+
+    // vim-style navigation; frees Control+j/k from their defaults (accept-entry, remove-to-eol)
+    kb-accept-entry: "Control+m,Return,KP_Enter";
+    kb-remove-to-eol: "";
+    kb-row-down: "Down,Control+n,Control+j";
+    kb-row-up: "Up,Control+p,Control+k";
+
+    // rank matches by relevance (fzf-style) instead of leaving them in list order
+    sort: true;
+    sorting-method: "fzf";
 }

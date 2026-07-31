@@ -4,6 +4,20 @@
   config,
   ...
 }:
+let
+  rofimojiKeywords = import ./rofimoji-keywords.nix { inherit pkgs; };
+  rofimojiGroups = [
+    "emojis_smileys_emotion"
+    "emojis_people_body"
+    "emojis_animals_nature"
+    "emojis_food_drink"
+    "emojis_activities"
+    "emojis_travel_places"
+    "emojis_objects"
+    "emojis_symbols"
+    "emojis_flags"
+  ];
+in
 {
   programs.rofi = {
     enable = false;
@@ -40,5 +54,13 @@
     # Original files for reference
     ".config/rofi/configs/config-base.rasi".source = ./configs/config-base.rasi;
     ".config/rofi/configs/config-long.rasi".source = ./configs/config-long.rasi;
-  };
+  }
+  // lib.listToAttrs (
+    map (
+      group:
+      lib.nameValuePair ".local/share/rofimoji/data/${group}.additional.csv" {
+        source = "${rofimojiKeywords}/${group}.additional.csv";
+      }
+    ) rofimojiGroups
+  );
 }

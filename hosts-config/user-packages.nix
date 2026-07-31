@@ -55,6 +55,8 @@
       satty
 
       rofi
+      rofimoji
+      wtype
 
       cbonsai # Grow bonsai trees in your terminal
 
