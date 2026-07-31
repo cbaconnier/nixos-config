@@ -67,7 +67,7 @@ in
       nixd
       rust-analyzer
 
-      # Required for image.nvim
+      # Required for snacks.nvim image rendering
       imagemagick
     ];
   };
