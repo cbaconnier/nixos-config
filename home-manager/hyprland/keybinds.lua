@@ -19,6 +19,7 @@ hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("power-menu"))
 hl.bind(mainMod .. " + CTRL + L", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("open-project --rofi"))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("thunar"))
+hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("kitty --directory ~/Documents/obsidian -e nvim"))
 hl.bind(mainMod .. " + period", hl.dsp.exec_cmd("emoji-picker"))
 
 -- pkill would kill itself (its args contain "clipse-app"), so just spawn it.
