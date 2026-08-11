@@ -42,6 +42,32 @@ hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle", mode = "fullscreen" }))
 hl.bind(mainMod .. " + SHIFT + P", hl.dsp.window.pin())
 
+-- Kiosk mode: strips gaps/border/rounding and the bar on this workspace, and
+-- lets Firefox fake-fullscreen (chrome hidden, tiled size unchanged).
+local kioskDecoupleFirefoxFullscreen = hl.window_rule({
+	name = "kiosk-decouple-firefox-fullscreen",
+	match = { class = "^(firefox)$" },
+	sync_fullscreen = false,
+	enabled = false,
+})
+
+local kioskModeOn = false
+
+hl.bind(mainMod .. " + C", function()
+	kioskModeOn = not kioskModeOn
+	kioskDecoupleFirefoxFullscreen:set_enabled(kioskModeOn)
+
+	if kioskModeOn then
+		hl.config({ general = { gaps_in = 0, gaps_out = 0, border_size = 0 } })
+		hl.config({ decoration = { rounding = 0 } })
+	else
+		hl.config({ general = { gaps_in = 5, gaps_out = 20, border_size = 2 } })
+		hl.config({ decoration = { rounding = 10 } })
+	end
+
+	hl.exec_cmd([[sh -c 'ags request toggle-bars $(hyprctl activeworkspace -j | jq .id)']])
+end)
+
 -- Switch / move-to workspaces with mainMod (+ SHIFT) + [1-0]
 for i = 1, 10 do
 	local key = i % 10 -- 10 maps to key 0

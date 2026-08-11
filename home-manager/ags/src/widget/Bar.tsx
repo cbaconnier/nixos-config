@@ -1,6 +1,8 @@
 import app from "ags/gtk4/app"
 import { Astal, Gdk, Gtk } from "ags/gtk4"
-import { onCleanup } from "ags"
+import AstalHyprland from "gi://AstalHyprland"
+import { createBinding, createComputed, onCleanup } from "ags"
+import { kioskWorkspaceIds } from "./BarVisibility"
 import Clock from "./Clock"
 import Tray from "./Tray"
 import { Workspaces } from "./Workspaces"
@@ -23,9 +25,22 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
   const connector = gdkmonitor.get_connector() ?? String(Math.random())
   const showMediaSeparator = isAnyPlayerShown()
 
+  // Hide this bar only if this monitor's active workspace is in kiosk mode.
+  const hyprMonitor = AstalHyprland.get_default().monitors.find(
+    (m) => m.name === connector,
+  )
+  const activeWorkspaceId = hyprMonitor
+    ? createBinding(hyprMonitor, "activeWorkspace")((ws) => ws?.id)
+    : undefined
+  const visible = activeWorkspaceId
+    ? createComputed(
+        () => !kioskWorkspaceIds().has(activeWorkspaceId() as number),
+      )
+    : true
+
   return (
     <window
-      visible
+      visible={visible}
       name={`bar-${connector}`}
       class="Bar"
       gdkmonitor={gdkmonitor}
