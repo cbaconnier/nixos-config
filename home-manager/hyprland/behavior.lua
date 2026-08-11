@@ -3,13 +3,19 @@
 -----------------------
 -- Refer to https://wiki.hypr.land/Configuring/Variables/
 
+-- Referenced by keybinds.lua's kiosk mode to restore these exact defaults.
+DEFAULT_GAPS_IN = 5
+DEFAULT_GAPS_OUT = 20
+DEFAULT_BORDER_SIZE = 2
+DEFAULT_ROUNDING = 10
+
 -- https://wiki.hypr.land/Configuring/Variables/#general
 hl.config({
   general = {
-    gaps_in = 5,
-    gaps_out = 20,
+    gaps_in = DEFAULT_GAPS_IN,
+    gaps_out = DEFAULT_GAPS_OUT,
 
-    border_size = 2,
+    border_size = DEFAULT_BORDER_SIZE,
 
     -- https://wiki.hypr.land/Configuring/Variables/#variable-types for color info
     col = {
@@ -31,7 +37,7 @@ hl.config({
 
   -- https://wiki.hypr.land/Configuring/Variables/#decoration
   decoration = {
-    rounding = 10,
+    rounding = DEFAULT_ROUNDING,
 
     -- Transparency of focused and unfocused windows
     active_opacity = 1.0,

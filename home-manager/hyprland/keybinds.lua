@@ -42,8 +42,7 @@ hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle", mode = "fullscreen" }))
 hl.bind(mainMod .. " + SHIFT + P", hl.dsp.window.pin())
 
--- Kiosk mode: strips gaps/border/rounding and the bar on this workspace, and
--- lets Firefox fake-fullscreen (chrome hidden, tiled size unchanged).
+-- Kiosk mode: hides the bar and lets Firefox fake-fullscreen (chrome hidden) on this workspace.
 local kioskDecoupleFirefoxFullscreen = hl.window_rule({
 	name = "kiosk-decouple-firefox-fullscreen",
 	match = { class = "^(firefox)$" },
@@ -51,21 +50,47 @@ local kioskDecoupleFirefoxFullscreen = hl.window_rule({
 	enabled = false,
 })
 
-local kioskModeOn = false
+local kioskWorkspaces = {}
 
-hl.bind(mainMod .. " + C", function()
-	kioskModeOn = not kioskModeOn
-	kioskDecoupleFirefoxFullscreen:set_enabled(kioskModeOn)
+local function applyKioskBar(workspaceId)
+	kioskDecoupleFirefoxFullscreen:set_enabled(kioskWorkspaces[workspaceId] == true)
+end
 
-	if kioskModeOn then
-		hl.config({ general = { gaps_in = 0, gaps_out = 0, border_size = 0 } })
-		hl.config({ decoration = { rounding = 0 } })
-	else
-		hl.config({ general = { gaps_in = 5, gaps_out = 20, border_size = 2 } })
-		hl.config({ decoration = { rounding = 10 } })
+-- Re-apply whenever the focused workspace changes, so returning to a
+-- workspace always shows its own kiosk state, not whatever was last toggled.
+hl.on("workspace.active", function(ws)
+	applyKioskBar(ws.id)
+end)
+
+hl.bind(mainMod .. " + B", function()
+	local ws = hl.get_active_workspace()
+	if not ws then
+		return
 	end
 
-	hl.exec_cmd([[sh -c 'ags request toggle-bars $(hyprctl activeworkspace -j | jq .id)']])
+	kioskWorkspaces[ws.id] = not kioskWorkspaces[ws.id]
+	applyKioskBar(ws.id)
+
+	hl.exec_cmd("ags request set-kiosk " .. ws.id .. " " .. tostring(kioskWorkspaces[ws.id]))
+end)
+
+-- Gaps/border/rounding
+local gapsHidden = false
+
+hl.bind(mainMod .. " + minus", function()
+	gapsHidden = not gapsHidden
+
+	if gapsHidden then
+		hl.config({
+			general = { gaps_in = 0, gaps_out = 0, border_size = 0 },
+			decoration = { rounding = 0 },
+		})
+	else
+		hl.config({
+			general = { gaps_in = DEFAULT_GAPS_IN, gaps_out = DEFAULT_GAPS_OUT, border_size = DEFAULT_BORDER_SIZE },
+			decoration = { rounding = DEFAULT_ROUNDING },
+		})
+	end
 end)
 
 -- Switch / move-to workspaces with mainMod (+ SHIFT) + [1-0]

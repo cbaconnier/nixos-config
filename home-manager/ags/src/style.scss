@@ -5,7 +5,7 @@ window.Bar {
   color: #{"@theme_fg_color"};
   font-weight: bold;
 
-  >centerbox {
+  centerbox {
     background: #{"@theme_bg_color"};
     border: 1px solid #{"@borders"};
   }
@@ -137,4 +137,11 @@ window.Bar {
       }
     }
   }
+}
+
+window.kiosk-hover-zone {
+  // Not fully transparent on purpose: GTK4 appears to exclude
+  // fully-transparent regions from the hit-testable input area.
+  background: rgba(0, 0, 0, 0.01);
+  min-height: 10px;
 }

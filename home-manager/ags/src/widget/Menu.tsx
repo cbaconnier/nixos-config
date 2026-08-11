@@ -5,7 +5,11 @@ import ToggleNotification from "./ToggleNotification"
 import ToggleKeepAwake, { refreshKeepAwake } from "./KeepAwake"
 import { execAsync } from "ags/process"
 
-export default function Menu() {
+export default function Menu({
+  onOpenChange,
+}: {
+  onOpenChange?: (open: boolean) => void
+} = {}) {
   const openPowerMenu = () => {
     execAsync("power-menu").catch(console.error)
   }
@@ -17,7 +21,13 @@ export default function Menu() {
   return (
     <menubutton tooltipText="Menu">
       <image iconName="view-more-symbolic" />
-      <popover onShow={refreshKeepAwake}>
+      <popover
+        onShow={() => {
+          refreshKeepAwake()
+          onOpenChange?.(true)
+        }}
+        onClosed={() => onOpenChange?.(false)}
+      >
         <box
           orientation={Gtk.Orientation.VERTICAL}
           widthRequest={350}

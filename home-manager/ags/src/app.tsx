@@ -1,7 +1,7 @@
 import app from "ags/gtk4/app"
 import style from "./style.scss"
 import Bar from "./widget/Bar"
-import { toggleKioskWorkspace } from "./widget/BarVisibility"
+import { setKioskWorkspace } from "./widget/BarVisibility"
 import { For, This, createBinding, createComputed, createState } from "ags"
 
 const [barGeneration, setBarGeneration] = createState(0)
@@ -13,11 +13,11 @@ app.start({
       setBarGeneration((g) => g + 1)
       return res("ok")
     }
-    if (argv[0] === "toggle-bars") {
+    if (argv[0] === "set-kiosk") {
       const id = Number(argv[1])
       if (!Number.isFinite(id))
-        return res("toggle-bars: expected a workspace id")
-      toggleKioskWorkspace(id)
+        return res("set-kiosk: expected a workspace id")
+      setKioskWorkspace(id, argv[2] === "true")
       return res("ok")
     }
     res("unknown request")
