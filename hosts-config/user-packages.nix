@@ -35,6 +35,7 @@
       kchat
       lazygit
       gh
+      awscli2
       github-copilot-cli
       claude-code
       yazi # ranger like
