@@ -39,6 +39,7 @@
       github-copilot-cli
       claude-code
       yazi # ranger like
+      doublecmd # Double Commander
       libnotify
       clipse # TUI-based clipboard manager application
       rsync
