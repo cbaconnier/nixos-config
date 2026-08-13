@@ -17,6 +17,7 @@
     ./../../hosts-config/bluetooth.nix
     ./../../hosts-config/boot-plymouth.nix
     ./../../hosts-config/virtualisation.nix
+    ./../../hosts-config/flatpak.nix
     ./../../hosts-config/fonts.nix
     ./../../hosts-config/glib.nix
     ./../../hosts-config/greetd.nix

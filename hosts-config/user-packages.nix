@@ -148,8 +148,6 @@
 
       ente-desktop
       filen-desktop
-
-      streamcontroller # Elgato Stream Deck controller
     ];
   };
 
@@ -159,6 +157,9 @@
       enable = true;
       openDefaultPorts = true;
     };
-    udev.packages = [ pkgs.streamcontroller ]; # udev rules so the Stream Deck is usable without root
+    # Elgato Stream Deck, usable without root
+    udev.extraRules = ''
+      SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", TAG+="uaccess"
+    '';
   };
 }
