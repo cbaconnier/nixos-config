@@ -90,7 +90,7 @@
       pinta
       footage # video editor
       # openshot-qt # video editor - currently insecure
-      libopenshot
+      # libopenshot
       pitivi # video editor
       ffmpeg
 
