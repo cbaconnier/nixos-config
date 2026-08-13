@@ -7,6 +7,9 @@
 -- NOT re-run on config reload.
 
 hl.on("hyprland.start", function()
+	-- Needed for xdg-desktop-portal (file pickers, etc.) to work
+	hl.exec_cmd("systemctl --user start nixos-fake-graphical-session.target")
+
 	-- Restore the last home-manager specialisation theme, or default to dark.
 	hl.exec_cmd([[{ cat ~/.cache/.current_theme 2>/dev/null || echo 'dark'; } | xargs theme]])
 
