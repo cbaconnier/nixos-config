@@ -4,6 +4,7 @@
 {
   config,
   inputs,
+  outputs,
   pkgs,
   services,
   ...
@@ -55,6 +56,11 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  nixpkgs.overlays = [
+    outputs.overlays.additions
+    outputs.overlays.modifications
+  ];
 
   nix.settings.experimental-features = [
     "nix-command"

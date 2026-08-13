@@ -1,6 +1,5 @@
 {
   inputs,
-  outputs,
   pkgs,
   ...
 }:
@@ -45,12 +44,6 @@
     BROWSER = "firefox";
     TERMINAL = "kitty";
   };
-
-  # Enable the overlays.additions to access our custom pkgs in home-manager
-  nixpkgs.overlays = [ outputs.overlays.additions ];
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
 
   programs.home-manager.enable = true;
 

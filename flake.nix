@@ -48,6 +48,7 @@
           home-manager.nixosModules.home-manager
           {
             home-manager.useUserPackages = true;
+            home-manager.useGlobalPkgs = true;
             home-manager.backupFileExtension = "backup";
             home-manager.users.clement = import ./hosts/home/clement.nix;
             home-manager.extraSpecialArgs = { inherit inputs outputs; };
@@ -63,6 +64,7 @@
           home-manager.nixosModules.home-manager
           {
             home-manager.useUserPackages = true;
+            home-manager.useGlobalPkgs = true;
             home-manager.backupFileExtension = "backup";
             home-manager.users.clement = import ./hosts/laptop/clement.nix;
             home-manager.extraSpecialArgs = { inherit inputs outputs; };

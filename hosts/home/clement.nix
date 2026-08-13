@@ -1,6 +1,5 @@
 {
   inputs,
-  outputs,
   pkgs,
   ...
 }:
@@ -57,12 +56,6 @@
     XDG_SESSION_DESKTOP = "Hyprland"; # Set the desktop session
     XDG_SESSION_TYPE = "wayland"; # Specify the session type as Wayland
   };
-
-  # Enable the overlays.additions to access our custom pkgs in home-manager
-  nixpkgs.overlays = [ outputs.overlays.additions ];
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
 
   programs.home-manager.enable = true;
 
