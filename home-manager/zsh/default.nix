@@ -6,6 +6,7 @@
     dotDir = "${config.xdg.configHome}/zsh";
     syntaxHighlighting.enable = true;
     shellAliases = {
+      ssh = "kitten ssh";
       sail = "sh $([ -f sail ] && echo sail || echo vendor/bin/sail)";
       sail-bootstrap = ''
         PHP_VERSION=$(jq -r '.require.php' composer.json | grep -oP '\d+\.\d+' | head -1 | tr -d '.')
@@ -17,23 +18,6 @@
           composer install --ignore-platform-reqs
       '';
     };
-
-    initContent = ''
-      vapor () {
-        local VAPOR_PATH=~/.config/composer/vendor/bin/vapor
-        if [[ "$*" == *"production"* ]]; then
-            echo -n "Enter \"''${PWD##*/}\" to confirm: "
-            read answer
-            if [ "$answer" = ''${PWD##*/} ]; then
-                $VAPOR_PATH "$@"
-            else
-               echo "Failed"
-            fi
-        else
-            $VAPOR_PATH "$@"
-        fi
-      }
-    '';
 
     oh-my-zsh = {
       enable = true;
