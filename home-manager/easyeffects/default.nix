@@ -15,6 +15,7 @@
     # Input (Rode NT)
     ".local/share/easyeffects/input/rode-default.json".source = ./input-presets/rode/default.json;
     ".local/share/easyeffects/input/rode-dragon.json".source = ./input-presets/rode/dragon.json;
+    ".local/share/easyeffects/input/rode-old-dragon.json".source = ./input-presets/rode/old-dragon.json;
     ".local/share/easyeffects/input/rode-banshee.json".source = ./input-presets/rode/banshee.json;
     ".local/share/easyeffects/input/rode-double-entite.json".source =
       ./input-presets/rode/double-entite.json;
