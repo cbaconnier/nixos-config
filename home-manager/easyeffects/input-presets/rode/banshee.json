@@ -197,9 +197,9 @@
       "split-channels": false
     },
     "exciter#0": {
-      "amount": 0.0,
-      "blend": 0.0,
-      "bypass": true,
+      "amount": 4.0,
+      "blend": -3.0,
+      "bypass": false,
       "ceil": 16000.0,
       "ceil-active": false,
       "harmonics": 8.5,
@@ -219,7 +219,7 @@
       "hysteresis": true,
       "hysteresis-threshold": -3.0,
       "hysteresis-zone": -1.0,
-      "input-gain": 0.0,
+      "input-gain": 9.0,
       "lpf-frequency": 20000.0,
       "lpf-mode": "off",
       "makeup": 1.0,

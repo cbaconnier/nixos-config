@@ -67,7 +67,7 @@
         },
         "band1": {
           "frequency": 150.0,
-          "gain": 3.0,
+          "gain": 4.5,
           "mode": "RLC (MT)",
           "mute": false,
           "q": 0.7,
@@ -89,7 +89,7 @@
         },
         "band3": {
           "frequency": 3500.0,
-          "gain": 2.0,
+          "gain": 1.0,
           "mode": "BWC (BT)",
           "mute": false,
           "q": 0.7,
@@ -100,7 +100,7 @@
         },
         "band4": {
           "frequency": 9000.0,
-          "gain": 2.0,
+          "gain": -3.0,
           "mode": "LRX (MT)",
           "mute": false,
           "q": 0.7,
@@ -111,7 +111,7 @@
         },
         "band5": {
           "frequency": 180.0,
-          "gain": 2.5,
+          "gain": 3.5,
           "mode": "BWC (BT)",
           "mute": false,
           "q": 1.0,
@@ -140,7 +140,7 @@
         },
         "band1": {
           "frequency": 150.0,
-          "gain": 3.0,
+          "gain": 4.5,
           "mode": "RLC (MT)",
           "mute": false,
           "q": 0.7,
@@ -162,7 +162,7 @@
         },
         "band3": {
           "frequency": 3500.0,
-          "gain": 2.0,
+          "gain": 1.0,
           "mode": "BWC (BT)",
           "mute": false,
           "q": 0.7,
@@ -173,7 +173,7 @@
         },
         "band4": {
           "frequency": 9000.0,
-          "gain": 2.0,
+          "gain": -3.0,
           "mode": "LRX (MT)",
           "mute": false,
           "q": 0.7,
@@ -184,7 +184,7 @@
         },
         "band5": {
           "frequency": 180.0,
-          "gain": 2.5,
+          "gain": 3.5,
           "mode": "BWC (BT)",
           "mute": false,
           "q": 1.0,
@@ -246,12 +246,45 @@
       "stereo-link": 100.0,
       "threshold": -1.0
     },
+    "pitch#0": {
+      "anti-alias": false,
+      "bypass": false,
+      "cents": -50.0,
+      "dry": -100.0,
+      "input-gain": 0.0,
+      "octaves": 0.0,
+      "output-gain": 0.0,
+      "overlap-length": 8,
+      "quick-seek": false,
+      "rate-difference": 0.0,
+      "seek-window": 15,
+      "semitones": -1.0,
+      "sequence-length": 40,
+      "tempo-difference": 0.0,
+      "wet": 0.0
+    },
+    "reverb#0": {
+      "amount": -24.0,
+      "bass-cut": 250.0,
+      "bypass": false,
+      "decay-time": 3.0,
+      "diffusion": 0.6,
+      "dry": 0.0,
+      "hf-damp": 4500.0,
+      "input-gain": 0.0,
+      "output-gain": 0.0,
+      "predelay": 10.0,
+      "room-size": "Medium",
+      "treble-cut": 6000.0
+    },
     "plugins_order": [
       "rnnoise#0",
       "gate#0",
       "deesser#0",
       "compressor#0",
+      "pitch#0",
       "equalizer#0",
+      "reverb#0",
       "limiter#0"
     ],
     "rnnoise#0": {

@@ -225,7 +225,7 @@
       "hysteresis": true,
       "hysteresis-threshold": -3.0,
       "hysteresis-zone": -1.0,
-      "input-gain": 0.0,
+      "input-gain": 9.0,
       "input-to-link": -80.01,
       "input-to-sidechain": -80.01,
       "link-to-input": -80.01,
