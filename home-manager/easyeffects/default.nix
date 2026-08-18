@@ -3,6 +3,10 @@
 # https://home-manager-options.extranix.com/?query=easyeffects&release=master
 # Require dconf to be enabled
 
+# Where to find EQ
+# - oratory1990
+# - https://autoeq.app
+
 {
 
   services.easyeffects = {
@@ -19,7 +23,8 @@
     ".local/share/easyeffects/input/rode-banshee.json".source = ./input-presets/rode/banshee.json;
     ".local/share/easyeffects/input/rode-double-entite.json".source =
       ./input-presets/rode/double-entite.json;
-    ".local/share/easyeffects/input/rode-storyteller.json".source = ./input-presets/rode/storyteller.json;
+    ".local/share/easyeffects/input/rode-storyteller.json".source =
+      ./input-presets/rode/storyteller.json;
 
     # Output
     ".local/share/easyeffects/output/thinkpad_z13_gen1_output.json".source =
