@@ -118,6 +118,14 @@ hl.bind(
 	)
 )
 
+-- Screenshot current screen with 5 seconds delay + cursor
+hl.bind(
+	mainMod .. " + Print",
+	hl.dsp.exec_cmd([[
+      hyprctl notify -1 5000 0 "Screenshot in 5s..." ; sleep 5 && grim -c -o "$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')" -t ppm - | satty --filename - --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H-%M-%S').png
+  ]])
+)
+
 -- Move / resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
