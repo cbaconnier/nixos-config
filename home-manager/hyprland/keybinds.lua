@@ -25,6 +25,37 @@ hl.bind(mainMod .. " + period", hl.dsp.exec_cmd("emoji-picker"))
 -- pkill would kill itself (its args contain "clipse-app"), so just spawn it.
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("kitty --class clipse-app -e clipse"))
 
+-- Glasscope: liquid-glass magnifier (see plugin.lua for its config)
+-- bindr-on-modifier-release (mods=SUPER, key=Alt_L) doesn't reliably fire
+-- once ALT was also part of the scroll binds above, so we track the raw
+-- Alt key state instead. evdev KEY_LEFTALT=56 / KEY_RIGHTALT=100, xkbcommon
+-- keycodes are +8, and state 0 is "released" (WL_KEYBOARD_KEY_STATE).
+local ALT_KEYCODES = { [56 + 8] = true, [100 + 8] = true }
+local KEYSTATE_RELEASED = 0
+local glasscopeZoomHeld = false
+
+local function glasscopeZoomShow(delta)
+	glasscopeZoomHeld = true
+	hl.plugin.glasscope.show()
+	hl.plugin.glasscope.adjust_zoom(delta)
+end
+
+hl.bind(mainMod .. " + ALT + mouse_up", function()
+	glasscopeZoomShow(0.2)
+end, { description = "Glasscope show + zoom in" })
+hl.bind(mainMod .. " + ALT + mouse_down", function()
+	glasscopeZoomShow(-0.2)
+end, { description = "Glasscope show + zoom out" })
+
+hl.on("input.keyboard.key", function(keycode, _time, state)
+	if not glasscopeZoomHeld or state ~= KEYSTATE_RELEASED or not ALT_KEYCODES[keycode] then
+		return
+	end
+
+	glasscopeZoomHeld = false
+	hl.plugin.glasscope.hide()
+end)
+
 -- Move focus
 hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "down" }))

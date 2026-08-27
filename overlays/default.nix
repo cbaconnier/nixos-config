@@ -25,6 +25,10 @@
         hash = "sha256-1OnmJi4xCxMALAac4jnLOKg5N/t3pcHgM0AgvF1+DpM=";
       };
     });
+
+    glasscope = final.callPackage ../pkgs/glasscope {
+      hyprland = inputs.hyprland.packages.${final.system}.hyprland;
+    };
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
