@@ -29,7 +29,6 @@
     ./../../hosts-config/php.nix
     ./../../hosts-config/printer.nix
     ./../../hosts-config/programs.nix
-    ./../../hosts-config/proxy.nix
     ./../../hosts-config/shell.nix
     ./../../hosts-config/system-packages.nix
     ./../../hosts-config/user-packages.nix
