@@ -69,9 +69,6 @@
     };
   };
 
-  # Enable thermald for thermal management
-  services.thermald.enable = true;
-
   # System packages for power monitoring
   environment.systemPackages = with pkgs; [ acpi powertop ];
 }
