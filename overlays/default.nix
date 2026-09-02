@@ -35,7 +35,7 @@
     ];
 
     glasscope = final.callPackage ../pkgs/glasscope {
-      hyprland = inputs.hyprland.packages.${final.system}.hyprland;
+      hyprland = inputs.hyprland.packages.${final.stdenv.hostPlatform.system}.hyprland;
     };
   };
 
@@ -43,12 +43,12 @@
   # be accessible through 'pkgs.unstable'
   unstable-packages = final: _prev: {
     unstable = import inputs.nixpkgs-unstable {
-      system = final.system;
+      system = final.stdenv.hostPlatform.system;
       config.allowUnfree = true;
     };
   };
 
   nvchad = final: prev: {
-    nvchad = inputs.nvchad4nix.packages.${final.system}.nvchad;
+    nvchad = inputs.nvchad4nix.packages.${final.stdenv.hostPlatform.system}.nvchad;
   };
 }
