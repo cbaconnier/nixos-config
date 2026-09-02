@@ -16,7 +16,6 @@
     })
     (import ./power-menu.nix { inherit pkgs lib; withSleepOptions = config.services.upower.enable; })
     (import ./restart-ags.nix { inherit pkgs; })
-    # (import ./tmux-open.nix { inherit pkgs; })
     (import ./open-project.nix { inherit pkgs; })
     (import ./emoji-picker.nix { inherit pkgs; })
     (import ./tea.nix { inherit pkgs; })

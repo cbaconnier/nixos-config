@@ -26,7 +26,6 @@
     ./../../home-manager/pipewire
     ./../../home-manager/rofi
     ./../../home-manager/swayimg
-    ./../../home-manager/tmux
     ./../../home-manager/wallpapers
     ./../../home-manager/zsh
   ];

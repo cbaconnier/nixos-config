@@ -4,7 +4,6 @@
   users.users.clement = {
     packages = with pkgs; [
       fastfetch
-      tmux
       zip
       unzip
       ripgrep # run with `rg`
