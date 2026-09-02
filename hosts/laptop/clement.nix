@@ -37,6 +37,7 @@
     geforcenow-electron
     amsel-suite
     kenku-fm
+    amethyst-mod-manager
   ];
 
   home.sessionVariables = {

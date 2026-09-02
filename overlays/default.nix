@@ -26,6 +26,14 @@
       };
     });
 
+    # From https://github.com/NixOS/nixpkgs/pull/547296, not yet merged upstream
+    # (needed by pkgs/amethyst-mod-manager)
+    pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+      (pyFinal: _pyPrev: {
+        libloot = pyFinal.callPackage ../pkgs/libloot { };
+      })
+    ];
+
     glasscope = final.callPackage ../pkgs/glasscope {
       hyprland = inputs.hyprland.packages.${final.system}.hyprland;
     };

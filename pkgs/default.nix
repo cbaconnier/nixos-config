@@ -10,4 +10,5 @@ pkgs: {
       { };
   hue-bridge-tui = pkgs.callPackage ./hue-bridge-tui { };
   kenku-fm = pkgs.callPackage ./kenku-fm { };
+  amethyst-mod-manager = pkgs.callPackage ./amethyst-mod-manager { };
 }
