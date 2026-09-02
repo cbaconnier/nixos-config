@@ -1,22 +1,23 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, freetype
-, libX11
-, libXcursor
-, libXinerama
-, libXrandr
-, libXext
-, libXi
-, libXcomposite
-, alsa-lib
-, jack2
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  freetype,
+  libX11,
+  libXcursor,
+  libXinerama,
+  libXrandr,
+  libXext,
+  libXi,
+  libXcomposite,
+  alsa-lib,
+  jack2,
 }:
 
 # getting the hash: nix-prefetch-git https://github.com/werman/noise-suppression-for-voice.git --rev v1.10
-# nix-prefetch-git https://github.com/werman/noise-suppression-for-voice.git --rev v1.10 
+# nix-prefetch-git https://github.com/werman/noise-suppression-for-voice.git --rev v1.10
 
 stdenv.mkDerivation rec {
   pname = "noise-suppression-for-voice";
@@ -32,7 +33,10 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [
     freetype
     libX11
@@ -49,10 +53,10 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}"
     "-DCMAKE_BUILD_TYPE=None"
-   # "-DBUILD_VST2_PLUGIN=OFF"
-   # "-DBUILD_VST3_PLUGIN=OFF"
-   # "-DBUILD_LV2_PLUGIN=ON"
-   # "-DBUILD_LADSPA_PLUGIN=ON"
+    # "-DBUILD_VST2_PLUGIN=OFF"
+    # "-DBUILD_VST3_PLUGIN=OFF"
+    # "-DBUILD_LV2_PLUGIN=ON"
+    # "-DBUILD_LADSPA_PLUGIN=ON"
   ];
 
   #NIX_CFLAGS_COMPILE = "-I${libX11.dev}/include/X11/extensions";

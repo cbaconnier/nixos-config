@@ -2,14 +2,14 @@
 
 {
 
- # https://nixos.wiki/wiki/PipeWire
+  # https://nixos.wiki/wiki/PipeWire
 
- security.rtkit.enable = true;
- services.pipewire = {
-   enable = true;
-   alsa.enable = true;
-   alsa.support32Bit = true;
-   pulse.enable = true;
-   #jack.enable = true;
- };
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    #jack.enable = true;
+  };
 }

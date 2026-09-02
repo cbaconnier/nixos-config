@@ -1,77 +1,81 @@
-{ pkgs, lib, withSleepOptions ? false }:
+{
+  pkgs,
+  lib,
+  withSleepOptions ? false,
+}:
 
 pkgs.writeShellScriptBin "power-menu" ''
 
-run_rofi() {
-    ${pkgs.rofi}/bin/rofi -theme ~/.config/rofi/config.rasi "$@"
-}
+  run_rofi() {
+      ${pkgs.rofi}/bin/rofi -theme ~/.config/rofi/config.rasi "$@"
+  }
 
-chosen=$(printf "1\tShutdown\n2\tReboot\n3\tLogout\n4\tShutdown at${lib.optionalString withSleepOptions "\\n5\\tSleep\\n6\\tHibernate"}" | \
-     run_rofi -dmenu -i -p "Power Menu" \
-    -kb-custom-1 "1" \
-    -kb-custom-2 "2" \
-    -kb-custom-3 "3" \
-    -kb-custom-4 "4" \${lib.optionalString withSleepOptions "\n    -kb-custom-5 \"5\" \\\n    -kb-custom-6 \"6\" \\"}
-    -selected-row 0)
+  chosen=$(printf "1\tShutdown\n2\tReboot\n3\tLogout\n4\tShutdown at${lib.optionalString withSleepOptions "\\n5\\tSleep\\n6\\tHibernate"}" | \
+       run_rofi -dmenu -i -p "Power Menu" \
+      -kb-custom-1 "1" \
+      -kb-custom-2 "2" \
+      -kb-custom-3 "3" \
+      -kb-custom-4 "4" \${lib.optionalString withSleepOptions "\n    -kb-custom-5 \"5\" \\\n    -kb-custom-6 \"6\" \\"}
+      -selected-row 0)
 
-rofi_exit=$?
+  rofi_exit=$?
 
-get_shutdown_time() {
-    run_rofi -dmenu \
-         -p "Shutdown delay:" \
-         -mesg "Examples: '+30' for 30 minutes, '22:00' for 22h00" \
-         -theme-str 'inputbar {children: [prompt, entry];}' \
-         -lines 0
-}
+  get_shutdown_time() {
+      run_rofi -dmenu \
+           -p "Shutdown delay:" \
+           -mesg "Examples: '+30' for 30 minutes, '22:00' for 22h00" \
+           -theme-str 'inputbar {children: [prompt, entry];}' \
+           -lines 0
+  }
 
-execute_action() {
-    case $1 in
-        *"Shutdown")
-            ${pkgs.systemd}/bin/shutdown now
-            ;;
-        *"Reboot")
-            ${pkgs.systemd}/bin/reboot
-            ;;
-        *"Logout")
-            ${pkgs.hyprland}/bin/hyprctl dispatch "hl.dsp.exit()"
-            ;;
-        *"Shutdown at")
-	          shutdown_time=$(get_shutdown_time)
-            if [ -n "$shutdown_time" ]; then
-              ${pkgs.systemd}/bin/shutdown "$shutdown_time"
-              if [[ "$shutdown_time" == +* ]]; then
-                minutes=''${shutdown_time#+}
-                ${pkgs.libnotify}/bin/notify-send "Shutdown Scheduled" "System will shutdown in $minutes minutes"
-              else
-                ${pkgs.libnotify}/bin/notify-send "Shutdown Scheduled" "System will shutdown at $shutdown_time"
+  execute_action() {
+      case $1 in
+          *"Shutdown")
+              ${pkgs.systemd}/bin/shutdown now
+              ;;
+          *"Reboot")
+              ${pkgs.systemd}/bin/reboot
+              ;;
+          *"Logout")
+              ${pkgs.hyprland}/bin/hyprctl dispatch "hl.dsp.exit()"
+              ;;
+          *"Shutdown at")
+  	          shutdown_time=$(get_shutdown_time)
+              if [ -n "$shutdown_time" ]; then
+                ${pkgs.systemd}/bin/shutdown "$shutdown_time"
+                if [[ "$shutdown_time" == +* ]]; then
+                  minutes=''${shutdown_time#+}
+                  ${pkgs.libnotify}/bin/notify-send "Shutdown Scheduled" "System will shutdown in $minutes minutes"
+                else
+                  ${pkgs.libnotify}/bin/notify-send "Shutdown Scheduled" "System will shutdown at $shutdown_time"
+                fi
               fi
-            fi
-            ;;
-${lib.optionalString withSleepOptions ''
-        *"Sleep")
-            ${pkgs.systemd}/bin/systemctl suspend
-            ;;
-        *"Hibernate")
-            ${pkgs.systemd}/bin/systemctl hibernate
-            ;;
-''}    esac
-}
+              ;;
+  ${lib.optionalString withSleepOptions ''
+    *"Sleep")
+        ${pkgs.systemd}/bin/systemctl suspend
+        ;;
+    *"Hibernate")
+        ${pkgs.systemd}/bin/systemctl hibernate
+        ;;
+  ''}    esac
+  }
 
-# Check if a custom key was pressed or if Enter was used
-if [ $rofi_exit -ge 10 ] && [ $rofi_exit -le ${if withSleepOptions then "15" else "13"} ]; then
-    # Custom key was pressed
-    case $rofi_exit in
-        10) execute_action "Shutdown" ;;
-        11) execute_action "Reboot" ;;
-        12) execute_action "Logout" ;;
-        13) execute_action "Shutdown at" ;;
-${lib.optionalString withSleepOptions ''
-        14) execute_action "Sleep" ;;
-        15) execute_action "Hibernate" ;;
-''}    esac
-else
-    # Enter was pressed, execute based on the selection
-    notify-send "_ $chosen _"
-    execute_action "$chosen"
-fi
+  # Check if a custom key was pressed or if Enter was used
+  if [ $rofi_exit -ge 10 ] && [ $rofi_exit -le ${if withSleepOptions then "15" else "13"} ]; then
+      # Custom key was pressed
+      case $rofi_exit in
+          10) execute_action "Shutdown" ;;
+          11) execute_action "Reboot" ;;
+          12) execute_action "Logout" ;;
+          13) execute_action "Shutdown at" ;;
+  ${lib.optionalString withSleepOptions ''
+    14) execute_action "Sleep" ;;
+    15) execute_action "Hibernate" ;;
+  ''}    esac
+  else
+      # Enter was pressed, execute based on the selection
+      notify-send "_ $chosen _"
+      execute_action "$chosen"
+  fi
 ''

@@ -1,4 +1,10 @@
-{ pkgs, config, lib, inputs, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  inputs,
+  ...
+}:
 
 # Note: HYPRCURSOR_THEME and HYPRCURSOR_SIZE are defined in /home-manager/gtk/default.nix
 #
@@ -9,8 +15,7 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package =
-      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     xwayland.enable = true;
 
     configType = "lua";
@@ -52,7 +57,11 @@
   };
 
   # https://wiki.hyprland.org/Hypr-Ecosystem/
-  home.packages = with pkgs; [ wl-clipboard hyprcursor wtype ];
+  home.packages = with pkgs; [
+    wl-clipboard
+    hyprcursor
+    wtype
+  ];
 
   # Create the config.d directory for HyprDynamicMonitors
   home.file.".config/hypr/config.d/.keep".text = "";

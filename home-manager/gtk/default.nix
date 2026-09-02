@@ -34,7 +34,10 @@ in
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     configPackages = [ pkgs.xdg-desktop-portal-gtk ];
     config.common = {
-      default = [ "hyprland" "gtk" ];
+      default = [
+        "hyprland"
+        "gtk"
+      ];
       "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
     };
   };

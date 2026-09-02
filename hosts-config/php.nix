@@ -4,7 +4,10 @@
 # https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/php.section.md
 
 {
-  environment.systemPackages = with pkgs; [ php84 php84Packages.composer ];
+  environment.systemPackages = with pkgs; [
+    php84
+    php84Packages.composer
+  ];
 
   environment.shellInit = ''
     export PATH="$HOME/.config/composer/vendor/bin:$PATH"

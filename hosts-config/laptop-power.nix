@@ -70,5 +70,8 @@
   };
 
   # System packages for power monitoring
-  environment.systemPackages = with pkgs; [ acpi powertop ];
+  environment.systemPackages = with pkgs; [
+    acpi
+    powertop
+  ];
 }

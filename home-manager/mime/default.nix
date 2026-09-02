@@ -5,7 +5,11 @@
     nvim-terminal = {
       name = "neovim";
       exec = "kitty nvim %F";
-      mimeType = [ "text/plain" "text/x-csrc" "application/json" ];
+      mimeType = [
+        "text/plain"
+        "text/x-csrc"
+        "application/json"
+      ];
       noDisplay = true;
       terminal = false;
     };
