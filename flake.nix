@@ -40,6 +40,8 @@
 
       overlays = import ./overlays { inherit inputs; };
 
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
+
       nixosConfigurations.home = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs outputs; };
