@@ -21,16 +21,6 @@
   services.xserver.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
 
-  # Environment variables for AMD
-  environment.variables = {
-    # Force AMDVLK instead of RADV for Vulkan
-    # Comment out if you prefer RADV (Mesa's Vulkan driver)
-    # VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/amd_icd64.json";
-
-    # For ROCm applications
-    # HSA_OVERRIDE_GFX_VERSION = "10.3.0"; # Adjust based on your GPU
-  };
-
   # XDG Portal configuration
   xdg.portal = {
     enable = true;
