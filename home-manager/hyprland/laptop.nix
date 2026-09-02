@@ -22,6 +22,7 @@
     extraLuaFiles = {
       app_keybinds = ./app_keybinds.lua;
       behavior = ./behavior.lua;
+      env = ./env.lua;
       input = ./input.lua;
       keybinds = ./keybinds.lua;
       plugin = ./plugin.lua;
