@@ -20,7 +20,7 @@
     ./../../home-manager/hyprdynamicmonitors/laptop.nix
     ./../../home-manager/hypridle/laptop.nix
     ./../../home-manager/hyprland/laptop.nix
-    ./../../home-manager/hyprlock/laptop.nix
+    ./../../home-manager/hyprlock
     ./../../home-manager/kitty
     ./../../home-manager/mime
     ./../../home-manager/xfce4

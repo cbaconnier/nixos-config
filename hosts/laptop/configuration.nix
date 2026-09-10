@@ -30,6 +30,7 @@
     ./../../hosts-config/php.nix
     ./../../hosts-config/printer.nix
     ./../../hosts-config/programs.nix
+    ./../../hosts-config/screen-lock.nix
     ./../../hosts-config/shell.nix
     ./../../hosts-config/system-packages.nix
     ./../../hosts-config/user-packages.nix
@@ -107,8 +108,6 @@
       wdisplays
     ];
   };
-
-  security.pam.services.hyprlock = { };
 
   systemd.services.home-manager-clement = {
     serviceConfig = {

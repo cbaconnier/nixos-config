@@ -19,6 +19,7 @@
     ./../../home-manager/theme
     ./../../home-manager/hyprdynamicmonitors/home.nix
     ./../../home-manager/hyprland/home.nix
+    ./../../home-manager/hyprlock
     ./../../home-manager/kitty
     ./../../home-manager/mime
     ./../../home-manager/xfce4
