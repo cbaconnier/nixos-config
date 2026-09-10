@@ -102,7 +102,7 @@ hl.bind(mainMod .. " + B", function()
 	kioskWorkspaces[ws.id] = not kioskWorkspaces[ws.id]
 	applyKioskBar(ws.id)
 
-	hl.exec_cmd("ags request set-kiosk " .. ws.id .. " " .. tostring(kioskWorkspaces[ws.id]))
+	hl.exec_cmd("qs ipc call bar setKiosk " .. ws.id .. " " .. tostring(kioskWorkspaces[ws.id]))
 end)
 
 -- Gaps/border/rounding

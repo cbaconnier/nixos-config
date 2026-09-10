@@ -18,13 +18,12 @@
       inherit pkgs lib;
       withSleepOptions = config.services.upower.enable;
     })
-    (import ./restart-ags.nix { inherit pkgs; })
+    (import ./restart-qs.nix { inherit pkgs; })
     (import ./open-project.nix { inherit pkgs; })
     (import ./emoji-picker.nix { inherit pkgs; })
     (import ./tea.nix { inherit pkgs; })
     (import ./remind.nix { inherit pkgs; })
     (import ./monitor-post-apply.nix { inherit pkgs lib; })
-    (import ./wait-for-tray.nix { inherit pkgs; })
     (import ./voice.nix { inherit pkgs; })
   ];
 

@@ -64,6 +64,16 @@ in
 
   home.file.".cache/.current_theme".text = "light";
 
+  home.file.".cache/quickshell-palette.qml".text = import ../quickshell/palette.nix {
+    bg = "#eff1f5";
+    fg = "#4c4f69";
+    border = "#bcc0cc";
+    selectedBg = "#179299";
+    selectedFg = "#eff1f5";
+    text = "#4c4f69";
+    destructive = "#d20f39";
+  };
+
   home.file.".cache/theme-apply.sh" = {
     executable = true;
     text = ''

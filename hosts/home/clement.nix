@@ -9,7 +9,7 @@
   home.homeDirectory = "/home/clement";
 
   imports = [
-    ./../../home-manager/ags/home.nix
+    ./../../home-manager/quickshell/home.nix
     ./../../home-manager/clipse
     ./../../home-manager/deezer
     ./../../home-manager/easyeffects

@@ -27,8 +27,13 @@ pkgs.writeShellScriptBin "theme" ''
 
   [ -x "$HOME/.cache/theme-apply.sh" ] && "$HOME/.cache/theme-apply.sh"
 
-  ags quit 2>/dev/null || true
-  sleep 0.5
-  ags run &>/dev/null &
+  PALETTE="$HOME/.cache/quickshell-palette.qml"
+  if [ -e "$PALETTE" ]; then
+    for dest in "$HOME/.config/quickshell/default" "$HOME/nixos-config/home-manager/quickshell/src"; do
+      [ -d "$dest" ] && install -m 0644 -T "$PALETTE" "$dest/Palette.qml"
+    done
+  fi
+
+  qs -n > "$HOME/.cache/quickshell.log" 2>&1 &
   disown
 ''
