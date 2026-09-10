@@ -10,11 +10,6 @@
 
     astal.url = "github:aylur/astal";
 
-    ags = {
-      url = "github:aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
 
     plymouth-theme-cat.url = "github:cbaconnier/PlymouthTheme-Cat";

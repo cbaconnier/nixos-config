@@ -97,8 +97,6 @@
 
       poppler-utils # Adds pdfattach, pdfdetach, pdffonts, pdfimages, pdfinfo, pdfseparate, pdfsig, pdftocario, pdftohtml, pdftoppm pdftops pdftotext pdfunite
 
-      inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.agsFull
-      libdbusmenu-gtk3 # Library for passing menu structures across DBus, Used by AGS for the system tray
       home-manager
 
       # lutris
