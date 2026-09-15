@@ -39,6 +39,14 @@
           halign = "center";
           valign = "center";
         }
+        {
+          text = ''cmd[update:60000] date +"%A %d %B %Y"'';
+          font_size = 24;
+          color = "rgba(255, 255, 255, 0.7)";
+          position = "0, -30";
+          halign = "center";
+          valign = "center";
+        }
       ];
     };
   };
