@@ -1,27 +1,17 @@
 {
   lib,
-  stdenv,
+  appimageTools,
   fetchurl,
-  appimage-run,
-  makeWrapper,
   makeDesktopItem,
 }:
 
 let
   pname = "amsel-suite";
-  version = "1.9.2";
-
-  src = fetchurl {
-    url = "https://github.com/OllamTechnologies/launcher-releases/releases/download/v${version}/Amsel.Suite-${version}-x64.AppImage";
-    sha256 = "sha256:a57e69bc726864be834b4d17efd7b6d796022ff4a15d46b9ffe118a9ff0ccab1";
-  };
-
-  icon = ./icon.png;
 
   desktopItem = makeDesktopItem {
     name = pname;
     desktopName = "Amsel Suite";
-    exec = "${pname}-wrapped %U";
+    exec = "${pname} %U";
     icon = pname;
     categories = [
       "Game"
@@ -29,40 +19,26 @@ let
     ];
   };
 in
-stdenv.mkDerivation {
-  inherit pname version src;
+appimageTools.wrapType2 (finalAttrs: {
+  inherit pname;
+  version = "1.9.2";
 
-  nativeBuildInputs = [ makeWrapper ];
+  src = fetchurl {
+    url = "https://github.com/OllamTechnologies/launcher-releases/releases/download/v${finalAttrs.version}/Amsel.Suite-${finalAttrs.version}-x64.AppImage";
+    hash = "sha256-pX5pvHJoZL6DS00X79e215YCL/ShXUa5/+EYqf8MyrE=";
+  };
 
-  dontUnpack = true;
-  dontStrip = true;
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p \
-      $out/bin \
-      $out/share/applications \
-      $out/share/icons/hicolor/256x256/apps
-
-    cp $src $out/bin/${pname}
-    chmod +x $out/bin/${pname}
-
-    cp ${icon} $out/share/icons/hicolor/256x256/apps/${pname}.png
-    cp ${desktopItem}/share/applications/*.desktop $out/share/applications/
-
-    makeWrapper ${appimage-run}/bin/appimage-run $out/bin/${pname}-wrapped \
-      --add-flags "$out/bin/${pname}"
-
-    runHook postInstall
+  extraInstallCommands = ''
+    install -Dm444 ${./icon.png} $out/share/icons/hicolor/256x256/apps/${pname}.png
+    install -Dm444 ${desktopItem}/share/applications/${pname}.desktop \
+      $out/share/applications/${pname}.desktop
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Amsel Suite launcher";
     homepage = "https://github.com/OllamTechnologies/launcher-releases";
-    license = licenses.unfree;
+    license = lib.licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    mainProgram = "${pname}-wrapped";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    mainProgram = pname;
   };
-}
+})
