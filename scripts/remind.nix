@@ -3,30 +3,42 @@ pkgs.writeShellScriptBin "remind" ''
   TARGET=''${1:-}
   MESSAGE=''${2:-}
   SOUND="/run/current-system/sw/share/sounds/freedesktop/stereo/message-new-instant.oga"
+  ALARM_PID=""
 
-  [[ "$TARGET" =~ ^([0-9]{2}):([0-9]{2})$ ]] || { echo "Usage: remind HH:MM [\"message\"]"; exit 1; }
+  [[ "$TARGET" =~ ^([0-9]{1,2}):([0-9]{2})$ ]] || { echo "Usage: remind HH:MM [\"message\"]"; exit 1; }
 
   H=''${BASH_REMATCH[1]}
   M=''${BASH_REMATCH[2]}
 
   NOW=$(date +%s)
-  TARGET_TS=$(date -d "today $H:$M" +%s)
-  (( TARGET_TS <= NOW )) && TARGET_TS=$(date -d "tomorrow $H:$M" +%s)
-  TOTAL=$(( TARGET_TS - NOW ))
+  DEADLINE=$(date -d "today $H:$M" +%s) || exit 1
+  (( DEADLINE <= NOW )) && DEADLINE=$(date -d "tomorrow $H:$M" +%s)
 
   cleanup() {
-      pkill -P "$ALARM_PID" 2>/dev/null
-      kill "$ALARM_PID" 2>/dev/null
+      [[ -n "$ALARM_PID" ]] && { pkill -P "$ALARM_PID" 2>/dev/null; kill "$ALARM_PID" 2>/dev/null; }
       tput cnorm; tput rmcup
   }
   trap cleanup EXIT
 
+  sleep_to_next_second() {
+      local ns=$(( 10#$(date +%N) ))
+      sleep "$(printf '0.%09d' $(( 1000000000 - ns )))"
+  }
+
+  fmt() {
+      local s=$1
+      printf '%02d:%02d:%02d' $(( s / 3600 )) $(( s % 3600 / 60 )) $(( s % 60 ))
+  }
+
   tput smcup; tput civis
 
-  for (( i=TOTAL; i>=0; i-- )); do
+  while :; do
+      REMAINING=$(( DEADLINE - $(date +%s) ))
+      (( REMAINING < 0 )) && REMAINING=0
       tput clear
-      printf '%02d:%02d remaining — %s%s\n' $(( i/60 )) $(( i%60 )) "$TARGET" "''${MESSAGE:+ : $MESSAGE}"
-      sleep 1
+      printf '%s remaining — %s%s\n' "$(fmt "$REMAINING")" "$TARGET" "''${MESSAGE:+ : $MESSAGE}"
+      (( REMAINING == 0 )) && break
+      sleep_to_next_second
   done
 
   tput clear
