@@ -14,7 +14,7 @@
       local S = swayimg.slideshow
 
       -- old list.all = "yes": open every file from the same directory
-      swayimg.imagelist.enable_adjacent(true)
+      swayimg.imagelist.adjacent = true
 
       local function info_toggle()
         if swayimg.text.visible() then
@@ -46,14 +46,14 @@
       end
 
       -- ===== Viewer =====
-      V.on_key("j", function() V.switch_image("next") end)
-      V.on_key("k", function() V.switch_image("prev") end)
-      V.on_key("Left", function() V.switch_image("prev") end)
-      V.on_key("Right", function() V.switch_image("next") end)
-      V.on_key("Home", function() V.switch_image("first") end)
-      V.on_key("End", function() V.switch_image("last") end)
-      V.on_key("space", function() V.switch_image("next") end)
-      V.on_key("BackSpace", function() V.switch_image("prev") end)
+      V.on_key("j", function() V.open("next") end)
+      V.on_key("k", function() V.open("prev") end)
+      V.on_key("Left", function() V.open("prev") end)
+      V.on_key("Right", function() V.open("next") end)
+      V.on_key("Home", function() V.open("first") end)
+      V.on_key("End", function() V.open("last") end)
+      V.on_key("space", function() V.open("next") end)
+      V.on_key("BackSpace", function() V.open("prev") end)
 
       V.on_key("Shift-h", function() move(V, 0.1, 0) end)
       V.on_key("Shift-l", function() move(V, -0.1, 0) end)
@@ -87,17 +87,17 @@
 
       V.on_key("Delete", function() remove_current(V.get_image) end)
 
-      V.on_mouse("Ctrl-ScrollUp", function() V.switch_image("prev") end)
-      V.on_mouse("Ctrl-ScrollDown", function() V.switch_image("next") end)
+      V.on_mouse("Ctrl-ScrollUp", function() V.open("prev") end)
+      V.on_mouse("Ctrl-ScrollDown", function() V.open("next") end)
       V.on_mouse("ScrollUp", function() zoom(V, 0.1) end)
       V.on_mouse("ScrollDown", function() zoom(V, -0.1) end)
 
       -- ===== Gallery =====
-      G.on_key("h", function() G.switch_image("left") end)
-      G.on_key("j", function() G.switch_image("down") end)
-      G.on_key("k", function() G.switch_image("up") end)
-      G.on_key("l", function() G.switch_image("right") end)
-      G.on_key("space", function() G.switch_image("pgdown") end)
+      G.on_key("h", function() G.select("left") end)
+      G.on_key("j", function() G.select("down") end)
+      G.on_key("k", function() G.select("up") end)
+      G.on_key("l", function() G.select("right") end)
+      G.on_key("space", function() G.select("pgdown") end)
       G.on_key("v", function() swayimg.set_mode("viewer") end)
       G.on_key("i", info_toggle)
       G.on_key("q", function() swayimg.exit() end)
@@ -107,10 +107,10 @@
       G.on_mouse("ScrollDown", function() G.set_thumb_size(G.get_thumb_size() - 20) end)
 
       -- ===== Slideshow =====
-      S.on_key("Left", function() S.switch_image("prev") end)
-      S.on_key("Right", function() S.switch_image("next") end)
-      S.on_key("Home", function() S.switch_image("first") end)
-      S.on_key("End", function() S.switch_image("last") end)
+      S.on_key("Left", function() S.open("prev") end)
+      S.on_key("Right", function() S.open("next") end)
+      S.on_key("Home", function() S.open("first") end)
+      S.on_key("End", function() S.open("last") end)
       S.on_key("space", function() swayimg.set_mode("viewer") end) -- no pause API; drop to viewer
       S.on_key("g", function() swayimg.set_mode("gallery") end)
       S.on_key("v", function() swayimg.set_mode("viewer") end)
