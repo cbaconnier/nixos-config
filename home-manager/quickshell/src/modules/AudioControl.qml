@@ -27,7 +27,7 @@ RowLayout {
     if (isMicrophone) {
       if (muted)
         return "microphone-sensitivity-muted-symbolic";
-      if (volume <= 0.33)
+      if (volume < 0.25)
         return "microphone-sensitivity-low-symbolic";
       if (volume <= 0.66)
         return "microphone-sensitivity-medium-symbolic";
