@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  config,
   ...
 }:
 let
@@ -22,7 +21,6 @@ in
   programs.rofi = {
     enable = false;
     plugins = [ pkgs.rofi-calc ];
-    extraConfig = { };
   };
 
   home.file = {
