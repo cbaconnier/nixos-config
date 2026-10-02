@@ -147,6 +147,14 @@ Scope {
           }
 
           BarButton {
+            visible: !menu.notificationsEnabled
+            icon: "bell-off"
+            tooltip: "Activer les notifications"
+            tooltipHost: tooltip
+            onClicked: menu.notificationsEnabled = true
+          }
+
+          BarButton {
             visible: menu.keepAwake
             icon: "coffee"
             tooltip: "Activer la mise en veille"
@@ -160,14 +168,6 @@ Scope {
             tooltip: "Désactiver le filtre lumière chaude"
             tooltipHost: tooltip
             onClicked: menu.setNightLight(false)
-          }
-
-          BarButton {
-            visible: !menu.notificationsEnabled
-            icon: "bell-off"
-            tooltip: "Activer les notifications"
-            tooltipHost: tooltip
-            onClicked: menu.notificationsEnabled = true
           }
 
           BarButton {
