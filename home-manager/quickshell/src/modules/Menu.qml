@@ -18,6 +18,12 @@ Item {
   }
   property alias notificationsEnabled: notifToggle.checked
 
+  readonly property bool nightLightOn: nightLight.on
+
+  function setNightLight(v: bool) {
+    nightLight.apply(v);
+  }
+
   property string activeList: ""
   property Item activeAnchor: null
 

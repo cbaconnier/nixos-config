@@ -155,6 +155,22 @@ Scope {
           }
 
           BarButton {
+            visible: menu.nightLightOn
+            icon: "weather-clear-night-symbolic"
+            tooltip: "Désactiver le filtre lumière chaude"
+            tooltipHost: tooltip
+            onClicked: menu.setNightLight(false)
+          }
+
+          BarButton {
+            visible: !menu.notificationsEnabled
+            icon: "notification-disabled-symbolic"
+            tooltip: "Activer les notifications"
+            tooltipHost: tooltip
+            onClicked: menu.notificationsEnabled = true
+          }
+
+          BarButton {
             id: menuButton
 
             icon: "view-more-symbolic"
