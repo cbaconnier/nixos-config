@@ -25,7 +25,7 @@ RowLayout {
     spacing: 0
 
     BarButton {
-      icon: "media-skip-backward-symbolic"
+      icon: "skip-previous"
       tooltip: "Précédent"
       tooltipHost: root.tooltipHost
       enabled: root.player?.canGoPrevious ?? false
@@ -33,7 +33,7 @@ RowLayout {
     }
 
     BarButton {
-      icon: root.player?.playbackState === MprisPlaybackState.Playing ? "media-playback-pause-symbolic" : "media-playback-start-symbolic"
+      icon: root.player?.playbackState === MprisPlaybackState.Playing ? "pause" : "play"
       tooltip: root.player?.playbackState === MprisPlaybackState.Playing ? "Pause" : "Lecture"
       tooltipHost: root.tooltipHost
       enabled: root.player?.canControl ?? false
@@ -41,7 +41,7 @@ RowLayout {
     }
 
     BarButton {
-      icon: "media-skip-forward-symbolic"
+      icon: "skip-next"
       tooltip: "Suivant"
       tooltipHost: root.tooltipHost
       enabled: root.player?.canGoNext ?? false

@@ -88,14 +88,14 @@ Item {
         }
 
         BarButton {
-          icon: "view-app-grid-symbolic"
+          icon: "apps"
           tooltip: "Applications"
           tooltipHost: root.tooltipHost
           onClicked: rofiProc.startDetached()
         }
 
         BarButton {
-          icon: "system-shutdown-symbolic"
+          icon: "power"
           tooltip: "Alimentation"
           tooltipHost: root.tooltipHost
           onClicked: powerProc.startDetached()
@@ -116,7 +116,7 @@ Item {
         BarButton {
           id: speakerExpander
 
-          icon: root.activeList === "speakers" ? "pan-up-symbolic" : "pan-down-symbolic"
+          icon: root.activeList === "speakers" ? "chevron-up" : "chevron-down"
           tooltip: "Changer de haut-parleur"
           tooltipHost: root.tooltipHost
           checked: root.activeList === "speakers"
@@ -140,7 +140,7 @@ Item {
         BarButton {
           id: micExpander
 
-          icon: root.activeList === "microphones" ? "pan-up-symbolic" : "pan-down-symbolic"
+          icon: root.activeList === "microphones" ? "chevron-up" : "chevron-down"
           tooltip: "Changer de microphone"
           tooltipHost: root.tooltipHost
           checked: root.activeList === "microphones"
@@ -208,7 +208,7 @@ Item {
 
             BarButton {
               checked: !notifToggle.checked
-              icon: notifToggle.checked ? "notification-symbolic" : "notification-disabled-symbolic"
+              icon: notifToggle.checked ? "bell" : "bell-off"
               tooltip: notifToggle.checked ? "Désactiver les notifications" : "Activer les notifications"
               tooltipHost: root.tooltipHost
               onClicked: notifToggle.checked = !notifToggle.checked

@@ -24,22 +24,15 @@ RowLayout {
   }
 
   readonly property string icon: {
-    if (isMicrophone) {
-      if (muted)
-        return "microphone-sensitivity-muted-symbolic";
-      if (volume < 0.25)
-        return "microphone-sensitivity-low-symbolic";
-      if (volume <= 0.66)
-        return "microphone-sensitivity-medium-symbolic";
-      return "microphone-sensitivity-high-symbolic";
-    }
+    if (isMicrophone)
+      return muted ? "microphone-off" : "microphone";
     if (muted)
-      return "audio-volume-muted-symbolic";
+      return "volume-off";
     if (volume <= 0.33)
-      return "audio-volume-low-symbolic";
+      return "volume-low";
     if (volume <= 0.66)
-      return "audio-volume-medium-symbolic";
-    return "audio-volume-high-symbolic";
+      return "volume-medium";
+    return "volume-high";
   }
 
   BarButton {

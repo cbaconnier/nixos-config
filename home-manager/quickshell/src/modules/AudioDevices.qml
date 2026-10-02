@@ -133,7 +133,7 @@ ColumnLayout {
 
         Icon {
           opacity: row.active ? 1 : 0
-          icon: "object-select-symbolic"
+          icon: "check"
           size: 14
         }
 

@@ -8,7 +8,7 @@ BarButton {
 
   property bool on: false
 
-  icon: on ? "weather-clear-night-symbolic" : "weather-clear-symbolic"
+  icon: on ? "moon-waning-crescent" : "white-balance-sunny"
   tooltip: on ? "Désactiver le filtre lumière chaude" : "Activer le filtre lumière chaude"
   checked: on
   onClicked: root.apply(!root.on)

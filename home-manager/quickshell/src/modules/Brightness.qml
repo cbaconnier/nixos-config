@@ -19,13 +19,11 @@ RowLayout {
   visible: root.available
 
   readonly property string icon: {
-    if (brightness <= 0.01)
-      return "display-brightness-off-symbolic";
     if (brightness <= 0.33)
-      return "display-brightness-low-symbolic";
+      return "brightness-5";
     if (brightness <= 0.66)
-      return "display-brightness-medium-symbolic";
-    return "display-brightness-high-symbolic";
+      return "brightness-6";
+    return "brightness-7";
   }
 
   function refresh() {

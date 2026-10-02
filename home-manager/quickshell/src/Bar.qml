@@ -148,7 +148,7 @@ Scope {
 
           BarButton {
             visible: menu.keepAwake
-            icon: "changes-allow-symbolic"
+            icon: "coffee"
             tooltip: "Activer la mise en veille"
             tooltipHost: tooltip
             onClicked: menu.setKeepAwake(false)
@@ -156,7 +156,7 @@ Scope {
 
           BarButton {
             visible: menu.nightLightOn
-            icon: "weather-clear-night-symbolic"
+            icon: "moon-waning-crescent"
             tooltip: "Désactiver le filtre lumière chaude"
             tooltipHost: tooltip
             onClicked: menu.setNightLight(false)
@@ -164,7 +164,7 @@ Scope {
 
           BarButton {
             visible: !menu.notificationsEnabled
-            icon: "notification-disabled-symbolic"
+            icon: "bell-off"
             tooltip: "Activer les notifications"
             tooltipHost: tooltip
             onClicked: menu.notificationsEnabled = true
@@ -173,7 +173,7 @@ Scope {
           BarButton {
             id: menuButton
 
-            icon: "view-more-symbolic"
+            icon: "dots-vertical"
             tooltip: "Menu"
             tooltipHost: tooltip
             checked: menu.open

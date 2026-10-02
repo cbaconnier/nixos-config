@@ -4,6 +4,7 @@
       twitter-color-emoji
       font-awesome
       powerline-fonts
+      material-design-icons
 
       # https://www.reddit.com/r/NixOS/comments/1h1nc2a/nerdfonts_has_been_separated_into_individual_font/
       nerd-fonts.dejavu-sans-mono

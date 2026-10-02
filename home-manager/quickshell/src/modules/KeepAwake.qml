@@ -11,10 +11,9 @@ BarButton {
   property bool available: false
 
   visible: available
-  icon: awake ? "changes-allow-symbolic" : "changes-prevent-symbolic"
+  icon: "coffee"
   tooltip: awake ? "Activer la mise en veille" : "Désactiver la mise en veille"
   checked: awake
-  iconOpacity: awake ? 0.29 : 1
   onClicked: root.apply(!root.awake)
 
   function apply(next: bool) {

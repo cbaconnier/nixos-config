@@ -30,6 +30,41 @@ Item {
     return h > 0 ? `${h}h${String(m).padStart(2, "0")}m` : `${m}m`;
   }
 
+  readonly property string icon: {
+    const level = bat.percentage * 100;
+    const charging = bat.state === UPowerDeviceState.Charging || bat.state === UPowerDeviceState.PendingCharge;
+
+    if (charging) {
+      if (full || level > 90)
+        return "battery-charging-100";
+      if (level > 80)
+        return "battery-charging-90";
+      if (level > 40)
+        return "battery-charging-80";
+      if (level > 30)
+        return "battery-charging-40";
+      if (level > 20)
+        return "battery-charging-30";
+      return "battery-charging-20";
+    }
+
+    if (full)
+      return "battery";
+    if (level <= 10)
+      return "battery-alert";
+    if (level <= 20)
+      return "battery-10";
+    if (level <= 40)
+      return "battery-30";
+    if (level <= 60)
+      return "battery-50";
+    if (level <= 80)
+      return "battery-70";
+    if (level <= 95)
+      return "battery-90";
+    return "battery";
+  }
+
   function stateName(state): string {
     switch (state) {
     case UPowerDeviceState.Charging:
@@ -68,7 +103,7 @@ Item {
 
     Icon {
       Layout.alignment: Qt.AlignVCenter
-      icon: root.bat.iconName
+      icon: root.icon
     }
 
     Text {

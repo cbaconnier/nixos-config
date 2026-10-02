@@ -130,7 +130,7 @@ Item {
       spacing: 4
 
       BarButton {
-        icon: "pan-start-symbolic"
+        icon: "chevron-left"
         implicitWidth: 24
         implicitHeight: 24
         onClicked: root.step(-1)
@@ -165,7 +165,7 @@ Item {
       }
 
       BarButton {
-        icon: "pan-end-symbolic"
+        icon: "chevron-right"
         implicitWidth: 24
         implicitHeight: 24
         onClicked: root.step(1)

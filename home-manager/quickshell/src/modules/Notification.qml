@@ -43,7 +43,7 @@ RowLayout {
 
   Icon {
     Layout.alignment: Qt.AlignVCenter
-    icon: "notification-symbolic"
+    icon: "bell"
   }
 
   Text {
