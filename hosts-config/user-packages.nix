@@ -28,6 +28,7 @@
       pavucontrol
       mangohud # A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more. https://wiki.archlinux.org/title/MangoHud
       hyprpicker
+      hyprsunset
       discord
       teamspeak6-client
       gnome-sound-recorder

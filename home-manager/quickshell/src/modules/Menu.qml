@@ -176,6 +176,14 @@ Item {
           tooltipHost: root.tooltipHost
         }
 
+        NightLight {
+          id: nightLight
+
+          Layout.fillWidth: true
+          filled: true
+          tooltipHost: root.tooltipHost
+        }
+
         BarButton {
           Layout.fillWidth: true
           filled: true
