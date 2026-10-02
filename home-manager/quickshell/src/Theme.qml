@@ -18,7 +18,7 @@ Singleton {
   readonly property int barHeight: 40
   readonly property int hoverZoneHeight: 10
   readonly property int hideDelayMs: 1000
-  readonly property int radius: 4
+  readonly property int radius: 10
   readonly property int itemSpacing: 4
   readonly property int gap: 8
 

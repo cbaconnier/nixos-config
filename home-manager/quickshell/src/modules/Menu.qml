@@ -191,7 +191,7 @@ Item {
         Rectangle {
           Layout.fillWidth: true
           implicitHeight: quickToggles.implicitHeight + 16
-          radius: Theme.radius * 2
+          radius: Theme.radius
           color: Theme.alpha(Theme.fg, 0.05)
 
           RowLayout {

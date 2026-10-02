@@ -25,7 +25,7 @@ Rectangle {
 
   color: {
     if (checked)
-      return Theme.alpha(Theme.fg, 0.22);
+      return Theme.selectedBg;
     if (hover.hovered && enabled)
       return Theme.alpha(Theme.fg, 0.12);
     return filled ? Theme.alpha(Theme.fg, 0.08) : "transparent";
@@ -39,7 +39,7 @@ Rectangle {
     y: Math.round((button.height - height) / 2)
     icon: button.icon
     opacity: button.iconOpacity
-    color: Theme.fg
+    color: button.checked ? Theme.selectedFg : Theme.fg
     size: 16
   }
 
