@@ -28,9 +28,11 @@ Item {
   implicitHeight: panel.height
 
   onOpenChanged: {
-    if (open)
+    if (open) {
       awake.refresh();
-    else
+      brightness.refresh();
+      nightLight.refresh();
+    } else
       root.closeList();
   }
 
@@ -115,6 +117,32 @@ Item {
           checked: root.activeList === "microphones"
           implicitWidth: 22
           onClicked: root.toggleList("microphones", micExpander)
+        }
+      }
+
+      Rectangle {
+        Layout.fillWidth: true
+        Layout.topMargin: 4
+        Layout.bottomMargin: 4
+        implicitHeight: 1
+        color: Theme.border
+      }
+
+      RowLayout {
+        Layout.fillWidth: true
+        spacing: 4
+
+        Brightness {
+          id: brightness
+
+          Layout.fillWidth: true
+          showSlider: true
+          tooltipHost: root.tooltipHost
+        }
+
+        Item {
+          implicitWidth: 22
+          implicitHeight: 1
         }
       }
 
