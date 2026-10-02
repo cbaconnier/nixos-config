@@ -77,6 +77,29 @@ Item {
         Layout.fillWidth: true
         spacing: 4
 
+        Item {
+          Layout.fillWidth: true
+        }
+
+        BarButton {
+          icon: "view-app-grid-symbolic"
+          tooltip: "Applications"
+          tooltipHost: root.tooltipHost
+          onClicked: rofiProc.startDetached()
+        }
+
+        BarButton {
+          icon: "system-shutdown-symbolic"
+          tooltip: "Alimentation"
+          tooltipHost: root.tooltipHost
+          onClicked: powerProc.startDetached()
+        }
+      }
+
+      RowLayout {
+        Layout.fillWidth: true
+        spacing: 4
+
         AudioControl {
           Layout.fillWidth: true
           node: Pipewire.defaultAudioSink
@@ -154,52 +177,49 @@ Item {
         color: Theme.border
       }
 
-      RowLayout {
+      ColumnLayout {
         Layout.fillWidth: true
-        spacing: 8
+        spacing: 6
 
-        BarButton {
-          Layout.fillWidth: true
-          filled: true
-          checked: !notifToggle.checked
-          icon: notifToggle.checked ? "notification-symbolic" : "notification-disabled-symbolic"
-          tooltip: notifToggle.checked ? "Désactiver les notifications" : "Activer les notifications"
-          tooltipHost: root.tooltipHost
-          onClicked: notifToggle.checked = !notifToggle.checked
+        Text {
+          text: "Réglages rapides"
+          color: Theme.alpha(Theme.fg, 0.6)
+          font.family: Theme.fontFamily
+          font.pixelSize: Theme.fontSize - 1
         }
 
-        KeepAwake {
-          id: awake
-
+        Rectangle {
           Layout.fillWidth: true
-          filled: true
-          tooltipHost: root.tooltipHost
-        }
+          implicitHeight: quickToggles.implicitHeight + 16
+          radius: Theme.radius * 2
+          color: Theme.alpha(Theme.fg, 0.05)
 
-        NightLight {
-          id: nightLight
+          RowLayout {
+            id: quickToggles
 
-          Layout.fillWidth: true
-          filled: true
-          tooltipHost: root.tooltipHost
-        }
+            anchors.centerIn: parent
+            spacing: 6
 
-        BarButton {
-          Layout.fillWidth: true
-          filled: true
-          icon: "view-app-grid-symbolic"
-          tooltip: "Applications"
-          tooltipHost: root.tooltipHost
-          onClicked: rofiProc.startDetached()
-        }
+            BarButton {
+              checked: !notifToggle.checked
+              icon: notifToggle.checked ? "notification-symbolic" : "notification-disabled-symbolic"
+              tooltip: notifToggle.checked ? "Désactiver les notifications" : "Activer les notifications"
+              tooltipHost: root.tooltipHost
+              onClicked: notifToggle.checked = !notifToggle.checked
+            }
 
-        BarButton {
-          Layout.fillWidth: true
-          filled: true
-          icon: "system-shutdown-symbolic"
-          tooltip: "Alimentation"
-          tooltipHost: root.tooltipHost
-          onClicked: powerProc.startDetached()
+            KeepAwake {
+              id: awake
+
+              tooltipHost: root.tooltipHost
+            }
+
+            NightLight {
+              id: nightLight
+
+              tooltipHost: root.tooltipHost
+            }
+          }
         }
       }
     }
