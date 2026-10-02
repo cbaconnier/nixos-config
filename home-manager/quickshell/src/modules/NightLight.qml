@@ -38,4 +38,11 @@ BarButton {
       onStreamFinished: root.on = text.trim().length > 0
     }
   }
+
+  Timer {
+    interval: 5000
+    running: true
+    repeat: true
+    onTriggered: root.refresh()
+  }
 }
