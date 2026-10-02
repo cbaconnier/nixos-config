@@ -235,7 +235,7 @@
       "makeup": 1.0,
       "output-gain": 0.0,
       "reduction": -60.0,
-      "release": 150.0,
+      "release": 250.0,
       "sidechain": {
         "lookahead": 0.0,
         "mode": "RMS",
@@ -289,7 +289,7 @@
       "quick-seek": false,
       "rate-difference": 0.0,
       "seek-window": 15,
-      "semitones": -4.0,
+      "semitones": -7.0,
       "sequence-length": 40,
       "tempo-difference": 0.0,
       "wet": 0.0
@@ -306,17 +306,17 @@
       "limiter#0"
     ],
     "reverb#0": {
-      "amount": -14.0,
+      "amount": -6.0,
       "bass-cut": 250.0,
       "bypass": false,
-      "decay-time": 2.2,
+      "decay-time": 3.0,
       "diffusion": 0.6,
       "dry": 0.0,
       "hf-damp": 4500.0,
       "input-gain": 0.0,
       "output-gain": 0.0,
       "predelay": 20.0,
-      "room-size": "Medium",
+      "room-size": "Large",
       "treble-cut": 6000.0
     },
     "rnnoise#0": {
