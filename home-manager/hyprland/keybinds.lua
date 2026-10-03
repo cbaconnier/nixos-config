@@ -145,7 +145,7 @@ hl.bind(mainMod .. " + SHIFT + dead_circumflex", hl.dsp.window.move({ workspace 
 hl.bind(
 	"Print",
 	hl.dsp.exec_cmd(
-		[[grim -g "$(slurp -o -r)" -t ppm - | satty --filename - --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png]]
+		[[grim -g "$(slurp -o -r)" -t ppm - | satty --disable-notifications --filename - --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png]]
 	)
 )
 
@@ -153,7 +153,7 @@ hl.bind(
 hl.bind(
 	mainMod .. " + Print",
 	hl.dsp.exec_cmd([[
-      hyprctl notify -1 5000 0 "Screenshot in 5s..." ; sleep 5 && grim -c -o "$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')" -t ppm - | satty --filename - --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H-%M-%S').png
+      hyprctl notify -1 5000 0 "Screenshot in 5s..." ; sleep 5 && grim -c -o "$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')" -t ppm - | satty --disable-notifications --filename - --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H-%M-%S').png
   ]])
 )
 
