@@ -75,7 +75,9 @@ pkgs.writeShellScriptBin "power-menu" ''
   ''}    esac
   else
       # Enter was pressed, execute based on the selection
-      notify-send "_ $chosen _"
-      execute_action "$chosen"
+      if [ -n "$chosen" ]; then
+          notify-send "_ $chosen _"
+          execute_action "$chosen"
+      fi
   fi
 ''
