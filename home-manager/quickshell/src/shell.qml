@@ -37,4 +37,6 @@ ShellRoot {
       kioskWorkspaces: root.kioskWorkspaces
     }
   }
+
+  NotificationPopup {}
 }

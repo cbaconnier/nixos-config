@@ -11,7 +11,7 @@ Item {
   implicitWidth: size
   implicitHeight: size
 
-  // Rerferences https://pictogrammers.com/library/mdi/
+  // References https://pictogrammers.com/library/mdi/
   readonly property var codepoints: ({
       "bell": 0xf009a,
       "bell-off": 0xf009b,
@@ -46,13 +46,14 @@ Item {
       "battery-70": 0xf0080,
       "battery-90": 0xf0082,
       "battery-alert": 0xf0083,
-      "battery-charging": 0xf0084,
       "battery-charging-20": 0xf0086,
       "battery-charging-30": 0xf0087,
       "battery-charging-40": 0xf0088,
       "battery-charging-80": 0xf008a,
       "battery-charging-90": 0xf008b,
-      "battery-charging-100": 0xf0085
+      "battery-charging-100": 0xf0085,
+      "close": 0xf0156,
+      "broom": 0xf00e2
     })
 
   Text {

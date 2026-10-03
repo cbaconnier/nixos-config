@@ -16,7 +16,6 @@ Item {
   function setKeepAwake(v: bool) {
     awake.apply(v);
   }
-  property alias notificationsEnabled: notifToggle.checked
 
   readonly property bool nightLightOn: nightLight.on
 
@@ -207,11 +206,11 @@ Item {
             spacing: 6
 
             BarButton {
-              checked: !notifToggle.checked
-              icon: notifToggle.checked ? "bell" : "bell-off"
-              tooltip: notifToggle.checked ? "Désactiver les notifications" : "Activer les notifications"
+              checked: !Notifications.enabled
+              icon: Notifications.enabled ? "bell" : "bell-off"
+              tooltip: Notifications.enabled ? "Désactiver les notifications" : "Activer les notifications"
               tooltipHost: root.tooltipHost
-              onClicked: notifToggle.checked = !notifToggle.checked
+              onClicked: Notifications.enabled = !Notifications.enabled
             }
 
             KeepAwake {
@@ -269,12 +268,6 @@ Item {
       kind: root.activeList === "microphones" ? "microphones" : "speakers"
       onPicked: root.closeList()
     }
-  }
-
-  QtObject {
-    id: notifToggle
-
-    property bool checked: true
   }
 
   Process {

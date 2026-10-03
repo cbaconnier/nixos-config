@@ -42,7 +42,7 @@ Scope {
     visible: bar.revealed
     color: "transparent"
 
-    readonly property bool panelOpen: menu.open || battery.detailsOpen || clock.calendarOpen
+    readonly property bool panelOpen: menu.open || battery.detailsOpen || clock.calendarOpen || notifIndicator.detailsOpen
 
     implicitHeight: bar.screen.height
 
@@ -74,6 +74,7 @@ Scope {
         menu.open = false;
         battery.detailsOpen = false;
         clock.calendarOpen = false;
+        notifIndicator.detailsOpen = false;
       }
     }
 
@@ -115,14 +116,6 @@ Scope {
           Layout.fillWidth: true
         }
 
-        Notification {
-          enabled: menu.notificationsEnabled
-        }
-
-        Item {
-          Layout.fillWidth: true
-        }
-
         RowLayout {
           spacing: Theme.itemSpacing
 
@@ -146,12 +139,19 @@ Scope {
             tooltipHost: tooltip
           }
 
+          NotificationIndicator {
+            id: notifIndicator
+
+            panelHost: panelLayer
+            tooltipHost: tooltip
+          }
+
           BarButton {
-            visible: !menu.notificationsEnabled
+            visible: !Notifications.enabled
             icon: "bell-off"
             tooltip: "Activer les notifications"
             tooltipHost: tooltip
-            onClicked: menu.notificationsEnabled = true
+            onClicked: Notifications.enabled = true
           }
 
           BarButton {
