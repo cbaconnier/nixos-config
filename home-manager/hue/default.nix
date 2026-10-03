@@ -1,10 +1,20 @@
-{ pkgs, lib, ... }: {
-  home.packages = [ pkgs.hue-bridge-tui ];
+{
+  lib,
+  config,
+  ...
+}:
+let
+  cfg = config.programs.hue;
+in
+{
+  options.programs.hue.bridgeIp = lib.mkOption {
+    type = lib.types.str;
+    default = "192.168.1.98";
+    description = "Hue bridge address read by hue-ctl and the quickshell lights panel.";
+  };
 
-  home.activation.huecli-setup = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    if [ -f /run/agenix/hue-api-key ]; then
-      mkdir -p $HOME/.config/huecli
-      cat /run/agenix/hue-api-key > $HOME/.config/huecli/userinfo.txt
-    fi
-  '';
+  config = {
+    # The API key itself comes from agenix at /run/agenix/hue-api-key.
+    xdg.configFile."hue/bridge-ip".text = "${cfg.bridgeIp}\n";
+  };
 }

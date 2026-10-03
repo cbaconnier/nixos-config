@@ -36,6 +36,7 @@
     ./../../hosts-config/user-packages.nix
     ./../../scripts
     ./../../hosts-config/agenix.nix
+    ./../../hosts-config/hue.nix
   ];
 
   # specifics for the laptop

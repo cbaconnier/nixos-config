@@ -4,6 +4,7 @@
     hue-api-key = {
       file = ../secrets/hue-api-key.age;
       owner = "clement";
+      mode = "0400";
     };
   };
 }

@@ -5,7 +5,7 @@
 [x] bluetooth
 [x] speaker/microphone selection
 [x] luminosity
-[ ] hue
+[x] hue
 [x] hyprsunset
 [ ] hyprpicker ?
 [x] better notifications

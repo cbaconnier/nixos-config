@@ -37,8 +37,10 @@ Item {
       awake.refresh();
       brightness.refresh();
       nightLight.refresh();
-    } else
+    } else {
       root.closeList();
+      hue.panelOpen = false;
+    }
   }
 
   function closeList() {
@@ -52,6 +54,7 @@ Item {
     else {
       root.activeList = kind;
       root.activeAnchor = anchor;
+      hue.panelOpen = false;
       list.refresh();
     }
   }
@@ -224,6 +227,13 @@ Item {
 
               tooltipHost: root.tooltipHost
             }
+
+            HueLights {
+              id: hue
+
+              panelHost: root
+              tooltipHost: root.tooltipHost
+            }
           }
         }
       }
@@ -267,6 +277,15 @@ Item {
       width: parent.width - 12
       kind: root.activeList === "microphones" ? "microphones" : "speakers"
       onPicked: root.closeList()
+    }
+  }
+
+  Connections {
+    target: hue
+
+    function onPanelOpenChanged() {
+      if (hue.panelOpen)
+        root.closeList();
     }
   }
 

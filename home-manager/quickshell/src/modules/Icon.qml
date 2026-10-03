@@ -53,6 +53,15 @@ Item {
       "battery-charging-90": 0xf008b,
       "battery-charging-100": 0xf0085,
       "close": 0xf0156,
+      "lightbulb": 0xf0335,
+      "lightbulb-on": 0xf06e8,
+      "lightbulb-outline": 0xf0336,
+      "ceiling-light": 0xf0769,
+      "track-light": 0xf0914,
+      "floor-lamp": 0xf08dd,
+      "led-strip-variant": 0xf1051,
+      "thermometer": 0xf050f,
+      "palette": 0xf03d8,
       "broom": 0xf00e2
     })
 
