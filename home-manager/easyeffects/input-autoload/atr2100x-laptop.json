@@ -1,0 +1,6 @@
+{
+  "device": "alsa_input.usb-Audio_Technica_Corp_ATR2100x-USB_Microphone-00.analog-stereo",
+  "device-description": "ATR2100x-USB Microphone Analog Stereo",
+  "device-profile": "Microphone",
+  "preset-name": "atr2100x-default"
+}

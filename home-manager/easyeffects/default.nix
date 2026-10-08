@@ -25,6 +25,10 @@
     ".local/share/easyeffects/input/rode-storyteller.json".source =
       ./input-presets/rode/storyteller.json;
 
+    # Input (ATR2100x-USB)
+    ".local/share/easyeffects/input/atr2100x-default.json".source =
+      ./input-presets/atr2100x/default.json;
+
     # Output
     ".local/share/easyeffects/output/thinkpad_z13_gen1_output.json".source =
       ./output-presets/thinkpad_z13_gen1_output.json;
@@ -45,6 +49,8 @@
     # Input
     ".local/share/easyeffects/autoload/input/alsa_input.usb-C-Media_Electronics_Inc._USB_Advanced_Audio_Device-00.analog-stereo:Microphone.json".source =
       ./input-autoload/rode-laptop.json; # Rode NT
+    ".local/share/easyeffects/autoload/input/alsa_input.usb-Audio_Technica_Corp_ATR2100x-USB_Microphone-00.analog-stereo:Microphone.json".source =
+      ./input-autoload/atr2100x-laptop.json; # ATR2100x-USB
   };
 
 }
