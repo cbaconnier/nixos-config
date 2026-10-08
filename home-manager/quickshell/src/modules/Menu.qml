@@ -196,43 +196,72 @@ Item {
           font.pixelSize: Theme.fontSize - 1
         }
 
-        Rectangle {
+        RowLayout {
           Layout.fillWidth: true
-          implicitHeight: quickToggles.implicitHeight + 16
-          radius: Theme.radius
-          color: Theme.alpha(Theme.fg, 0.05)
+          spacing: 6
 
-          RowLayout {
-            id: quickToggles
+          Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredWidth: sessionToggles.implicitWidth + 16
+            implicitHeight: sessionToggles.implicitHeight + 16
+            radius: Theme.radius
+            color: Theme.alpha(Theme.fg, 0.05)
 
-            anchors.centerIn: parent
-            spacing: 6
+            RowLayout {
+              id: sessionToggles
 
-            BarButton {
-              checked: !Notifications.enabled
-              icon: Notifications.enabled ? "bell" : "bell-off"
-              tooltip: Notifications.enabled ? "Désactiver les notifications" : "Activer les notifications"
-              tooltipHost: root.tooltipHost
-              onClicked: Notifications.enabled = !Notifications.enabled
+              anchors.centerIn: parent
+              spacing: 6
+
+              BarButton {
+                checked: Zen.active
+                icon: "duck"
+                tooltip: Zen.active ? "Quitter le mode zen" : "Mode zen"
+                tooltipHost: root.tooltipHost
+                onClicked: Zen.active = !Zen.active
+              }
+
+              BarButton {
+                checked: Notifications.dnd
+                icon: Notifications.dnd ? "bell-off" : "bell"
+                tooltip: Notifications.dnd ? "Activer les notifications" : "Désactiver les notifications"
+                tooltipHost: root.tooltipHost
+                onClicked: Notifications.dnd = !Notifications.dnd
+              }
+
+              KeepAwake {
+                id: awake
+
+                tooltipHost: root.tooltipHost
+              }
             }
+          }
 
-            KeepAwake {
-              id: awake
+          Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredWidth: lightToggles.implicitWidth + 16
+            implicitHeight: lightToggles.implicitHeight + 16
+            radius: Theme.radius
+            color: Theme.alpha(Theme.fg, 0.05)
 
-              tooltipHost: root.tooltipHost
-            }
+            RowLayout {
+              id: lightToggles
 
-            NightLight {
-              id: nightLight
+              anchors.centerIn: parent
+              spacing: 6
 
-              tooltipHost: root.tooltipHost
-            }
+              NightLight {
+                id: nightLight
 
-            HueLights {
-              id: hue
+                tooltipHost: root.tooltipHost
+              }
 
-              panelHost: root
-              tooltipHost: root.tooltipHost
+              HueLights {
+                id: hue
+
+                panelHost: root
+                tooltipHost: root.tooltipHost
+              }
             }
           }
         }

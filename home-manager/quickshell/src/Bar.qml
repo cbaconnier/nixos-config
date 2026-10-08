@@ -103,7 +103,7 @@ Scope {
         }
 
         Separator {
-          visible: media.active
+          visible: media.visible
         }
 
         MediaPlayer {
@@ -116,7 +116,9 @@ Scope {
           Layout.fillWidth: true
         }
 
+
         RowLayout {
+          visible: !Zen.active
           spacing: Theme.itemSpacing
 
           Battery {
@@ -124,12 +126,15 @@ Scope {
 
             panelHost: panelLayer
           }
+
           Clock {
             id: clock
 
             panelHost: panelLayer
           }
+
           Separator {}
+
           Tray {}
 
           AudioControl {
@@ -147,16 +152,16 @@ Scope {
           }
 
           BarButton {
-            visible: !Notifications.enabled
+            visible: Notifications.dnd
             icon: "bell-off"
             tooltip: "Activer les notifications"
             tooltipHost: tooltip
-            onClicked: Notifications.enabled = true
+            onClicked: Notifications.dnd = false
           }
 
           BarButton {
             visible: menu.keepAwake
-            icon: "coffee"
+            icon: "presentation"
             tooltip: "Activer la mise en veille"
             tooltipHost: tooltip
             onClicked: menu.setKeepAwake(false)
@@ -164,21 +169,21 @@ Scope {
 
           BarButton {
             visible: menu.nightLightOn
-            icon: "moon-waning-crescent"
+            icon: "weather-sunset"
             tooltip: "Désactiver le filtre lumière chaude"
             tooltipHost: tooltip
             onClicked: menu.setNightLight(false)
           }
+        }
 
-          BarButton {
-            id: menuButton
+        BarButton {
+          id: menuButton
 
-            icon: "dots-vertical"
-            tooltip: "Menu"
-            tooltipHost: tooltip
-            checked: menu.open
-            onClicked: menu.open = !menu.open
-          }
+          icon: "dots-vertical"
+          tooltip: Zen.active ? "Menu — Mode zen actif" : "Menu"
+          tooltipHost: tooltip
+          checked: menu.open
+          onClicked: menu.open = !menu.open
         }
       }
     }

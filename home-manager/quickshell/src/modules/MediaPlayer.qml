@@ -17,7 +17,7 @@ RowLayout {
 
   readonly property bool active: player !== null
 
-  visible: active
+  visible: active && !Zen.active
   spacing: 8
   Layout.alignment: Qt.AlignVCenter
 

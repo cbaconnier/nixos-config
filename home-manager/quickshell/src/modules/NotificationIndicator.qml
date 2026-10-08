@@ -12,7 +12,7 @@ Item {
 
   readonly property int unread: Notifications.unreadCount
 
-  visible: Notifications.enabled && Notifications.history.count > 0
+  visible: !Notifications.dnd && Notifications.history.count > 0
   implicitWidth: 30
   implicitHeight: 30
 

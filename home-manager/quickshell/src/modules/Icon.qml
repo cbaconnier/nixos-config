@@ -15,9 +15,9 @@ Item {
   readonly property var codepoints: ({
       "bell": 0xf009a,
       "bell-off": 0xf009b,
-      "coffee": 0xf0176,
-      "moon-waning-crescent": 0xf0f65,
-      "white-balance-sunny": 0xf05a8,
+      "duck": 0xf01e5,
+      "presentation": 0xf0428,
+      "weather-sunset": 0xf059a,
       "apps": 0xf003b,
       "power": 0xf0425,
       "chevron-up": 0xf0143,

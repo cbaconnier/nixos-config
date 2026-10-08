@@ -11,7 +11,7 @@ Singleton {
 
   readonly property int historyLimit: 15
 
-  property bool enabled: true
+  property bool dnd: false
   property int unreadCount: 0
 
   readonly property ListModel popups: ListModel {}
@@ -25,7 +25,6 @@ Singleton {
     imageSupported: true
 
     onNotification: notif => {
-      // Always logged to history, even while muted.
       root.history.insert(0, {
         summary: notif.summary,
         body: notif.body,
@@ -37,7 +36,7 @@ Singleton {
         root.history.remove(root.historyLimit, root.history.count - root.historyLimit);
       root.unreadCount++;
 
-      if (!root.enabled)
+      if (root.dnd)
         return;
 
       notif.tracked = true;
