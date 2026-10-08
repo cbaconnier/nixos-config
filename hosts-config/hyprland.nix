@@ -21,6 +21,16 @@
     xwayland.enable = true;
   };
 
+  # https://wiki.hyprland.org/Nix/Hyprland-on-NixOS/
+  hardware.graphics =
+    let
+      hyprPkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+    in
+    {
+      package = hyprPkgs.mesa;
+      package32 = hyprPkgs.pkgsi686Linux.mesa;
+    };
+
   # Hint electron apps to use wayland:
   # environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }

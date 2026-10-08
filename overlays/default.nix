@@ -12,6 +12,18 @@
     # ...
     # });
 
+    # From https://github.com/NixOS/nixpkgs/pull/569777, not yet merged upstream
+    filen-desktop = prev.filen-desktop.overrideAttrs (_old: {
+      npmRebuildFlags = [ "--ignore-scripts" ];
+      preBuild = ''
+        substituteInPlace node_modules/canvas/src/CharData.h \
+          --replace-fail '#pragma once' '#pragma once
+        #include <cstdint>'
+
+        npm rebuild
+      '';
+    });
+
     freetube = prev.freetube.overrideAttrs (old: rec {
       version = "0.25.3";
       src = final.fetchFromGitHub {
