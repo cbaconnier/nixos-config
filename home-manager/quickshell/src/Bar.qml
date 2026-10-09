@@ -121,12 +121,6 @@ Scope {
           visible: !Zen.active
           spacing: Theme.itemSpacing
 
-          Battery {
-            id: battery
-
-            panelHost: panelLayer
-          }
-
           Clock {
             id: clock
 
@@ -134,6 +128,12 @@ Scope {
           }
 
           Separator {}
+
+          Battery {
+            id: battery
+
+            panelHost: panelLayer
+          }
 
           Tray {}
 

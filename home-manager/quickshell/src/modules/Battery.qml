@@ -16,7 +16,7 @@ Item {
 
   visible: present
   implicitWidth: row.implicitWidth + 16
-  implicitHeight: 28
+  implicitHeight: 30
   Layout.alignment: Qt.AlignVCenter
 
   onVisibleChanged: if (!visible)

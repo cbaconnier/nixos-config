@@ -5,7 +5,7 @@ import Quickshell.Services.SystemTray
 import ".."
 
 RowLayout {
-  spacing: 2
+  spacing: Theme.itemSpacing
 
   Repeater {
     model: SystemTray.items
@@ -15,8 +15,8 @@ RowLayout {
 
       required property SystemTrayItem modelData
 
-      implicitWidth: 26
-      implicitHeight: 26
+      implicitWidth: 30
+      implicitHeight: 30
       radius: Theme.radius
 
       color: {
