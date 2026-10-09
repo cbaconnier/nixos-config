@@ -20,10 +20,10 @@ RowLayout {
 
   readonly property string icon: {
     if (brightness <= 0.33)
-      return "brightness-5";
+      return "sun-low";
     if (brightness <= 0.66)
-      return "brightness-6";
-    return "brightness-7";
+      return "sun";
+    return "sun-high";
   }
 
   function refresh() {

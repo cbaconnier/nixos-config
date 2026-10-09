@@ -35,7 +35,7 @@ BarButton {
   readonly property var room: Hue.roomById(root.roomId) ?? (Hue.rooms[0] ?? null)
   readonly property bool anyOn: Hue.rooms.some(r => r.on)
 
-  icon: root.anyOn ? "lightbulb-on" : "lightbulb-outline"
+  icon: root.anyOn ? "bulb" : "bulb-off"
   tooltip: "Lumières"
   checked: root.panelOpen
   onClicked: root.panelOpen = !root.panelOpen
@@ -60,14 +60,14 @@ BarButton {
   function lightIcon(archetype: string): string {
     const a = archetype ?? "";
     if (a.includes("strip"))
-      return "led-strip-variant";
+      return "rainbow";
     if (a.includes("ceiling"))
-      return "ceiling-light";
+      return "bulb";
     if (a.includes("spot"))
-      return "track-light";
+      return "lamp-2";
     if (a.includes("floor") || a.includes("table"))
-      return "floor-lamp";
-    return "lightbulb";
+      return "lamp";
+    return "bulb";
   }
 
   Rectangle {
@@ -184,7 +184,7 @@ BarButton {
           spacing: 4
 
           SliderIcon {
-            icon: "brightness-6"
+            icon: "sun"
           }
 
           HueSlider {
@@ -658,7 +658,7 @@ BarButton {
 
       Icon {
         Layout.alignment: Qt.AlignVCenter
-        icon: toggle.on ? "lightbulb-on" : "lightbulb-outline"
+        icon: toggle.on ? "bulb" : "bulb-off"
         size: 16
       }
 

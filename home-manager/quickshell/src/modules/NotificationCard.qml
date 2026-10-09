@@ -107,7 +107,7 @@ Rectangle {
 
         Icon {
           anchors.centerIn: parent
-          icon: "close"
+          icon: "x"
           size: 12
         }
 

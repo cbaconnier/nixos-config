@@ -109,7 +109,7 @@ Item {
         }
 
         BarButton {
-          icon: "broom"
+          icon: "brush"
           tooltip: "Tout effacer"
           tooltipHost: root.tooltipHost
           implicitWidth: 24
@@ -211,7 +211,7 @@ Item {
             }
 
             BarButton {
-              icon: "close"
+              icon: "x"
               implicitWidth: 22
               implicitHeight: 22
               tooltipHost: root.tooltipHost

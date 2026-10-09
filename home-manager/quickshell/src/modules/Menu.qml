@@ -216,7 +216,7 @@ Item {
 
               BarButton {
                 checked: Zen.active
-                icon: "duck"
+                icon: "layout-sidebar-right-collapse"
                 tooltip: Zen.active ? "Quitter le mode zen" : "Mode zen"
                 tooltipHost: root.tooltipHost
                 onClicked: Zen.active = !Zen.active

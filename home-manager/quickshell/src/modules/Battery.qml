@@ -34,35 +34,19 @@ Item {
     const level = bat.percentage * 100;
     const charging = bat.state === UPowerDeviceState.Charging || bat.state === UPowerDeviceState.PendingCharge;
 
-    if (charging) {
-      if (full || level > 90)
-        return "battery-charging-100";
-      if (level > 80)
-        return "battery-charging-90";
-      if (level > 40)
-        return "battery-charging-80";
-      if (level > 30)
-        return "battery-charging-40";
-      if (level > 20)
-        return "battery-charging-30";
-      return "battery-charging-20";
-    }
-
+    if (charging)
+      return "battery-vertical-charging";
     if (full)
-      return "battery";
+      return "battery-vertical-4";
     if (level <= 10)
-      return "battery-alert";
-    if (level <= 20)
-      return "battery-10";
+      return "battery-vertical-exclamation";
     if (level <= 40)
-      return "battery-30";
+      return "battery-vertical-1";
     if (level <= 60)
-      return "battery-50";
+      return "battery-vertical-2";
     if (level <= 80)
-      return "battery-70";
-    if (level <= 95)
-      return "battery-90";
-    return "battery";
+      return "battery-vertical-3";
+    return "battery-vertical-4";
   }
 
   function stateName(state): string {

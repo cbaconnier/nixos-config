@@ -35,7 +35,7 @@ RowLayout {
   Component.onCompleted: refresh()
 
   BarButton {
-    icon: "ear-hearing"
+    icon: "headphones"
     tooltip: root.listening ? "Ne plus s'écouter" : "S'écouter"
     tooltipHost: root.tooltipHost
     checked: root.listening
@@ -48,27 +48,27 @@ RowLayout {
     model: [
       {
         mode: "default",
-        icon: "microphone-variant",
+        icon: "user",
         tip: "Default"
       },
       {
         mode: "storyteller",
-        icon: "book-open-page-variant",
+        icon: "book-2",
         tip: "Storyteller"
       },
       {
         mode: "double-entity",
-        icon: "ufo-outline",
+        icon: "brain",
         tip: "Double Entity"
       },
       {
         mode: "dragon",
-        icon: "fire",
+        icon: "dragon",
         tip: "Dragon"
       },
       {
         mode: "banshee",
-        icon: "ghost",
+        icon: "ghost-2",
         tip: "Banshee"
       }
     ]

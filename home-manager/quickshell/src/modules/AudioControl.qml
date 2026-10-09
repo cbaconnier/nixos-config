@@ -29,10 +29,10 @@ RowLayout {
     if (muted)
       return "volume-off";
     if (volume <= 0.33)
-      return "volume-low";
+      return "volume-4";
     if (volume <= 0.66)
-      return "volume-medium";
-    return "volume-high";
+      return "volume-2";
+    return "volume";
   }
 
   BarButton {

@@ -11,7 +11,7 @@ BarButton {
   property bool available: false
 
   visible: available
-  icon: "presentation"
+  icon: "device-desktop-bolt"
   tooltip: awake ? "Activer la mise en veille" : "Désactiver la mise en veille"
   checked: awake
   onClicked: root.apply(!root.awake)

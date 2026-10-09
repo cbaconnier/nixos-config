@@ -161,7 +161,7 @@ Scope {
 
           BarButton {
             visible: menu.keepAwake
-            icon: "presentation"
+            icon: "device-desktop-bolt"
             tooltip: "Activer la mise en veille"
             tooltipHost: tooltip
             onClicked: menu.setKeepAwake(false)
@@ -169,7 +169,7 @@ Scope {
 
           BarButton {
             visible: menu.nightLightOn
-            icon: "weather-sunset"
+            icon: "sunset-2"
             tooltip: "Désactiver le filtre lumière chaude"
             tooltipHost: tooltip
             onClicked: menu.setNightLight(false)
