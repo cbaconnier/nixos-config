@@ -37,6 +37,7 @@ Item {
       awake.refresh();
       brightness.refresh();
       nightLight.refresh();
+      voiceModes.refresh();
     } else {
       root.closeList();
       hue.panelOpen = false;
@@ -263,6 +264,21 @@ Item {
                 tooltipHost: root.tooltipHost
               }
             }
+          }
+        }
+
+        Rectangle {
+          Layout.fillWidth: true
+          Layout.topMargin: 6
+          implicitHeight: voiceModes.implicitHeight + 16
+          radius: Theme.radius
+          color: Theme.alpha(Theme.fg, 0.05)
+
+          VoiceModes {
+            id: voiceModes
+
+            anchors.centerIn: parent
+            tooltipHost: root.tooltipHost
           }
         }
       }

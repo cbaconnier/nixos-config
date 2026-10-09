@@ -62,7 +62,13 @@ Item {
       "led-strip-variant": 0xf1051,
       "thermometer": 0xf050f,
       "palette": 0xf03d8,
-      "broom": 0xf00e2
+      "broom": 0xf00e2,
+      "ear-hearing": 0xf07c5,
+      "microphone-variant": 0xf0370,
+      "book-open-page-variant": 0xf05da,
+      "fire": 0xf0238,
+      "ghost": 0xf02a0,
+      "ufo-outline": 0xf10c5
     })
 
   Text {
