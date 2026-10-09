@@ -14,6 +14,7 @@
     ./hardware-configuration.nix
 
     ./../../hosts-config/audio.nix
+    ./../../hosts-config/virtual-voices
     ./../../hosts-config/bluetooth.nix
     ./../../hosts-config/boot-plymouth.nix
     ./../../hosts-config/virtualisation.nix

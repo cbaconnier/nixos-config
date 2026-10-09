@@ -26,6 +26,7 @@
     (import ./monitor-post-apply.nix { inherit pkgs lib; })
     (import ./voice.nix { inherit pkgs; })
     (import ./hue-ctl.nix { inherit pkgs; })
+    (import ./voice-mode.nix { inherit pkgs; })
   ];
 
 }

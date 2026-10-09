@@ -12,6 +12,7 @@
         "alsa_output.pci-0000_c7_00.1.HiFi__HDMI3__sink"
         "alsa_output.pci-0000_c7_00.1.HiFi__HDMI4__sink"
         "alsa_output.usb-C-Media_Electronics_Inc._USB_Advanced_Audio_Device-00.analog-stereo" # Rode NT OUT
+        "alsa_output.usb-Audio_Technica_Corp_ATR2100x-USB_Microphone-00.analog-stereo" # ATR2100x OUT
         "easyeffects_sink"
       ];
       rename = {

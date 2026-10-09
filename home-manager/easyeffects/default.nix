@@ -16,14 +16,11 @@
   home.file = {
     ###### Presets ######
 
+    # Input without effects, used by the virtual voices
+    ".local/share/easyeffects/input/blank_input.json".source = ./input-presets/blank_input.json;
+
     # Input (Rode NT)
     ".local/share/easyeffects/input/rode-default.json".source = ./input-presets/rode/default.json;
-    ".local/share/easyeffects/input/rode-dragon.json".source = ./input-presets/rode/dragon.json;
-    ".local/share/easyeffects/input/rode-banshee.json".source = ./input-presets/rode/banshee.json;
-    ".local/share/easyeffects/input/rode-double-entite.json".source =
-      ./input-presets/rode/double-entite.json;
-    ".local/share/easyeffects/input/rode-storyteller.json".source =
-      ./input-presets/rode/storyteller.json;
 
     # Input (ATR2100x-USB)
     ".local/share/easyeffects/input/atr2100x-default.json".source =
