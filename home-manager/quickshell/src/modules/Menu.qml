@@ -11,6 +11,9 @@ Item {
   property bool open: false
   property Item tooltipHost: null
 
+  // The brightness slider drives the laptop backlight: only show it on the internal screen.
+  property bool hasBacklight: false
+
   readonly property bool keepAwake: awake.awake
 
   function setKeepAwake(v: bool) {
@@ -153,6 +156,7 @@ Item {
       }
 
       Rectangle {
+        visible: root.hasBacklight
         Layout.fillWidth: true
         Layout.topMargin: 4
         Layout.bottomMargin: 4
@@ -161,6 +165,7 @@ Item {
       }
 
       RowLayout {
+        visible: root.hasBacklight
         Layout.fillWidth: true
         spacing: 4
 

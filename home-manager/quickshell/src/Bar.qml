@@ -199,6 +199,7 @@ Scope {
       id: menu
 
       tooltipHost: tooltip
+      hasBacklight: /^(eDP|LVDS|DSI)/.test(bar.screen.name)
       z: 2
 
       onOpenChanged: if (open)
