@@ -51,6 +51,7 @@
       speedtest-cli
       proton-vpn
       transmission_4-gtk
+      stremio-linux-shell
 
       grim
       slurp
