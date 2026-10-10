@@ -109,7 +109,7 @@ Item {
         }
 
         BarButton {
-          icon: "brush"
+          icon: "trash"
           tooltip: "Tout effacer"
           tooltipHost: root.tooltipHost
           implicitWidth: 24

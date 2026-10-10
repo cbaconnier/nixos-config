@@ -55,7 +55,7 @@ Item {
       "rainbow": 0xedbc,
       "thermometer": 0xef67,
       "palette": 0xeb01,
-      "brush": 0xebb8,
+      "trash": 0xeb41,
       "headphones": 0xeabd,
       "user": 0xeb4d,
       "book-2": 0xefc5,
