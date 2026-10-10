@@ -132,9 +132,18 @@
       enable = true;
       openDefaultPorts = true;
     };
-    # Elgato Stream Deck, usable without root
-    udev.extraRules = ''
-      SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", TAG+="uaccess"
-    '';
+
+    udev.packages = [
+      # Elgato Stream Deck, usable without root
+      (pkgs.writeTextDir "lib/udev/rules.d/70-elgato-stream-deck.rules" ''
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", TAG+="uaccess"
+      '')
+
+      # Logitech G560, usable without root
+      (pkgs.writeTextDir "lib/udev/rules.d/70-g560.rules" ''
+        SUBSYSTEM=="hidraw", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="0a78", TAG+="uaccess"
+      '')
+    ];
+
   };
 }
