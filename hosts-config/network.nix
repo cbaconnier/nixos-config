@@ -10,6 +10,12 @@
   networking = {
     networkmanager.enable = true;
 
+    # open ports to cast with stremio
+    # firewall.allowedTCPPorts = [
+    #   11470
+    #   12470
+    # ];
+
     extraHosts = ''
       127.0.0.1 host.docker.internal
       127.0.0.1 meilisearch
