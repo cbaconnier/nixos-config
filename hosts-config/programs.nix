@@ -1,4 +1,8 @@
-{ pkgs, ... }: {
+{ lib, pkgs, ... }: {
+  boot.extraModprobeConfig = lib.mkAfter ''
+    options v4l2loopback video_nr=10
+  '';
+
   programs = {
 
     thunar = {
@@ -37,7 +41,8 @@
 
     obs-studio = {
       enable = true;
-      plugins = with pkgs.obs-studio-plugins; [ advanced-scene-switcher ];
+      enableVirtualCamera = true;
+      plugins = with pkgs.obs-studio-plugins; [ advanced-scene-switcher obs-backgroundremoval ];
     };
 
   };
