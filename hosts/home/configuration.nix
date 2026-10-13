@@ -76,7 +76,6 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      "docker"
       "gamemode"
     ];
     packages = with pkgs; [ ];

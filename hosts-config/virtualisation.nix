@@ -2,16 +2,14 @@
 
 # https://nixos.wiki/wiki/Docker
 #
-# https://nixos.wiki/wiki/NixOS_Containers#Declarative_docker_containers
-# https://search.nixos.org/options?query=virtualisation.oci-containers
-#
 
 {
-  virtualisation.docker = {
+  virtualisation.docker.rootless = {
     enable = true;
-    enableOnBoot = false;
-    autoPrune.enable = true;
+    setSocketVariable = true;
   };
+
+  boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 80;
 
   environment.systemPackages = with pkgs; [
     dive # look into docker image layers
@@ -39,18 +37,4 @@
 
   # Starts VM Windows with KVM
   boot.extraModprobeConfig = "options kvm ignore_msrs=1";
-
-  virtualisation.oci-containers = {
-    backend = "docker";
-    containers = {
-      portainer = {
-        image = "portainer/portainer-ce:latest";
-        volumes = [
-          "/var/run/docker.sock:/var/run/docker.sock"
-          "portainer_data:/data"
-        ];
-        ports = [ "9002:9000" ];
-      };
-    };
-  };
 }
