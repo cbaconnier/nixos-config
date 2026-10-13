@@ -11,7 +11,6 @@
       sail-bootstrap = ''
         PHP_VERSION=$(jq -r '.require.php' composer.json | grep -oP '\d+\.\d+' | head -1 | tr -d '.')
         docker run --rm \
-          -u "$(id -u):$(id -g)" \
           -v "$(pwd):/var/www/html" \
           -w /var/www/html \
           laravelsail/php''${PHP_VERSION}-composer:latest \
