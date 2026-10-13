@@ -16,6 +16,8 @@ Item {
   // Names from https://tabler.io/icons
   readonly property var codepoints: ({
       "bell": 0xea35,
+      "broadcast": 0xf1e9,
+      "clock-cancel": 0xf546,
       "bell-off": 0xece9,
       "layout-sidebar-right-collapse": 0xf006,
       "device-desktop-bolt": 0xf85e,

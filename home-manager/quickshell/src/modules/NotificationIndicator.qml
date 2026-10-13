@@ -9,10 +9,11 @@ Item {
   property Item tooltipHost: null
   property Item panelHost: null
   property bool detailsOpen: false
+  property bool hidden: false
 
   readonly property int unread: Notifications.unreadCount
 
-  visible: !Notifications.dnd && Notifications.history.count > 0
+  visible: !hidden && !Notifications.dnd && Notifications.history.count > 0
   implicitWidth: 30
   implicitHeight: 30
 

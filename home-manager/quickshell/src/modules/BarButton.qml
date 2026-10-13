@@ -13,6 +13,7 @@ Rectangle {
   property bool checked: false
   property bool enabled: true
   property bool filled: false
+  property bool embedded: false
 
   signal clicked
 
@@ -24,6 +25,8 @@ Rectangle {
   opacity: enabled ? 1 : 0.6
 
   color: {
+    if (embedded)
+      return hover.hovered ? Theme.alpha(Theme.selectedFg, 0.15) : "transparent";
     if (checked)
       return Theme.selectedBg;
     if (hover.hovered && enabled)
@@ -39,7 +42,7 @@ Rectangle {
     y: Math.round((button.height - height) / 2)
     icon: button.icon
     opacity: button.iconOpacity
-    color: button.checked ? Theme.selectedFg : Theme.fg
+    color: button.checked || button.embedded ? Theme.selectedFg : Theme.fg
     size: 16
   }
 

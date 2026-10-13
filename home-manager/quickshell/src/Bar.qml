@@ -17,6 +17,8 @@ Scope {
   readonly property int activeWorkspaceId: monitor?.activeWorkspace?.id ?? -1
   readonly property bool inKiosk: kioskWorkspaces.has(activeWorkspaceId)
 
+  readonly property bool broadcast: Zen.isBroadcast(screen.name)
+
   property bool hovering: false
   readonly property bool revealed: !inKiosk || hovering
 
@@ -117,15 +119,16 @@ Scope {
         }
 
 
+        Clock {
+          id: clock
+
+          visible: !Zen.active || !Zen.hideClock
+          panelHost: panelLayer
+        }
+
         RowLayout {
           visible: !Zen.active
           spacing: Theme.itemSpacing
-
-          Clock {
-            id: clock
-
-            panelHost: panelLayer
-          }
 
           Separator {}
 
@@ -135,7 +138,9 @@ Scope {
             panelHost: panelLayer
           }
 
-          Tray {}
+          Tray {
+            visible: !bar.broadcast
+          }
 
           AudioControl {
             node: Pipewire.defaultAudioSource
@@ -147,12 +152,14 @@ Scope {
           NotificationIndicator {
             id: notifIndicator
 
+            hidden: bar.broadcast
+
             panelHost: panelLayer
             tooltipHost: tooltip
           }
 
           BarButton {
-            visible: Notifications.dnd
+            visible: Notifications.dnd && !bar.broadcast
             icon: "bell-off"
             tooltip: "Activer les notifications"
             tooltipHost: tooltip
@@ -199,6 +206,7 @@ Scope {
       id: menu
 
       tooltipHost: tooltip
+      screenName: bar.screen.name
       hasBacklight: /^(eDP|LVDS|DSI)/.test(bar.screen.name)
       z: 2
 

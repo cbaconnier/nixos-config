@@ -13,6 +13,7 @@ Item {
 
   // The brightness slider drives the laptop backlight: only show it on the internal screen.
   property bool hasBacklight: false
+  property string screenName: ""
 
   readonly property bool keepAwake: awake.awake
 
@@ -219,12 +220,55 @@ Item {
               anchors.centerIn: parent
               spacing: 6
 
+              Rectangle {
+                implicitWidth: zenRow.implicitWidth
+                implicitHeight: 30
+                radius: Theme.radius
+                color: Zen.active ? Theme.selectedBg : "transparent"
+                clip: true
+
+                RowLayout {
+                  id: zenRow
+
+                  spacing: 0
+
+                  BarButton {
+                    embedded: Zen.active
+                    icon: "layout-sidebar-right-collapse"
+                    tooltip: Zen.active ? "Quitter le mode zen" : "Mode zen"
+                    tooltipHost: root.tooltipHost
+                    onClicked: Zen.active = !Zen.active
+                  }
+
+                  Item {
+                    Layout.preferredWidth: Zen.active && !Zen.hideClock ? 30 : 0
+                    Layout.preferredHeight: 30
+                    clip: true
+
+                    Behavior on Layout.preferredWidth {
+                      NumberAnimation {
+                        duration: 150
+                        easing.type: Easing.OutCubic
+                      }
+                    }
+
+                    BarButton {
+                      embedded: true
+                      icon: "clock-cancel"
+                      tooltip: "Masquer l'heure"
+                      tooltipHost: root.tooltipHost
+                      onClicked: Zen.hideClock = true
+                    }
+                  }
+                }
+              }
+
               BarButton {
-                checked: Zen.active
-                icon: "layout-sidebar-right-collapse"
-                tooltip: Zen.active ? "Quitter le mode zen" : "Mode zen"
+                checked: Zen.isBroadcast(root.screenName)
+                icon: "broadcast"
+                tooltip: checked ? "Réafficher le tray et les notifications sur cet écran" : "Partage d'écran : masquer le tray et les notifications sur cet écran"
                 tooltipHost: root.tooltipHost
-                onClicked: Zen.active = !Zen.active
+                onClicked: Zen.toggleBroadcast(root.screenName)
               }
 
               BarButton {

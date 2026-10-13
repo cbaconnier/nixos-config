@@ -11,13 +11,15 @@ PanelWindow {
 
   readonly property int cardWidth: 360
 
-  // Follow the focused monitor instead of sticking to one screen.
+  // Follow the focused monitor, skipping screens being shared.
   screen: {
-    for (const s of Quickshell.screens) {
+    const open = Quickshell.screens.filter(s => !Zen.isBroadcast(s.name));
+    const candidates = open.length > 0 ? open : Quickshell.screens;
+    for (const s of candidates) {
       if (Hyprland.monitorFor(s) === Hyprland.focusedMonitor)
         return s;
     }
-    return Quickshell.screens[0];
+    return candidates[0];
   }
 
   WlrLayershell.layer: WlrLayer.Overlay
