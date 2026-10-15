@@ -88,11 +88,11 @@ in
 
       exporters = {
         "otlphttp/openobserve" = {
-          endpoint = "http://192.168.1.189:5080/api/default";
+          endpoint = "http://openobserve.home.arpa/api/default";
           headers.Authorization = "Basic \${env:OO_BASIC_AUTH}";
         };
         "otlphttp/openobserve_journald" = {
-          endpoint = "http://192.168.1.189:5080/api/default";
+          endpoint = "http://openobserve.home.arpa/api/default";
           headers = {
             Authorization = "Basic \${env:OO_BASIC_AUTH}";
             stream-name = "journald";
