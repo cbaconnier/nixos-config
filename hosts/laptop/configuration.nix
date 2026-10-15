@@ -39,6 +39,7 @@
     ./../../hosts-config/agenix.nix
     ./../../hosts-config/hue.nix
     ./../../hosts-config/otel-agent.nix
+    ./../../hosts-config/tailscale.nix
   ];
 
   # specifics for the laptop

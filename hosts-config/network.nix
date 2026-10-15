@@ -21,7 +21,7 @@
       127.0.0.1 meilisearch
       127.0.0.1 minio
       127.0.0.1 rustfs
-      192.168.1.189 openobserve.home.arpa
+      100.116.221.46 openobserve.home.arpa
     '';
   };
 
