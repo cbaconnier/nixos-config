@@ -7,6 +7,15 @@
   virtualisation.docker.rootless = {
     enable = true;
     setSocketVariable = true;
+    daemon.settings = {
+      log-driver = "json-file";
+      log-opts = {
+        tag = "{{.Name}}";
+        labels-regex = "^com\\.docker\\.compose\\.(project|service)$";
+        max-size = "10m";
+        max-file = "3";
+      };
+    };
   };
 
   boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 80;

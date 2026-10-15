@@ -36,6 +36,7 @@
     ./../../scripts
     ./../../hosts-config/agenix.nix
     ./../../hosts-config/hue.nix
+    ./../../hosts-config/otel-agent.nix
   ];
 
   # Bootloader.

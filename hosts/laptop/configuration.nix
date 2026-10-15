@@ -38,6 +38,7 @@
     ./../../scripts
     ./../../hosts-config/agenix.nix
     ./../../hosts-config/hue.nix
+    ./../../hosts-config/otel-agent.nix
   ];
 
   # specifics for the laptop
