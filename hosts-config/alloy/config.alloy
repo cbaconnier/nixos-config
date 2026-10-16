@@ -112,6 +112,11 @@ loki.process "docker" {
 
 	stage.template {
 		source   = "level"
+		template = `{{ if .Value }}{{ .Value }}{{ else }}unknown{{ end }}`
+	}
+
+	stage.template {
+		source   = "level"
 		template = `{{ $l := ToLower .Value }}{{ if eq $l "warning" }}warn{{ else if or (eq $l "alert") (eq $l "emergency") }}critical{{ else }}{{ $l }}{{ end }}`
 	}
 
