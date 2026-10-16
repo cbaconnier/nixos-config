@@ -95,12 +95,24 @@ loki.source.docker "containers" {
 
 loki.process "docker" {
 	stage.regex {
-		expression = `^(?:\S+\s+){0,2}(?P<level>DEBUG|INFO|WARN|WARNING|ERROR|CRITICAL|FATAL|TRACE)\b`
+		expression = `^\s*(?:\S+\s+){0,2}(?P<level>DEBUG|INFO|WARN|WARNING|ERROR|CRITICAL|FATAL|TRACE)\b`
+	}
+
+	stage.regex {
+		expression = `^\[[^\]]+\]\s+\w+\.(?P<level>DEBUG|INFO|NOTICE|WARNING|ERROR|CRITICAL|ALERT|EMERGENCY)\b`
+	}
+
+	stage.match {
+		selector = "{job=\"docker\"} |= \"level_name\""
+
+		stage.json {
+			expressions = {level = "level_name"}
+		}
 	}
 
 	stage.template {
 		source   = "level"
-		template = `{{ if eq (ToLower .Value) "warning" }}warn{{ else }}{{ ToLower .Value }}{{ end }}`
+		template = `{{ $l := ToLower .Value }}{{ if eq $l "warning" }}warn{{ else if or (eq $l "alert") (eq $l "emergency") }}critical{{ else }}{{ $l }}{{ end }}`
 	}
 
 	stage.labels {
