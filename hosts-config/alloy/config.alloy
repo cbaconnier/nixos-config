@@ -117,3 +117,15 @@ prometheus.scrape "host" {
 	scrape_interval = "30s"
 	forward_to      = [prometheus.remote_write.default.receiver]
 }
+
+prometheus.exporter.cadvisor "docker" {
+	docker_host     = sys.env("DOCKER_SOCK")
+	containerd_host = sys.env("CONTAINERD_SOCK")
+	docker_only     = true
+}
+
+prometheus.scrape "docker" {
+	targets         = prometheus.exporter.cadvisor.docker.targets
+	scrape_interval = "30s"
+	forward_to      = [prometheus.remote_write.default.receiver]
+}

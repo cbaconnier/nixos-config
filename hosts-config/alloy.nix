@@ -25,6 +25,7 @@ in
       PROM_URL = "http://prometheus.home.arpa/api/v1/write";
       JOURNAL_PATH = "/var/log/journal";
       DOCKER_SOCK = "unix:///run/user/1000/docker.sock";
+      CONTAINERD_SOCK = "/run/user/1000/docker/containerd/containerd.sock";
       # alloy links systemd-minimal-libs, which cannot read zstd-compressed journals
       LD_PRELOAD = "${config.systemd.package}/lib/libsystemd.so.0";
     };
