@@ -23,7 +23,7 @@
       usbutils # USB utilities: include `lsusb`, `usb-devices` and `usbhid-dump`
       dnsutils # Network utilities: include `dig`, `nslookup` and `nsupdate`
       lsof # Tool to list open files
-      firefox
+      (firefox.override { extraPolicies.Certificates.Install = [ "${./caddy-root.crt}" ]; })
       brave
       pavucontrol
       mangohud # A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more. https://wiki.archlinux.org/title/MangoHud

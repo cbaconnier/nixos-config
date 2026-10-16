@@ -21,8 +21,8 @@ in
 
   systemd.services.alloy = lib.mkIf hasSecret {
     environment = {
-      LOKI_URL = "http://loki.home.arpa/loki/api/v1/push";
-      PROM_URL = "http://prometheus.home.arpa/api/v1/write";
+      LOKI_URL = "https://loki.home.arpa/loki/api/v1/push";
+      PROM_URL = "https://prometheus.home.arpa/api/v1/write";
       JOURNAL_PATH = "/var/log/journal";
       DOCKER_SOCK = "unix:///run/user/1000/docker.sock";
       CONTAINERD_SOCK = "/run/user/1000/docker/containerd/containerd.sock";
