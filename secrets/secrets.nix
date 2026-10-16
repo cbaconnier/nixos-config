@@ -3,5 +3,5 @@ let
 in
 {
   "hue-api-key.age".publicKeys = [ clement ];
-  "openobserve-auth.age".publicKeys = [ clement ];
+  "alloy-ingest.age".publicKeys = [ clement ];
 }

@@ -1,0 +1,119 @@
+loki.write "default" {
+	endpoint {
+		url = sys.env("LOKI_URL")
+
+		basic_auth {
+			username = sys.env("INGEST_USER")
+			password = sys.env("INGEST_PASSWORD")
+		}
+	}
+	external_labels = {
+		host = constants.hostname,
+	}
+}
+
+prometheus.remote_write "default" {
+	endpoint {
+		url = sys.env("PROM_URL")
+
+		basic_auth {
+			username = sys.env("INGEST_USER")
+			password = sys.env("INGEST_PASSWORD")
+		}
+	}
+	external_labels = {
+		host = constants.hostname,
+	}
+}
+
+loki.relabel "journal" {
+	forward_to = []
+
+	rule {
+		source_labels = ["__journal__systemd_unit"]
+		target_label  = "unit"
+	}
+
+	rule {
+		source_labels = ["__journal_priority_keyword"]
+		target_label  = "level"
+	}
+
+	rule {
+		source_labels = ["level"]
+		regex         = "warning"
+		target_label  = "level"
+		replacement   = "warn"
+	}
+
+	rule {
+		source_labels = ["level"]
+		regex         = "crit|alert|emerg"
+		target_label  = "level"
+		replacement   = "critical"
+	}
+}
+
+loki.source.journal "journal" {
+	path          = sys.env("JOURNAL_PATH")
+	max_age       = "1h"
+	labels        = {job = "journal"}
+	relabel_rules = loki.relabel.journal.rules
+	forward_to    = [loki.write.default.receiver]
+}
+
+discovery.docker "containers" {
+	host = sys.env("DOCKER_SOCK")
+}
+
+discovery.relabel "containers" {
+	targets = discovery.docker.containers.targets
+
+	rule {
+		source_labels = ["__meta_docker_container_name"]
+		regex         = "/(.*)"
+		target_label  = "container"
+	}
+
+	rule {
+		source_labels = ["__meta_docker_container_label_com_docker_compose_project"]
+		target_label  = "compose_project"
+	}
+
+	rule {
+		source_labels = ["__meta_docker_container_label_com_docker_compose_service"]
+		target_label  = "compose_service"
+	}
+}
+
+loki.source.docker "containers" {
+	host       = sys.env("DOCKER_SOCK")
+	targets    = discovery.relabel.containers.output
+	labels     = {job = "docker"}
+	forward_to = [loki.process.docker.receiver]
+}
+
+loki.process "docker" {
+	stage.regex {
+		expression = `^(?:\S+\s+){0,2}(?P<level>DEBUG|INFO|WARN|WARNING|ERROR|CRITICAL|FATAL|TRACE)\b`
+	}
+
+	stage.template {
+		source   = "level"
+		template = `{{ if eq (ToLower .Value) "warning" }}warn{{ else }}{{ ToLower .Value }}{{ end }}`
+	}
+
+	stage.labels {
+		values = {level = "level"}
+	}
+
+	forward_to = [loki.write.default.receiver]
+}
+
+prometheus.exporter.unix "host" { }
+
+prometheus.scrape "host" {
+	targets         = prometheus.exporter.unix.host.targets
+	scrape_interval = "30s"
+	forward_to      = [prometheus.remote_write.default.receiver]
+}
