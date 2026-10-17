@@ -149,3 +149,19 @@ prometheus.scrape "docker" {
 	scrape_interval = "30s"
 	forward_to      = [prometheus.remote_write.default.receiver]
 }
+
+prometheus.exporter.process "procs" {
+	track_threads = false
+	gather_smaps  = false
+
+	matcher {
+		name    = "{{.Comm}}"
+		cmdline = [".+"]
+	}
+}
+
+prometheus.scrape "procs" {
+	targets         = prometheus.exporter.process.procs.targets
+	scrape_interval = "30s"
+	forward_to      = [prometheus.remote_write.default.receiver]
+}
