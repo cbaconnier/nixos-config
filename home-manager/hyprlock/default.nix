@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   programs.hyprlock = {
     enable = true;
     settings = {
@@ -46,6 +46,15 @@
           position = "0, -30";
           halign = "center";
           valign = "center";
+        }
+        {
+          text = "cmd[update:2000] ${pkgs.runtimeShell} ${./battery.sh}";
+          font_family = "JetBrainsMono Nerd Font";
+          font_size = 20;
+          color = "rgba(255, 255, 255, 0.7)";
+          position = "0, 40";
+          halign = "center";
+          valign = "bottom";
         }
       ];
     };
