@@ -7,6 +7,12 @@
 #   voice-mode dragon          dragon virtual mic + empty EasyEffects preset
 #   voice-mode double-entity   double-entity virtual mic + empty EasyEffects preset
 #   voice-mode storyteller     storyteller virtual mic + empty EasyEffects preset
+#   voice-mode ghost           ghost virtual mic + empty EasyEffects preset
+#   voice-mode walkie-talkie   walkie-talkie virtual mic + empty EasyEffects preset
+#   voice-mode robot           robot virtual mic + empty EasyEffects preset
+#   voice-mode imp             imp virtual mic + empty EasyEffects preset
+#   voice-mode oracle          oracle virtual mic + empty EasyEffects preset
+#   voice-mode ogre            ogre virtual mic + empty EasyEffects preset
 #
 # EasyEffects stays between the source and everything else; a mode only changes the
 # system default source and the EasyEffects input preset. Virtual voices are the systemd
@@ -47,7 +53,7 @@ pkgs.writeShellScriptBin "voice-mode" ''
   }
 
   # Virtual voice services, see hosts-config/virtual-voices.
-  voices="banshee dragon double-entity storyteller"
+  voices="banshee dragon double-entity storyteller ghost walkie-talkie robot imp oracle ogre"
 
   # Stop every virtual voice service except $1.
   stop_voices_except() {

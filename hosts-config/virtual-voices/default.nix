@@ -14,6 +14,12 @@ let
     dragon = import ./dragon.nix v;
     double-entity = import ./double-entity.nix v;
     storyteller = import ./storyteller.nix v;
+    ghost = import ./ghost.nix v;
+    walkie-talkie = import ./walkie-talkie.nix v;
+    robot = import ./robot.nix v;
+    imp = import ./imp.nix v;
+    oracle = import ./oracle.nix v;
+    ogre = import ./ogre.nix v;
   };
 in
 {

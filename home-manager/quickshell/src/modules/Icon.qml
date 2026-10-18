@@ -63,7 +63,13 @@ Item {
       "book-2": 0xefc5,
       "brain": 0xf59f,
       "dragon": 0x10272,
-      "ghost-2": 0xf57c
+      "ghost-2": 0xf57c,
+      "droplet": 0xea97,
+      "radio": 0xef2d,
+      "robot": 0xf00b,
+      "wand": 0xebcb,
+      "crystal-ball": 0xf57b,
+      "axe": 0xef9f
     })
 
   Text {

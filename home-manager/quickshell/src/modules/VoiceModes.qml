@@ -11,7 +11,7 @@ RowLayout {
   property Item tooltipHost: null
   property bool listening: false
 
-  readonly property var voices: ["banshee", "dragon", "double-entity", "storyteller"]
+  readonly property var voices: ["banshee", "dragon", "double-entity", "storyteller", "ghost", "walkie-talkie", "robot", "imp", "oracle", "ogre"]
   readonly property string sourceName: Pipewire.defaultAudioSource?.name ?? ""
   readonly property string mode: voices.find(v => sourceName === v + "_source") ?? "default"
 
@@ -34,6 +34,75 @@ RowLayout {
 
   Component.onCompleted: refresh()
 
+  readonly property var modes: [
+    {
+      mode: "default",
+      icon: "user",
+      tip: "Default"
+    },
+    {
+      mode: "storyteller",
+      icon: "book-2",
+      tip: "Storyteller"
+    },
+    {
+      mode: "double-entity",
+      icon: "brain",
+      tip: "Double Entity"
+    },
+    {
+      mode: "dragon",
+      icon: "dragon",
+      tip: "Dragon"
+    },
+    {
+      mode: "banshee",
+      icon: "droplet",
+      tip: "Banshee"
+    },
+    {
+      mode: "ghost",
+      icon: "ghost-2",
+      tip: "Ghost"
+    },
+    {
+      mode: "walkie-talkie",
+      icon: "radio",
+      tip: "Walkie-talkie"
+    },
+    {
+      mode: "robot",
+      icon: "robot",
+      tip: "Robot"
+    },
+    {
+      mode: "imp",
+      icon: "wand",
+      tip: "Imp"
+    },
+    {
+      mode: "oracle",
+      icon: "crystal-ball",
+      tip: "Oracle"
+    },
+    {
+      mode: "ogre",
+      icon: "axe",
+      tip: "Ogre"
+    }
+  ]
+
+  component ModeButton: BarButton {
+    required property var modelData
+
+    icon: modelData.icon
+    tooltip: modelData.tip
+    tooltipHost: root.tooltipHost
+    checked: root.mode === modelData.mode
+    enabled: !modeProc.running
+    onClicked: root.switchTo(modelData.mode)
+  }
+
   BarButton {
     icon: "headphones"
     tooltip: root.listening ? "Ne plus s'écouter" : "S'écouter"
@@ -42,46 +111,31 @@ RowLayout {
     onClicked: root.toggleListen()
   }
 
-  Separator {}
+  Separator {
+    Layout.preferredHeight: 50
+  }
 
-  Repeater {
-    model: [
-      {
-        mode: "default",
-        icon: "user",
-        tip: "Default"
-      },
-      {
-        mode: "storyteller",
-        icon: "book-2",
-        tip: "Storyteller"
-      },
-      {
-        mode: "double-entity",
-        icon: "brain",
-        tip: "Double Entity"
-      },
-      {
-        mode: "dragon",
-        icon: "dragon",
-        tip: "Dragon"
-      },
-      {
-        mode: "banshee",
-        icon: "ghost-2",
-        tip: "Banshee"
+  ColumnLayout {
+    spacing: 6
+
+    RowLayout {
+      spacing: 6
+
+      Repeater {
+        model: root.modes.slice(0, 6)
+
+        ModeButton {}
       }
-    ]
+    }
 
-    BarButton {
-      required property var modelData
+    RowLayout {
+      spacing: 6
 
-      icon: modelData.icon
-      tooltip: modelData.tip
-      tooltipHost: root.tooltipHost
-      checked: root.mode === modelData.mode
-      enabled: !modeProc.running
-      onClicked: root.switchTo(modelData.mode)
+      Repeater {
+        model: root.modes.slice(6)
+
+        ModeButton {}
+      }
     }
   }
 
