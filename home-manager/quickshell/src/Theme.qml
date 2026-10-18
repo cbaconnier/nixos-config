@@ -25,6 +25,12 @@ Singleton {
   readonly property string fontFamily: "sans-serif"
   readonly property int fontSize: 13
 
+  readonly property var locale: Qt.locale("fr_CH")
+
+  function formatDate(d: date, format: string): string {
+    return locale.toString(d, format);
+  }
+
   function alpha(c: color, a: real): color {
     return Qt.rgba(c.r, c.g, c.b, a);
   }

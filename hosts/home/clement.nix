@@ -22,6 +22,7 @@
     ./../../home-manager/hyprlock
     ./../../home-manager/kitty
     ./../../home-manager/mime
+    ./../../home-manager/reminders
     ./../../home-manager/xfce4
     ./../../home-manager/nvim
     ./../../home-manager/pipewire

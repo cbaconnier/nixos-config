@@ -28,6 +28,20 @@ ShellRoot {
     }
   }
 
+  IpcHandler {
+    target: "reminders"
+
+    function alert(title: string, body: string): string {
+      Reminders.alert(title, body);
+      return "ok";
+    }
+
+    function timer(minutes: real, label: string): string {
+      Reminders.startTimer(minutes, label);
+      return "ok";
+    }
+  }
+
   Variants {
     model: Quickshell.screens
 
@@ -39,4 +53,6 @@ ShellRoot {
   }
 
   NotificationPopup {}
+
+  ReminderAlerts {}
 }

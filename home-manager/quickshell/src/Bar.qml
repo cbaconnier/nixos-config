@@ -54,18 +54,34 @@ Scope {
       right: true
     }
 
+    WlrLayershell.keyboardFocus: clock.calendarOpen ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
+
     exclusionMode: ExclusionMode.Normal
     exclusiveZone: bar.inKiosk ? 0 : Theme.barHeight
 
     mask: Region {
       item: maskItem
+
+      Region {
+        x: clock.dialogOpen ? clock.panelRect.x : 0
+        y: clock.dialogOpen ? clock.panelRect.y : 0
+        width: clock.dialogOpen ? clock.panelRect.width : 0
+        height: clock.dialogOpen ? clock.panelRect.height : 0
+      }
+
+      Region {
+        x: clock.dialogOpen ? clock.dialogRect.x : 0
+        y: clock.dialogOpen ? clock.dialogRect.y : 0
+        width: clock.dialogOpen ? clock.dialogRect.width : 0
+        height: clock.dialogOpen ? clock.dialogRect.height : 0
+      }
     }
 
     Item {
       id: maskItem
 
       width: win.width
-      height: win.panelOpen ? win.height : Theme.barHeight
+      height: win.panelOpen && !clock.dialogOpen ? win.height : Theme.barHeight
     }
 
     MouseArea {

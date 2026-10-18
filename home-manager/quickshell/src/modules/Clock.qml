@@ -13,9 +13,14 @@ Item {
   readonly property date now: sysClock.date
 
   property string picker: ""
+  property date selectedDate: new Date()
+  property bool dialogOpen: false
+
+  readonly property rect panelRect: Qt.rect(panel.x, panel.y, panel.width, panel.height)
+  readonly property rect dialogRect: dialog.cardRect
   property int yearPage: 0
 
-  readonly property int bodyWidth: 7 * 28 + 6 * 2
+  readonly property int bodyWidth: 7 * 40 + 6 * 2
   readonly property int bodyHeight: 178
 
   implicitWidth: label.implicitWidth + 16
@@ -24,6 +29,9 @@ Item {
 
   onVisibleChanged: if (!visible)
     calendarOpen = false
+
+  onCalendarOpenChanged: if (!calendarOpen)
+    dialogOpen = false
 
   function step(delta: int) {
     if (root.picker === "year") {
@@ -69,7 +77,7 @@ Item {
     id: label
 
     anchors.centerIn: parent
-    text: Qt.formatDateTime(root.now, "HH:mm:ss - d MMM.")
+    text: Theme.formatDate(root.now, "HH:mm:ss - d MMM") + (Reminders.nextText.length > 0 ? `  ·  ${Reminders.nextText}` : "")
     color: Theme.fg
     font.family: Theme.fontFamily
     font.pixelSize: Theme.fontSize
@@ -86,10 +94,14 @@ Item {
         grid.month = root.now.getMonth();
         grid.year = root.now.getFullYear();
         root.picker = "";
+        root.selectedDate = root.now;
+        Reminders.reload();
       }
       root.calendarOpen = !root.calendarOpen;
-      if (root.calendarOpen)
+      if (root.calendarOpen) {
         panel.place();
+        panel.forceActiveFocus();
+      }
     }
   }
 
@@ -100,7 +112,7 @@ Item {
     visible: root.calendarOpen
 
     width: root.bodyWidth + 24
-    height: header.implicitHeight + root.bodyHeight + 26
+    height: header.implicitHeight + root.bodyHeight + 26 + extras.implicitHeight + 8
     color: Theme.bg
     border.color: Theme.border
     border.width: 1
@@ -172,6 +184,36 @@ Item {
       }
     }
 
+    ReminderDialog {
+      id: dialog
+
+      parent: root.panelHost ?? root
+      anchors.fill: parent
+      z: 10
+      visible: root.dialogOpen
+      date: root.selectedDate
+      centerX: panel.x + panel.width / 2
+      topY: Theme.barHeight + 4
+      onClose: root.dialogOpen = false
+    }
+
+    ColumnLayout {
+      id: extras
+
+      x: 12
+      y: header.y + header.implicitHeight + 6 + root.bodyHeight + 8
+      width: root.bodyWidth
+      spacing: 8
+
+      ClockTimers {
+        Layout.fillWidth: true
+      }
+
+      ClockReminders {
+        Layout.fillWidth: true
+      }
+    }
+
     Item {
       id: body
 
@@ -204,18 +246,26 @@ Item {
         MonthGrid {
           id: grid
 
+          locale: Theme.locale
+
           Layout.alignment: Qt.AlignHCenter
           month: root.now.getMonth()
           year: root.now.getFullYear()
           spacing: 2
 
           delegate: Rectangle {
+            id: dayCell
+
             required property var model
 
-            implicitWidth: 28
+            readonly property string key: Qt.formatDate(model.date, "yyyy-MM-dd")
+
+            implicitWidth: 40
             implicitHeight: 24
             radius: Theme.radius
-            color: model.today ? Theme.alpha(Theme.selectedBg, 0.35) : "transparent"
+            color: model.today ? Theme.alpha(Theme.selectedBg, 0.35) : (dayHover.containsMouse ? Theme.alpha(Theme.fg, 0.12) : "transparent")
+            border.width: key === Qt.formatDate(root.selectedDate, "yyyy-MM-dd") ? 1 : 0
+            border.color: Theme.selectedBg
 
             Text {
               anchors.centerIn: parent
@@ -225,6 +275,28 @@ Item {
               opacity: model.month === grid.month ? 1 : 0.35
               font.family: Theme.fontFamily
               font.pixelSize: Theme.fontSize
+            }
+
+            Rectangle {
+              anchors.horizontalCenter: parent.horizontalCenter
+              anchors.bottom: parent.bottom
+              anchors.bottomMargin: 2
+              width: 4
+              height: 4
+              radius: 2
+              color: Theme.fg
+              visible: Reminders.days[dayCell.key] === true
+            }
+
+            MouseArea {
+              id: dayHover
+
+              anchors.fill: parent
+              hoverEnabled: true
+              onClicked: {
+                root.selectedDate = dayCell.model.date;
+                root.dialogOpen = true;
+              }
             }
           }
         }
