@@ -10,13 +10,7 @@ let
   '';
 in
 {
-  # Not on PATH as `remind`: it would shadow the countdown script in scripts/remind.nix.
-  home.packages = [
-    (pkgs.runCommand "remind-cli" { } ''
-      mkdir -p $out/bin
-      ln -s ${pkgs.remind}/bin/remind $out/bin/remind-cli
-    '')
-  ];
+  home.packages = [ pkgs.remind ];
 
   systemd.user.services.remind = {
     Unit.Description = "remind daemon";

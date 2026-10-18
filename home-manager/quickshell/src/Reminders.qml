@@ -52,7 +52,7 @@ Singleton {
   }
 
   function reload() {
-    loader.command = ["remind-cli", "-b2", "-ppp6", root.remindersPath, Qt.formatDate(new Date(), "yyyy-MM-01")];
+    loader.command = ["remind", "-b2", "-ppp6", root.remindersPath, Qt.formatDate(new Date(), "yyyy-MM-01")];
     loader.running = true;
   }
 
