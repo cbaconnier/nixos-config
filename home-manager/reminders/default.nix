@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
   notify = pkgs.writeShellScript "remind-notify" ''
-    exec ${pkgs.quickshell}/bin/qs ipc call reminders alert "$1" ""
+    exec ${pkgs.quickshell}/bin/qs ipc --any-display call reminders alert "$1" ""
   '';
 
   daemon = pkgs.writeShellScript "remind-daemon" ''
