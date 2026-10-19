@@ -99,6 +99,14 @@ loki.source.docker "containers" {
 }
 
 loki.process "docker" {
+	stage.match {
+		selector = `{job="docker"} |~ "^[ ]*[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9:]{8} [^ ]+ [. ]* ~ [0-9.]+m?s$"`
+
+		stage.static_labels {
+			values = {kind = "request"}
+		}
+	}
+
 	stage.regex {
 		expression = `^\s*(?:\S+\s+){0,2}(?P<level>DEBUG|INFO|WARN|WARNING|ERROR|CRITICAL|FATAL|TRACE)\b`
 	}
@@ -169,4 +177,50 @@ prometheus.scrape "procs" {
 	targets         = prometheus.exporter.process.procs.targets
 	scrape_interval = "30s"
 	forward_to      = [prometheus.remote_write.default.receiver]
+}
+
+otelcol.receiver.otlp "claude" {
+	grpc {
+		endpoint = "127.0.0.1:4317"
+	}
+
+	output {
+		metrics = [otelcol.processor.batch.claude.input]
+		logs    = [otelcol.processor.attributes.claude.input]
+	}
+}
+
+otelcol.processor.attributes "claude" {
+	action {
+		key    = "loki.attribute.labels"
+		action = "insert"
+		value  = "event.name"
+	}
+
+	output {
+		logs = [otelcol.processor.batch.claude.input]
+	}
+}
+
+otelcol.processor.batch "claude" {
+	output {
+		metrics = [otelcol.exporter.prometheus.claude.input]
+		logs    = [otelcol.exporter.loki.claude.input]
+	}
+}
+
+otelcol.exporter.prometheus "claude" {
+	forward_to = [prometheus.remote_write.default.receiver]
+}
+
+otelcol.exporter.loki "claude" {
+	forward_to = [loki.process.claude.receiver]
+}
+
+loki.process "claude" {
+	stage.static_labels {
+		values = {job = "claude-code"}
+	}
+
+	forward_to = [loki.write.default.receiver]
 }
