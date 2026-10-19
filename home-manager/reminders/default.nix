@@ -5,7 +5,10 @@ let
   '';
 
   daemon = pkgs.writeShellScript "remind-daemon" ''
-    touch "$HOME/.reminders"
+    f="$HOME/.reminders"
+    touch "$f"
+    ${pkgs.remind}/bin/remind -j "$f" >/dev/null && ${pkgs.gnugrep}/bin/grep -v '^#!P: Expired:' "$f.purged" > "$f.new" && mv "$f.new" "$f"
+    rm -f "$f.purged" "$f.new"
     exec ${pkgs.remind}/bin/remind -z -a -a '-k${notify} %s' "$HOME/.reminders"
   '';
 in
