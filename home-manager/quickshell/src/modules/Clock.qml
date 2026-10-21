@@ -9,6 +9,7 @@ Item {
 
   property bool calendarOpen: false
   property Item panelHost: null
+  property Item tooltipHost: null
 
   readonly property date now: sysClock.date
 
@@ -55,6 +56,25 @@ Item {
       grid.month = m;
   }
 
+  function hideTip() {
+    tipDelay.stop();
+    if (root.tooltipHost?.target === root)
+      root.tooltipHost.hide();
+  }
+
+  Timer {
+    id: tipDelay
+
+    interval: 600
+    onTriggered: {
+      const d = new Date();
+      const utc = new Date(d.getTime() + d.getTimezoneOffset() * 60000);
+      root.tooltipHost?.show(root, Theme.formatDate(utc, "HH:mm - d MMM") + " UTC");
+    }
+  }
+
+  Component.onDestruction: root.hideTip()
+
   SystemClock {
     id: sysClock
 
@@ -89,7 +109,14 @@ Item {
 
     anchors.fill: parent
     hoverEnabled: true
+    onContainsMouseChanged: {
+      if (containsMouse && !root.calendarOpen && root.tooltipHost)
+        tipDelay.restart();
+      else
+        root.hideTip();
+    }
     onClicked: {
+      root.hideTip();
       if (!root.calendarOpen) {
         grid.month = root.now.getMonth();
         grid.year = root.now.getFullYear();

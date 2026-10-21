@@ -140,6 +140,7 @@ Scope {
 
           visible: !Zen.active || !Zen.hideClock
           panelHost: panelLayer
+          tooltipHost: tooltip
         }
 
         RowLayout {
