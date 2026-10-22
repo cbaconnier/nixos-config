@@ -13,6 +13,7 @@
     ./../../home-manager/clipse
     ./../../home-manager/deezer
     ./../../home-manager/easyeffects
+    ./../../home-manager/firefox
     ./../../home-manager/git
     ./../../home-manager/gtk
     ./../../home-manager/hue
