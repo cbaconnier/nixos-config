@@ -45,10 +45,6 @@
         libloot = pyFinal.callPackage ../pkgs/libloot { };
       })
     ];
-
-    glasscope = final.callPackage ../pkgs/glasscope {
-      hyprland = inputs.hyprland.packages.${final.stdenv.hostPlatform.system}.hyprland;
-    };
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will

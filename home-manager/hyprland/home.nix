@@ -20,8 +20,6 @@
 
     configType = "lua";
 
-    plugins = [ pkgs.glasscope ];
-
     # Split config modules. Each is written under ~/.config/hypr and auto
     # require()d (in alphabetical order) from the generated hyprland.lua.
     extraLuaFiles = {
@@ -31,7 +29,6 @@
       env_nvidia = ./home/env.lua;
       input = ./input.lua;
       keybinds = ./keybinds.lua;
-      plugin = ./plugin.lua;
       startup_apps = ./home/startup_apps.lua;
       windows = ./windows.lua;
     };
