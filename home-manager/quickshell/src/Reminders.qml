@@ -24,10 +24,26 @@ Singleton {
   function alert(title: string, body: string) {
     root.alerts.append({
       title: title,
-      body: body
+      body: body,
+      muted: false
     });
     if (!player.running && !gap.running)
       player.running = true;
+  }
+
+  function ringing(): bool {
+    for (let i = 0; i < root.alerts.count; i++)
+      if (!root.alerts.get(i).muted)
+        return true;
+    return false;
+  }
+
+  function mute(index: int) {
+    root.alerts.setProperty(index, "muted", true);
+    if (!root.ringing()) {
+      gap.stop();
+      player.running = false;
+    }
   }
 
   function dismiss(index: int) {
@@ -134,7 +150,7 @@ Singleton {
     id: player
 
     command: ["pw-play", root.sound]
-    onExited: if (root.alerts.count > 0)
+    onExited: if (root.ringing())
       gap.restart()
   }
 
@@ -142,7 +158,7 @@ Singleton {
     id: gap
 
     interval: 500
-    onTriggered: if (root.alerts.count > 0)
+    onTriggered: if (root.ringing())
       player.running = true
   }
 

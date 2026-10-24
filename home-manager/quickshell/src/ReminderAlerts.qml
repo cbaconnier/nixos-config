@@ -54,6 +54,7 @@ PanelWindow {
         required property int index
         required property string title
         required property string body
+        required property bool muted
 
         Layout.fillWidth: true
         implicitHeight: content.implicitHeight + 20
@@ -82,9 +83,16 @@ PanelWindow {
 
               Icon {
                 anchors.centerIn: parent
-                icon: "bell"
+                icon: card.muted ? "bell-off" : "bell"
                 size: 18
                 color: Theme.selectedFg
+              }
+
+              MouseArea {
+                anchors.fill: parent
+                enabled: !card.muted
+                cursorShape: Qt.PointingHandCursor
+                onClicked: Reminders.mute(card.index)
               }
             }
 
