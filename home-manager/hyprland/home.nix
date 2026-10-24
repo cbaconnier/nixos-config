@@ -58,6 +58,7 @@
     wl-clipboard
     hyprcursor
     wtype
+    hyprpicker
   ];
 
   # Create the config.d directory for HyprDynamicMonitors

@@ -312,6 +312,16 @@ Item {
                 panelHost: root
                 tooltipHost: root.tooltipHost
               }
+
+              BarButton {
+                icon: "color-picker"
+                tooltip: "Pipette à couleur"
+                tooltipHost: root.tooltipHost
+                onClicked: {
+                  root.open = false;
+                  pickerProc.startDetached();
+                }
+              }
             }
           }
         }
@@ -387,6 +397,12 @@ Item {
     id: rofiProc
 
     command: ["rofi", "-show", "drun", "-modes", "drun"]
+  }
+
+  Process {
+    id: pickerProc
+
+    command: ["bash", "-c", "sleep 0.3; exec hyprpicker -a"]
   }
 
   Process {

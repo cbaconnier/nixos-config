@@ -23,6 +23,7 @@ Item {
       "device-desktop-bolt": 0xf85e,
       "sunset-2": 0xf23a,
       "apps": 0xebb6,
+      "color-picker": 0xebe6,
       "power": 0xeb0d,
       "chevron-up": 0xea62,
       "chevron-down": 0xea5f,
