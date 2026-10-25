@@ -1,4 +1,11 @@
-{ pkgs, inputs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+{
 
   # This file enable the development version when stable one get unstable
   # You first need to uncomment the file in configuration.nix
@@ -20,6 +27,10 @@
     withUWSM = false;
     xwayland.enable = true;
   };
+
+  # https://github.com/NixOS/nixpkgs/issues/573049
+  # TODO(2026-10-25): remove once the hyprland flake ships a binary wrapper
+  security.wrappers.Hyprland.source = lib.mkForce "${config.programs.hyprland.package}/bin/.Hyprland-wrapped";
 
   # https://wiki.hyprland.org/Nix/Hyprland-on-NixOS/
   hardware.graphics =

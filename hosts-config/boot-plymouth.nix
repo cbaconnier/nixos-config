@@ -1,7 +1,6 @@
 { inputs, pkgs, ... }:
 {
   boot.consoleLogLevel = 0;
-  boot.initrd.verbose = false;
   boot.kernelParams = [
     "quiet"
     "splash"
@@ -12,7 +11,6 @@
   ];
 
   boot.initrd.enable = true;
-  boot.initrd.systemd.enable = true;
   boot.initrd.compressor = "gzip";
 
   boot.plymouth = {
