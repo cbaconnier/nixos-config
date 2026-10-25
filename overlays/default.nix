@@ -12,18 +12,6 @@
     # ...
     # });
 
-    # From https://github.com/NixOS/nixpkgs/pull/569777, not yet merged upstream
-    filen-desktop = prev.filen-desktop.overrideAttrs (_old: {
-      npmRebuildFlags = [ "--ignore-scripts" ];
-      preBuild = ''
-        substituteInPlace node_modules/canvas/src/CharData.h \
-          --replace-fail '#pragma once' '#pragma once
-        #include <cstdint>'
-
-        npm rebuild
-      '';
-    });
-
     freetube = prev.freetube.overrideAttrs (old: rec {
       version = "0.25.3";
       src = final.fetchFromGitHub {
@@ -38,7 +26,7 @@
       };
     });
 
-    # From https://github.com/NixOS/nixpkgs/pull/547296, not yet merged upstream
+    # TODO(2026-09-02) Remove once https://github.com/NixOS/nixpkgs/pull/547296 is merged
     # (needed by pkgs/amethyst-mod-manager)
     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
       (pyFinal: _pyPrev: {
