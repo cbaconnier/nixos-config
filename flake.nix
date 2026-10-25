@@ -63,6 +63,9 @@
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
 
       nixosConfigurations = nixpkgs.lib.genAttrs hosts mkHost;
+
+      checks.${system} = nixpkgs.lib.genAttrs hosts (
+        host: self.nixosConfigurations.${host}.config.system.build.toplevel
       );
     };
 }
