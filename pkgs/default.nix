@@ -4,9 +4,6 @@
 pkgs: {
   noise-suppression-for-voice = pkgs.callPackage ./noise-suppression-for-voice { };
   amsel-suite = pkgs.callPackage ./amsel-suite { };
-  catppuccin-papirus-folders-custom-icons =
-    pkgs.callPackage ./catppuccin-papirus-folders-custom-icons
-      { };
   hue-bridge-tui = pkgs.callPackage ./hue-bridge-tui { };
   kenku-fm = pkgs.callPackage ./kenku-fm { };
   amethyst-mod-manager = pkgs.callPackage ./amethyst-mod-manager { };

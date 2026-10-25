@@ -12,12 +12,10 @@ let
     size = "standard";
     variant = "latte";
   };
-  lightIconPkg = pkgs.catppuccin-papirus-folders-custom-icons (
-    pkgs.catppuccin-papirus-folders.override {
-      accent = "teal";
-      flavor = "latte";
-    }
-  );
+  lightIconPkg = pkgs.catppuccin-papirus-folders.override {
+    accent = "teal";
+    flavor = "latte";
+  };
 in
 {
   qt.style = {

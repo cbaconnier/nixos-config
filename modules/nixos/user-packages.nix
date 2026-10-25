@@ -57,7 +57,6 @@
       clipse # TUI-based clipboard manager application
       doublecmd # Double Commander
       pavucontrol
-      alarm-clock-applet
       ente-desktop
       filen-desktop
       stremio-linux-shell

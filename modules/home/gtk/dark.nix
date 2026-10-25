@@ -12,12 +12,10 @@ let
     size = "standard";
     variant = "macchiato";
   };
-  darkIconPkg = pkgs.catppuccin-papirus-folders-custom-icons (
-    pkgs.catppuccin-papirus-folders.override {
-      accent = "blue";
-      flavor = "macchiato";
-    }
-  );
+  darkIconPkg = pkgs.catppuccin-papirus-folders.override {
+    accent = "blue";
+    flavor = "macchiato";
+  };
 in
 {
   qt.style = {
