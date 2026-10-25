@@ -6,11 +6,6 @@
   ...
 }:
 {
-
-  # This file enable the development version when stable one get unstable
-  # You first need to uncomment the file in configuration.nix
-  # You also need to disable (`enable=false`) hyprland in home-manager
-
   # https://wiki.hyprland.org/Nix/Hyprland-on-NixOS/
 
   # https://wiki.hyprland.org/Nix/Cachix/
