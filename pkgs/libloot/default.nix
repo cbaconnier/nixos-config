@@ -1,43 +1,22 @@
 # From https://github.com/NixOS/nixpkgs/pull/547296, not yet merged upstream
 {
   buildPythonPackage,
-  fetchFromGitHub,
-  git,
   lib,
+  pkgs,
   rustPlatform,
 }:
 
-buildPythonPackage (finalAttrs: {
+buildPythonPackage {
+  inherit (pkgs.libloot) version src cargoDeps; # nixpkgs-update: no auto update
   pname = "libloot";
-  version = "0.29.6";
   pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "loot";
-    repo = "libloot";
-    tag = finalAttrs.version;
-    hash = "sha256-Pz13z0uQfTeo47NJORfZ8n8ucqZdoLVGNIsrf2+OOGA=";
-  };
+  buildAndTestSubdir = "python";
 
-  sourceRoot = "${finalAttrs.src.name}/python";
-  cargoRoot = "..";
-
-  nativeBuildInputs = [
-    git
-  ]
-  ++ (with rustPlatform; [
+  nativeBuildInputs = with rustPlatform; [
     cargoSetupHook
     maturinBuildHook
-  ]);
-
-  cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit (finalAttrs) src;
-    hash = "sha256-IQowGdrol/JFoh+hGfhwoJ2FumkvbuZsp8Xx/V2hFdw=";
-  };
-
-  env = {
-    CARGO_TARGET_DIR = "./target";
-  };
+  ];
 
   # no tests
   doCheck = false;
@@ -47,9 +26,9 @@ buildPythonPackage (finalAttrs: {
   __structuredAttrs = true;
 
   meta = {
+    inherit (pkgs.libloot.meta) license platforms;
     description = "Experimental Python wrapper around libloot";
     homepage = "https://github.com/loot/libloot/tree/master/python";
-    license = lib.licenses.gpl3Only;
-    platforms = lib.platforms.linux;
+    maintainers = pkgs.libloot.meta.maintainers ++ (with lib.maintainers; [ RoGreat ]);
   };
-})
+}
