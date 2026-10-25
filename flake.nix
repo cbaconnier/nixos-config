@@ -8,11 +8,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    astal.url = "github:aylur/astal";
+    hyprdynamicmonitors = {
+      url = "github:fiffeek/hyprdynamicmonitors";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
-
-    plymouth-theme-cat.url = "github:cbaconnier/PlymouthTheme-Cat";
+    plymouth-theme-cat = {
+      url = "github:cbaconnier/PlymouthTheme-Cat";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     agenix = {
       url = "github:ryantm/agenix";
@@ -30,6 +34,10 @@
     let
       system = "x86_64-linux";
       inherit (self) outputs;
+      hosts = [
+        "home"
+        "laptop"
+      ];
       mkHost =
         host:
         nixpkgs.lib.nixosSystem {
@@ -54,6 +62,7 @@
 
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
 
-      nixosConfigurations = nixpkgs.lib.genAttrs [ "home" "laptop" ] mkHost;
+      nixosConfigurations = nixpkgs.lib.genAttrs hosts mkHost;
+      );
     };
 }
