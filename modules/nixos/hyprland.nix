@@ -26,6 +26,9 @@
   # https://github.com/NixOS/nixpkgs/issues/573049
   # TODO(2026-10-25): remove once the hyprland flake ships a binary wrapper
   security.wrappers.Hyprland.source = lib.mkForce "${config.programs.hyprland.package}/bin/.Hyprland-wrapped";
+  environment.systemPackages = [
+    inputs.hyprland.inputs.hyprland-guiutils.packages.${pkgs.stdenv.hostPlatform.system}.default
+  ];
 
   # https://wiki.hyprland.org/Nix/Hyprland-on-NixOS/
   hardware.graphics =
