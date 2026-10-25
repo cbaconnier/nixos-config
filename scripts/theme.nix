@@ -29,7 +29,7 @@ pkgs.writeShellScriptBin "theme" ''
 
   PALETTE="$HOME/.cache/quickshell-palette.qml"
   if [ -e "$PALETTE" ]; then
-    for dest in "$HOME/.config/quickshell/default" "$HOME/nixos-config/home-manager/quickshell/src"; do
+    for dest in "$HOME/.config/quickshell/default" "$HOME/nixos-config/modules/home/quickshell/src"; do
       [ -d "$dest" ] && install -m 0644 -T "$PALETTE" "$dest/Palette.qml"
     done
   fi

@@ -1,50 +1,14 @@
+{ pkgs, ... }:
 {
-  inputs,
-  pkgs,
-  ...
-}:
-
-{
-  home.username = "clement";
-  home.homeDirectory = "/home/clement";
-
   imports = [
-    ./../../home-manager/quickshell/home.nix
-    ./../../home-manager/clipse
-    ./../../home-manager/deezer
-    ./../../home-manager/easyeffects
-    ./../../home-manager/firefox
-    ./../../home-manager/git
-    ./../../home-manager/gtk
-    ./../../home-manager/hue
-    ./../../home-manager/theme
-    ./../../home-manager/hyprdynamicmonitors/home.nix
-    ./../../home-manager/hyprland/home.nix
-    ./../../home-manager/hyprlock
-    ./../../home-manager/kitty
-    ./../../home-manager/mime
-    ./../../home-manager/reminders
-    ./../../home-manager/xfce4
-    ./../../home-manager/nvim
-    ./../../home-manager/pipewire
-    ./../../home-manager/rofi
-    ./../../home-manager/swayimg
-    ./../../home-manager/wallpapers
-    ./../../home-manager/zsh
+    ../../modules/home/common.nix
+    ../../modules/home/hyprdynamicmonitors/home.nix
+    ../../modules/home/hyprland/home.nix
+    ../../modules/home/quickshell/home.nix
   ];
 
   home.packages = with pkgs; [
     amsel-suite
     kenku-fm
   ];
-
-  home.sessionVariables = {
-    EDITOR = "nvim";
-    BROWSER = "firefox";
-    TERMINAL = "kitty";
-  };
-
-  programs.home-manager.enable = true;
-
-  home.stateVersion = "24.11";
 }

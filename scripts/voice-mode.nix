@@ -16,7 +16,7 @@
 #
 # EasyEffects stays between the source and everything else; a mode only changes the
 # system default source and the EasyEffects input preset. Virtual voices are the systemd
-# user services of hosts-config/virtual-voices.
+# user services of modules/nixos/virtual-voices.
 pkgs.writeShellScriptBin "voice-mode" ''
   set -euo pipefail
 
@@ -52,7 +52,7 @@ pkgs.writeShellScriptBin "voice-mode" ''
     easyeffects -l "$2"
   }
 
-  # Virtual voice services, see hosts-config/virtual-voices.
+  # Virtual voice services, see modules/nixos/virtual-voices.
   voices="banshee dragon double-entity storyteller ghost walkie-talkie robot imp oracle ogre"
 
   # Stop every virtual voice service except $1.

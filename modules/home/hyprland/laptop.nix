@@ -6,7 +6,7 @@
   ...
 }:
 
-# Note: HYPRCURSOR_THEME and HYPRCURSOR_SIZE are defined in /home-manager/gtk/default.nix
+# Note: HYPRCURSOR_THEME and HYPRCURSOR_SIZE are defined in /modules/home/gtk/default.nix
 #
 # https://nixos.wiki/wiki/Hyprland#Using_Home_Manager
 

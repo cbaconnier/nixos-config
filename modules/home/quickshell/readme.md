@@ -1,6 +1,6 @@
 # Run
 
-    qs -p ~/nixos-config/home-manager/quickshell/src
+    qs -p ~/nixos-config/modules/home/quickshell/src
 
 Watcher is on by default. `QS_DISABLE_FILE_WATCHER=1` turns the watcher off.
 

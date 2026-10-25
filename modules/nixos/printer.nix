@@ -33,7 +33,7 @@
     pkgs.linkFarm "drivers" [
       {
         name = "share/cups/model/Brother_MFC-L2710DW.ppd";
-        path = ../printers/Brother_MFC-L2710DW.ppd;
+        path = ../../printers/Brother_MFC-L2710DW.ppd;
       }
     ]
   );

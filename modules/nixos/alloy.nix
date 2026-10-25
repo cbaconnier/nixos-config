@@ -4,11 +4,11 @@
   ...
 }:
 let
-  hasSecret = builtins.pathExists ../secrets/alloy-ingest.age;
+  hasSecret = builtins.pathExists ../../secrets/alloy-ingest.age;
 in
 {
   age.secrets = lib.optionalAttrs hasSecret {
-    alloy-ingest.file = ../secrets/alloy-ingest.age;
+    alloy-ingest.file = ../../secrets/alloy-ingest.age;
   };
 
   environment.etc."alloy/config.alloy".source = ./alloy/config.alloy;

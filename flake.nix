@@ -30,6 +30,23 @@
     let
       system = "x86_64-linux";
       inherit (self) outputs;
+      mkHost =
+        host:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            ./hosts/${host}/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useUserPackages = true;
+              home-manager.useGlobalPkgs = true;
+              home-manager.backupFileExtension = "backup";
+              home-manager.users.clement = import ./hosts/${host}/clement.nix;
+              home-manager.extraSpecialArgs = { inherit inputs outputs; };
+            }
+          ];
+        };
     in
     {
 
@@ -37,36 +54,6 @@
 
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
 
-      nixosConfigurations.home = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = { inherit inputs outputs; };
-        modules = [
-          ./hosts/home/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useUserPackages = true;
-            home-manager.useGlobalPkgs = true;
-            home-manager.backupFileExtension = "backup";
-            home-manager.users.clement = import ./hosts/home/clement.nix;
-            home-manager.extraSpecialArgs = { inherit inputs outputs; };
-          }
-        ];
-      };
-
-      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = { inherit inputs outputs; };
-        modules = [
-          ./hosts/laptop/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useUserPackages = true;
-            home-manager.useGlobalPkgs = true;
-            home-manager.backupFileExtension = "backup";
-            home-manager.users.clement = import ./hosts/laptop/clement.nix;
-            home-manager.extraSpecialArgs = { inherit inputs outputs; };
-          }
-        ];
-      };
+      nixosConfigurations = nixpkgs.lib.genAttrs [ "home" "laptop" ] mkHost;
     };
 }
