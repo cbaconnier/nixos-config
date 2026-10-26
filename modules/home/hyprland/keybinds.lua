@@ -13,7 +13,7 @@ hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd("kitty"))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 -- hl.bind(mainMod .. " + M", hl.dsp.exit())
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("pkill rofi || rofi -show drun -modes drun"))
-hl.bind(mainMod .. " + Tab", hl.dsp.exec_cmd("pkill rofi || rofi -show window -modes window"))
+hl.bind(mainMod .. " + Tab", hl.dsp.exec_cmd("qs ipc call switcher next"))
 
 hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("power-menu"))
 hl.bind(mainMod .. " + CTRL + L", hl.dsp.exec_cmd("loginctl lock-session"))

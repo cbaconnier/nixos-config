@@ -42,6 +42,24 @@ ShellRoot {
     }
   }
 
+  Switcher {
+    id: switcher
+  }
+
+  IpcHandler {
+    target: "switcher"
+
+    function next(): string {
+      switcher.step(1);
+      return "ok";
+    }
+
+    function prev(): string {
+      switcher.step(-1);
+      return "ok";
+    }
+  }
+
   Variants {
     model: Quickshell.screens
 
