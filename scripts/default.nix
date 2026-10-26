@@ -20,6 +20,7 @@
     })
     (import ./restart-qs.nix { inherit pkgs; })
     (import ./open-project.nix { inherit pkgs; })
+    (import ./run-cleanup.nix { inherit pkgs; })
     (import ./emoji-picker.nix { inherit pkgs; })
     (import ./monitor-post-apply.nix { inherit pkgs lib; })
     (import ./voice.nix { inherit pkgs; })
