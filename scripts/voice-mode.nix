@@ -13,6 +13,7 @@
 #   voice-mode imp             imp virtual mic + empty EasyEffects preset
 #   voice-mode oracle          oracle virtual mic + empty EasyEffects preset
 #   voice-mode ogre            ogre virtual mic + empty EasyEffects preset
+#   voice-mode pumpking        pumpking virtual mic + empty EasyEffects preset
 #
 # EasyEffects stays between the source and everything else; a mode only changes the
 # system default source and the EasyEffects input preset. Virtual voices are the systemd
@@ -53,7 +54,7 @@ pkgs.writeShellScriptBin "voice-mode" ''
   }
 
   # Virtual voice services, see modules/nixos/virtual-voices.
-  voices="banshee dragon double-entity storyteller ghost walkie-talkie robot imp oracle ogre"
+  voices="banshee dragon double-entity storyteller ghost walkie-talkie robot imp oracle ogre pumpking"
 
   # Stop every virtual voice service except $1.
   stop_voices_except() {

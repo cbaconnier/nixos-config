@@ -11,7 +11,7 @@ RowLayout {
   property Item tooltipHost: null
   property bool listening: false
 
-  readonly property var voices: ["banshee", "dragon", "double-entity", "storyteller", "ghost", "walkie-talkie", "robot", "imp", "oracle", "ogre"]
+  readonly property var voices: ["banshee", "dragon", "double-entity", "storyteller", "ghost", "walkie-talkie", "robot", "imp", "oracle", "ogre", "pumpking"]
   readonly property string sourceName: Pipewire.defaultAudioSource?.name ?? ""
   readonly property string mode: voices.find(v => sourceName === v + "_source") ?? "default"
 
@@ -89,6 +89,11 @@ RowLayout {
       mode: "ogre",
       icon: "axe",
       tip: "Ogre"
+    },
+    {
+      mode: "pumpking",
+      icon: "pumpkin-scary",
+      tip: "Pumpking"
     }
   ]
 

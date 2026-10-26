@@ -20,6 +20,7 @@ let
     imp = import ./imp.nix v;
     oracle = import ./oracle.nix v;
     ogre = import ./ogre.nix v;
+    pumpking = import ./pumpking.nix v;
   };
 in
 {

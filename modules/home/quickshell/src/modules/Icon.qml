@@ -70,7 +70,8 @@ Item {
       "robot": 0xf00b,
       "wand": 0xebcb,
       "crystal-ball": 0xf57b,
-      "axe": 0xef9f
+      "axe": 0xef9f,
+      "pumpkin-scary": 0xf587
     })
 
   Text {
