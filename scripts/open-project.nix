@@ -67,7 +67,7 @@ pkgs.writeShellScriptBin "open-project" ''
           create_session_file "$selected" "$session_file"
       fi
       
-      ${pkgs.kitty}/bin/kitty --session "$session_file" > /dev/null 2>&1 &
+      ${pkgs.kitty}/bin/kitty --title "$(basename "$selected")" --session "$session_file" > /dev/null 2>&1 &
   }
 
   # Check for --rofi flag

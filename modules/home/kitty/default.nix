@@ -28,6 +28,8 @@
       "kitty_mod+k" = "previous_window";
 
       "kitty_mod+p" = "next_layout";
+
+      "kitty_mod+i" = "set_window_title";
     };
   };
 
