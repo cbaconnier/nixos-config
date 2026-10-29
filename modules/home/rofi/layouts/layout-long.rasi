@@ -91,7 +91,11 @@ message {
 
 textbox {
     padding: 6px;
-    margin: 20px 0px 0px 20px;
     text-color: @blue;
     background-color: @bg-col-light;
+}
+
+error-message {
+    padding: 20px;
+    background-color: @bg-col;
 }
