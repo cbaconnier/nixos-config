@@ -21,3 +21,10 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("filen-desktop &")
 	hl.exec_cmd("discord", { workspace = "10 silent" })
 end)
+
+-- restart quickshell when the last output vanishes (laptop with lid close for instance)
+hl.on("monitor.added", function()
+	hl.exec_cmd(
+		[[flock -n "$XDG_RUNTIME_DIR/qs-watch.lock" sh -c 'sleep 3; qs ipc --any-display show >/dev/null 2>&1 || restart-qs']]
+	)
+end)

@@ -10,9 +10,9 @@
     config = ''
       [general]
       destination = "$HOME/.config/hypr/config.d/monitors.lua"
-      debounce_time_ms = 1500
-      # reload is needed for the dofile()d destination to be re-read
-      post_apply_exec = "hyprctl reload; setsid monitor-post-apply >/dev/null 2>&1 &"
+      debounce_time_ms = 2000
+      # re-run the dofile()d destination without a full config reload
+      post_apply_exec = "hyprctl eval \"dofile(os.getenv('HOME') .. '/.config/hypr/config.d/monitors.lua')\"; setsid monitor-post-apply >/dev/null 2>&1 &"
 
       [notifications]
       disabled = false
@@ -91,6 +91,7 @@
         --  MONITORS  --
         ----------------
         hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
+        hl.monitor({ output = "{{$laptop.Name}}", mode = "preferred", position = "auto", scale = 1, disabled = false })
 
         ------------------
         --  WORKSPACES  --
@@ -124,7 +125,7 @@
           ----------------
           --  MONITORS  --
           ----------------
-          hl.monitor({ output = "{{$laptop.Name}}", mode = "1920x1200@60", position = "2560x1680", scale = 1.5 })
+          hl.monitor({ output = "{{$laptop.Name}}", mode = "1920x1200@60", position = "2560x1680", scale = 1.5, disabled = false })
           hl.monitor({ output = "{{$external1.Name}}", mode = "2560x1440@60", position = "0x1440", scale = 1 })
           hl.monitor({ output = "{{$external2.Name}}", mode = "2560x1440@60", position = "0x0", scale = 1 })
 
@@ -197,7 +198,7 @@
         ----------------
         --  MONITORS  --
         ----------------
-        hl.monitor({ output = "{{$laptop.Name}}", mode = "1920x1200@60", position = "0x0", scale = 1 })
+        hl.monitor({ output = "{{$laptop.Name}}", mode = "1920x1200@60", position = "0x0", scale = 1, disabled = false })
         hl.monitor({ output = "{{$beamer.Name}}", mode = "1920x1080@60", position = "1920x0", scale = 1 })
 
         ------------------

@@ -10,9 +10,9 @@
     config = ''
       [general]
       destination = "$HOME/.config/hypr/config.d/monitors.lua"
-      debounce_time_ms = 1500
-      # reload is needed for the dofile()d destination to be re-read
-      post_apply_exec = "hyprctl reload; setsid monitor-post-apply >/dev/null 2>&1 &"
+      debounce_time_ms = 2000
+      # re-run the dofile()d destination without a full config reload
+      post_apply_exec = "hyprctl eval \"dofile(os.getenv('HOME') .. '/.config/hypr/config.d/monitors.lua')\"; setsid monitor-post-apply >/dev/null 2>&1 &"
 
       [notifications]
       disabled = false
