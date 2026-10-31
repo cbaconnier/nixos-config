@@ -69,6 +69,18 @@
     };
   };
 
+  # issue(2026-10-31): when I plug my sleeping laptop into the dock and press the
+  # dock's power button, the laptop sometimes shuts down instead of waking up.
+  #--------
+  # This rule finds who sends SIGRTMIN+4 to PID 1 when the dock wakes the laptop.
+  # Run `sudo ausearch -k killinit` to read the logs.
+  security.auditd.enable = true;
+  security.audit = {
+    enable = true;
+    rules = [ "-a always,exit -F arch=b64 -S kill -S rt_sigqueueinfo -F a0=1 -k killinit" ];
+  };
+  #--------
+
   # System packages for power monitoring
   environment.systemPackages = with pkgs; [
     acpi
