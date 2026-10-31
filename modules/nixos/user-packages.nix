@@ -46,7 +46,9 @@
 
       # Apps
       (firefox.override { extraPolicies.Certificates.Install = [ "${./caddy-root.crt}" ]; })
-      brave
+      (brave.override {
+        commandLineArgs = "--disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder,WaylandWpColorManagerV1";
+      })
       discord
       teamspeak6-client
       kchat
