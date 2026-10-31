@@ -22,7 +22,7 @@
       };
       pnpmDeps = old.pnpmDeps.override {
         inherit version src;
-        hash = "sha256-rsgDxK6X2EzgPwIb9A9I+STkKI882i8jDuL4pO5kJHU=";
+        hash = "sha256-VsF/L917rpROii+PiG9chCqIntHgznOzNLo/YBM2R4Y=";
       };
     });
 
