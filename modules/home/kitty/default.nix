@@ -12,6 +12,7 @@
       cursor_trail = 1;
       cursor_trail_decay = "0.1 0.4";
       remember_window_size = "no";
+      enable_audio_bell = "no";
     };
 
     keybindings = {
