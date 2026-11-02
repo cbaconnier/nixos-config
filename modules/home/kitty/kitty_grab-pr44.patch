@@ -1,0 +1,587 @@
+diff --git a/README.md b/README.md
+index d1920d0..4375964 100644
+--- a/README.md
++++ b/README.md
+@@ -108,6 +108,16 @@ It will take effect the next time you use the grabber.
+ Vim-like modal selecting is available.
+ Copy the provided `grab-vim.conf.example` file, and copy it to `~/.config/kitty/grab.conf`.
+ 
++It provides `hjkl` movement, `v`/`V`/`Ctrl+v` to enter character-wise,
++line-wise and block-wise visual selection, and familiar word motions:
++`w`/`W`, `b`/`B` and `e`/`E` to move by word/WORD, `f`/`t`/`F`/`T` to jump
++to a character on the current line (`;`/`,` repeat that jump forward/
++backward), `H`/`M`/`L` to jump to the top/middle/bottom of the screen,
++`%` to jump to a matching bracket, `/`/`?` to search the whole buffer
++(`n`/`N` repeat the search forward/backward), `yy` to yank the
++current line (or the active selection, if any), and `Y` to yank from the
++cursor to the end of the line.
++
+ 
+ # License
+ 
+diff --git a/_grab_ui.py b/_grab_ui.py
+index e7a6e8d..ebf398e 100644
+--- a/_grab_ui.py
++++ b/_grab_ui.py
+@@ -341,6 +341,29 @@ class ColumnarRegion(MarkedRegion):
+             return _span(old_point.line, point.line) - {point.line}
+ 
+ 
++class LineRegion(MarkedRegion):
++    name = 'line'
++
++    @staticmethod
++    def line_inside_region(current_line: AbsoluteLine,
++                           start: Position, end: Position) -> bool:
++        return start.line <= current_line <= end.line
++
++    @staticmethod
++    def selection_in_line(
++            current_line: AbsoluteLine, start: Position, end: Position,
++            maxx: ScreenColumn) -> SelectionInLine:
++        if LineRegion.line_outside_region(current_line, start, end):
++            return None, None
++        return 0, maxx
++
++    @staticmethod
++    def lines_affected(mark: Optional[Position], old_point: Position,
++                       point: Position) -> Set[AbsoluteLine]:
++        assert mark is not None
++        return _span(mark.line, old_point.line, point.line)
++
++
+ ActionName = str
+ ActionArgs = tuple
+ ShortcutMods = int
+@@ -405,6 +428,11 @@ class GrabHandler(Handler):
+         self.mark_type = NoRegion  # type: Type[Region]
+         self.mode = 'normal'       # type: ModeTypeStr
+         self.result = None         # type: Optional[ResultDict]
++        self._pending_find = None  # type: Optional[Tuple[bool, bool]]
++        self._pending_yank = False
++        self._last_find = None     # type: Optional[Tuple[str, bool, bool]]
++        self._pending_search = None  # type: Optional[Tuple[bool, str]]
++        self._last_search = None   # type: Optional[Tuple[bool, str]]
+ 
+         # Operating System Command (OSC); command number 52
+         # c — clipboard
+@@ -482,10 +510,38 @@ class GrabHandler(Handler):
+         return False
+ 
+     def on_key_event(self, key_event: KeyEvent, in_bracketed_paste: bool = False) -> None:
++        if key_event.type not in [kk.PRESS, kk.REPEAT]:
++            return
++        if self._pending_find is not None:
++            forward, till = self._pending_find
++            self._pending_find = None
++            if key_event.key != 'ESCAPE' and key_event.text:
++                self._do_find(key_event.text, forward, till)
++            return
++        if self._pending_search is not None:
++            forward, query = self._pending_search
++            if key_event.key == 'ESCAPE':
++                self._pending_search = None
++                self._clear_search_prompt()
++                self._update()
++            elif key_event.key == 'ENTER':
++                self._commit_search()
++            elif key_event.key == 'BACKSPACE':
++                self._pending_search = (forward, query[:-1]) if query else None
++                if self._pending_search:
++                    self._update_search_prompt()
++                else:
++                    self._clear_search_prompt()
++                    self._update()
++            elif key_event.text:
++                self._pending_search = (forward, query + key_event.text)
++                self._update_search_prompt()
++            return
+         action = self.shortcut_action(key_event)
+-        if (key_event.type not in [kk.PRESS, kk.REPEAT]
+-                or action is None):
++        if action is None:
+             return
++        if self._pending_yank and action[0] != 'yank':
++            self._pending_yank = False
+         self.perform_action(action)
+ 
+     def perform_action(self, action: Tuple[ActionName, ActionArgs]) -> None:
+@@ -502,6 +558,7 @@ class GrabHandler(Handler):
+     mode_types = {'normal': NoRegion,
+                   'visual': StreamRegion,
+                   'block': ColumnarRegion,
++                  'line': LineRegion,
+                   }  # type: Dict[ModeTypeStr, Type[Region]]
+ 
+     def _ensure_mark(self, mark_type: Type[Region] = StreamRegion) -> None:
+@@ -579,6 +636,64 @@ class GrabHandler(Handler):
+                 self.screen_size.rows - 1)
+         return Position(x, y, len(self.lines) - y)
+ 
++    def _screen_bottom_y(self) -> ScreenLine:
++        return min(self.screen_size.rows - 1,
++                  len(self.lines) - self.point.top_line)
++
++    def screen_top(self) -> Position:
++        return Position(self.point.x, 0, self.point.top_line)
++
++    def screen_middle(self) -> Position:
++        return Position(self.point.x, self._screen_bottom_y() // 2,
++                        self.point.top_line)
++
++    def screen_bottom(self) -> Position:
++        return Position(self.point.x, self._screen_bottom_y(),
++                        self.point.top_line)
++
++    def _position_for_line(self, line_no: AbsoluteLine,
++                           col: int) -> Position:
++        line = unstyled(self.lines[line_no - 1])
++        x = wcswidth(line[:col])
++        rows = self.screen_size.rows
++        top_line = self.point.top_line
++        if line_no < top_line:
++            top_line = line_no
++        elif line_no >= top_line + rows:
++            top_line = line_no - rows + 1
++        return Position(x, line_no - top_line, top_line)
++
++    def matching_bracket(self) -> Position:
++        pairs = {'(': (')', 1), '[': (']', 1), '{': ('}', 1),
++                ')': ('(', -1), ']': ('[', -1), '}': ('{', -1)}
++        line_no = self.point.line
++        line = unstyled(self.lines[line_no - 1])
++        col = truncate_point_for_length(line, self.point.x)
++        while col < len(line) and line[col] not in pairs:
++            col += 1
++        if col >= len(line):
++            return self.point
++        char = line[col]
++        target, direction = pairs[char]
++        depth = 1
++        while True:
++            col += direction
++            if not (0 <= col < len(line)):
++                line_no += direction
++                if line_no < 1 or line_no > len(self.lines):
++                    return self.point
++                line = unstyled(self.lines[line_no - 1])
++                col = 0 if direction > 0 else len(line) - 1
++                if not (0 <= col < len(line)):
++                    continue
++            c = line[col]
++            if c == char:
++                depth += 1
++            elif c == target:
++                depth -= 1
++                if depth == 0:
++                    return self._position_for_line(line_no, col)
++
+     def noop(self) -> Position:
+         return self.point
+ 
+@@ -596,14 +711,20 @@ class GrabHandler(Handler):
+         return (unicodedata.category(c)[0] not in 'LN'
+                 and c not in self._select_by_word_characters)
+ 
+-    def word_left(self) -> Position:
++    def _class_pred(self, c: str, big: bool) -> Callable[[str], bool]:
++        if big:
++            return ((lambda ch: not ch.isspace()) if not c.isspace()
++                    else (lambda ch: ch.isspace()))
++        return (self._is_word_char if self._is_word_char(c)
++                else self._is_word_separator)
++
++    def _word_left(self, big: bool = False) -> Position:
+         if self.point.x > 0:
+             line = unstyled(self.lines[self.point.line - 1])
+             pos = truncate_point_for_length(line, self.point.x)
+             if pos == 0:
+                 return Position(0, self.point.y, self.point.top_line)
+-            pred = (self._is_word_char if self._is_word_char(line[pos - 1])
+-                    else self._is_word_separator)
++            pred = self._class_pred(line[pos - 1], big)
+             new_pos = pos - len(''.join(takewhile(pred, reversed(line[:pos]))))
+             return Position(wcswidth(line[:new_pos]),
+                             self.point.y, self.point.top_line)
+@@ -615,12 +736,11 @@ class GrabHandler(Handler):
+                             self.point.y, self.point.top_line - 1)
+         return self.point
+ 
+-    def word_right(self) -> Position:
++    def _word_right(self, big: bool = False) -> Position:
+         line = unstyled(self.lines[self.point.line - 1])
+         pos = truncate_point_for_length(line, self.point.x)
+         if pos < len(line):
+-            pred = (self._is_word_char if self._is_word_char(line[pos])
+-                    else self._is_word_separator)
++            pred = self._class_pred(line[pos], big)
+             new_pos = pos + len(''.join(takewhile(pred, line[pos:])))
+             return Position(wcswidth(line[:new_pos]),
+                             self.point.y, self.point.top_line)
+@@ -630,17 +750,212 @@ class GrabHandler(Handler):
+             return Position(0, self.point.y, self.point.top_line + 1)
+         return self.point
+ 
+-    def _select(self, direction: DirectionStr,
+-                mark_type: Type[Region]) -> None:
++    def _word_end(self, big: bool = False) -> Position:
++        line = unstyled(self.lines[self.point.line - 1])
++        pos = truncate_point_for_length(line, self.point.x)
++        n = len(line)
++        i = pos + 1
++        while i < n and line[i].isspace():
++            i += 1
++        if i >= n:
++            if self.point.y < self.screen_size.rows - 1:
++                return Position(0, self.point.y + 1, self.point.top_line)
++            if self.point.top_line + self.point.y < len(self.lines):
++                return Position(0, self.point.y, self.point.top_line + 1)
++            return self.point
++        pred = self._class_pred(line[i], big)
++        while i + 1 < n and not line[i + 1].isspace() and pred(line[i + 1]):
++            i += 1
++        return Position(wcswidth(line[:i + 1]), self.point.y, self.point.top_line)
++
++    def word_left(self) -> Position:
++        return self._word_left()
++
++    def word_right(self) -> Position:
++        return self._word_right()
++
++    def word_end(self) -> Position:
++        return self._word_end()
++
++    def big_word_left(self) -> Position:
++        return self._word_left(big=True)
++
++    def big_word_right(self) -> Position:
++        return self._word_right(big=True)
++
++    def big_word_end(self) -> Position:
++        return self._word_end(big=True)
++
++    def _find_char_position(self, char: str, forward: bool, till: bool,
++                            extra_skip: int = 0) -> Position:
++        line = unstyled(self.lines[self.point.line - 1])
++        pos = truncate_point_for_length(line, self.point.x)
++        if forward:
++            idx = line.find(char, pos + 1 + extra_skip)
++            if idx == -1:
++                return self.point
++            target = idx - 1 if till else idx
++        else:
++            search_end = pos - 1 - extra_skip
++            if search_end < 0:
++                return self.point
++            idx = line.rfind(char, 0, search_end + 1)
++            if idx == -1:
++                return self.point
++            target = idx + 1 if till else idx
++        return Position(wcswidth(line[:target]), self.point.y, self.point.top_line)
++
++    def find(self, direction: str, kind: str) -> None:
++        self._pending_find = (direction == 'forward', kind == 'till')
++
++    def _do_find(self, char: str, forward: bool, till: bool,
++                extra_skip: int = 0) -> None:
++        self._last_find = (char, forward, till)
++        self._move_to(self._find_char_position(char, forward, till, extra_skip),
++                      self.mode_types[self.mode])
++
++    def repeat_find(self, direction: str) -> None:
++        if self._last_find is None:
++            return
++        char, forward, till = self._last_find
++        same = direction == 'same'
++        extra_skip = 1 if (till and same) else 0
++        self._do_find(char, forward if same else not forward, till, extra_skip)
++
++    @staticmethod
++    def _compile_search_query(query: str) -> 're.Pattern':
++        try:
++            return re.compile(query)
++        except re.error:
++            return re.compile(re.escape(query))
++
++    @staticmethod
++    def _rfind_regex(pattern: 're.Pattern', line: str, end: int) -> int:
++        last = -1
++        for m in pattern.finditer(line):
++            if m.start() >= end:
++                break
++            last = m.start()
++        return last
++
++    def _search_position(self, forward: bool, query: str) -> Optional[Position]:
++        pattern = self._compile_search_query(query)
++        n = len(self.lines)
++        cur_line_no = self.point.line
++        cur_line = unstyled(self.lines[cur_line_no - 1])
++        col = truncate_point_for_length(cur_line, self.point.x)
++        if forward:
++            m = pattern.search(cur_line, col + 1)
++            if m is not None:
++                return self._position_for_line(cur_line_no, m.start())
++            for offset in range(1, n):
++                line_no = (cur_line_no - 1 + offset) % n + 1
++                line = unstyled(self.lines[line_no - 1])
++                m = pattern.search(line)
++                if m is not None:
++                    return self._position_for_line(line_no, m.start())
++            m = pattern.search(cur_line)
++            idx = m.start() if m is not None else -1
++            return (self._position_for_line(cur_line_no, idx)
++                    if idx not in (-1, col) else None)
++        else:
++            idx = self._rfind_regex(pattern, cur_line, col) if col > 0 else -1
++            if idx != -1:
++                return self._position_for_line(cur_line_no, idx)
++            for offset in range(1, n):
++                line_no = (cur_line_no - 1 - offset) % n + 1
++                line = unstyled(self.lines[line_no - 1])
++                idx = self._rfind_regex(pattern, line, len(line) + 1)
++                if idx != -1:
++                    return self._position_for_line(line_no, idx)
++            idx = self._rfind_regex(pattern, cur_line, len(cur_line) + 1)
++            return (self._position_for_line(cur_line_no, idx)
++                    if idx not in (-1, col) else None)
++
++    def start_search(self, direction: str) -> None:
++        self._pending_search = (direction == 'forward', '')
++        self._update_search_prompt()
++
++    def _search_prompt_row(self) -> ScreenLine:
++        return self.screen_size.rows - 1
++
++    def _update_search_prompt(self) -> None:
++        if self._pending_search is None:
++            return
++        forward, query = self._pending_search
++        prefix = '/' if forward else '?'
++        text = '{}{}'.format(prefix, query)
++        y = self._search_prompt_row()
++        self.cmd.set_cursor_position(0, y)
++        self.print('\x1b[m{}'.format(text), end='\x1b[m\x1b[K')
++        self.cmd.set_cursor_position(wcswidth(text), y)
++        self.cmd.set_window_title('Grab – {}'.format(text))
++
++    def _clear_search_prompt(self) -> None:
++        abs_line = self.point.top_line + self._search_prompt_row()
++        if abs_line <= len(self.lines):
++            self._draw_line(abs_line)
++        else:
++            self.cmd.set_cursor_position(0, self._search_prompt_row())
++            self.print('\x1b[m', end='\x1b[K')
++
++    def _do_search(self, forward: bool, query: str) -> None:
++        pos = self._search_position(forward, query)
++        if pos is not None:
++            self._move_to(pos, self.mode_types[self.mode])
++        else:
++            self._update()
++
++    def _commit_search(self) -> None:
++        forward, query = self._pending_search
++        self._pending_search = None
++        self._clear_search_prompt()
++        if query:
++            self._last_search = (forward, query)
++            self._do_search(forward, query)
++        else:
++            self._update()
++
++    def repeat_search(self, direction: str) -> None:
++        if self._last_search is None:
++            return
++        forward, query = self._last_search
++        self._do_search(forward if direction == 'same' else not forward, query)
++
++    def yank(self) -> None:
++        if self.mark is not None:
++            self.confirm()
++            return
++        if self._pending_yank:
++            self._pending_yank = False
++            self.yank_line()
++            return
++        self._pending_yank = True
++
++    def yank_line(self) -> None:
++        self.result = {'copy': unstyled(self.lines[self.point.line - 1])}
++        self.quit_loop(0)
++
++    def yank_to_end(self) -> None:
++        line = unstyled(self.lines[self.point.line - 1])
++        col = truncate_point_for_length(line, self.point.x)
++        self.result = {'copy': line[col:]}
++        self.quit_loop(0)
++
++    def _move_to(self, new_point: Position, mark_type: Type[Region]) -> None:
+         self._ensure_mark(mark_type)
+         old_point = self.point
+-        self.point = (getattr(self, direction))()
++        self.point = new_point
+         if self.point.top_line != old_point.top_line:
+             self._redraw()
+         else:
+             self._redraw_lines(self.mark_type.lines_affected(
+                 self.mark, old_point, self.point))
+ 
++    def _select(self, direction: DirectionStr,
++                mark_type: Type[Region]) -> None:
++        self._move_to((getattr(self, direction))(), mark_type)
++
+     def move(self, direction: DirectionStr) -> None:
+         self._select(direction, self.mode_types[self.mode])
+ 
+diff --git a/grab-vim.conf.example b/grab-vim.conf.example
+index dd8279a..dbae54b 100644
+--- a/grab-vim.conf.example
++++ b/grab-vim.conf.example
+@@ -20,9 +20,13 @@
+ #: Exit the grabber without copying anything.
+ 
+ # map Enter confirm
+-map y confirm
++map y yank
++map Y yank_to_end
+ 
+ #: Copy the selected region to clipboard and exit.
++#: Press y twice (yy) to yank the current line, or Y to yank from the
++#: cursor to the end of the line.
++#: Press y once while a selection is active to yank the selection.
+ 
+ map h           move left
+ map l           move right
+@@ -36,12 +40,50 @@ map $           move last nonwhite
+ map g           move top
+ map G           move bottom
+ map b           move word left
++map B           move big word left
+ map w           move word right
++map W           move big word right
++map e           move word end
++map E           move big word end
+ 
+ #: Move the cursor around the screen.
+ #: This will scroll the buffer if needed and possible.
+ #: Note that due to https://github.com/kovidgoyal/kitty/issues/5469, the ctrl+d
+ #: shortcut will only work with kitty >= 0.26.2
++#: w/W move to the next word/WORD, b/B move to the previous word/WORD,
++#: and e/E move to the end of the current or next word/WORD.
++#: A "word" is a run of letters/digits/word-characters or a run of other
++#: punctuation; a "WORD" is any run of non-blank characters.
++
++map f find forward to
++map F find backward to
++map t find forward till
++map T find backward till
++map ;           repeat_find same
++map ,           repeat_find reverse
++
++#: Jump the cursor within the current line to the next (f/t) or previous
++#: (F/T) occurrence of the character typed right after the shortcut.
++#: f/F land on the character itself, t/T land just before/after it.
++#: ; repeats the last f/t/F/T, , repeats it in the opposite direction.
++
++map H move screen top
++map M move screen middle
++map L move screen bottom
++map %           move matching bracket
++
++#: H/M/L jump to the top/middle/bottom of the visible screen.
++#: % jumps to the bracket ( [ { or ) ] } matching the one
++#: at or after the cursor on the current line.
++
++map / start_search forward
++map ? start_search backward
++map n           repeat_search same
++map N           repeat_search reverse
++
++#: Type text after / or ? and press Enter to jump to the next/previous
++#: occurrence anywhere in the buffer (search wraps around); Escape cancels.
++#: n repeats the last search, N repeats it in the opposite direction.
+ 
+ map Ctrl+y scroll up
+ map Ctrl+e scroll down
+@@ -50,10 +92,12 @@ map Ctrl+e scroll down
+ #: Cursor stays in the same position relative to the screen.
+ 
+ map v                 set_mode visual
++map V                 set_mode line
+ map Ctrl+v            set_mode block
+ map Ctrl+Left_Bracket set_mode normal
+ map Escape            set_mode normal
+ 
+ #: Change the selecting mode.
++#: V selects whole lines, like Vim's line-wise visual mode.
+ 
+ #: }}}
+diff --git a/kitten_options_utils.py b/kitten_options_utils.py
+index 5c525c5..a9d752d 100644
+--- a/kitten_options_utils.py
++++ b/kitten_options_utils.py
+@@ -33,7 +33,10 @@ def parse_direction(direction: str) -> str:
+                             'first', 'first nonwhite',
+                             'last nonwhite', 'last',
+                             'top', 'bottom',
+-                            'word left', 'word right']
++                            'word left', 'word right', 'word end',
++                            'big word left', 'big word right', 'big word end',
++                            'screen top', 'screen middle', 'screen bottom',
++                            'matching bracket']
+     return direction_lc.replace(' ', '_')
+ 
+ 
+@@ -45,7 +48,26 @@ def parse_scroll_direction(direction: str) -> str:
+ 
+ def parse_mode(mode: str) -> str:
+     result = mode.lower()
+-    assert result in ['normal', 'visual', 'block']
++    assert result in ['normal', 'visual', 'block', 'line']
++    return result
++
++
++def parse_find_args(args: str) -> Tuple[str, str]:
++    direction, kind = args.lower().split(' ', 1)
++    assert direction in ['forward', 'backward']
++    assert kind in ['to', 'till']
++    return direction, kind
++
++
++def parse_repeat_direction(direction: str) -> str:
++    result = direction.lower()
++    assert result in ['same', 'reverse']
++    return result
++
++
++def parse_search_direction(direction: str) -> str:
++    result = direction.lower()
++    assert result in ['forward', 'backward']
+     return result
+ 
+ 
+@@ -69,3 +91,23 @@ def select(func: Callable, args: str) -> Tuple[Callable, Tuple[str, str]]:
+ @func_with_args("set_mode")
+ def set_mode(func: Callable, mode: str) -> Tuple[Callable, str]:
+     return func, parse_mode(mode)
++
++
++@func_with_args('find')
++def find(func: Callable, args: str) -> Tuple[Callable, Tuple[str, str]]:
++    return func, parse_find_args(args)
++
++
++@func_with_args('repeat_find')
++def repeat_find(func: Callable, direction: str) -> Tuple[Callable, str]:
++    return func, parse_repeat_direction(direction)
++
++
++@func_with_args('start_search')
++def start_search(func: Callable, direction: str) -> Tuple[Callable, str]:
++    return func, parse_search_direction(direction)
++
++
++@func_with_args('repeat_search')
++def repeat_search(func: Callable, direction: str) -> Tuple[Callable, str]:
++    return func, parse_repeat_direction(direction)

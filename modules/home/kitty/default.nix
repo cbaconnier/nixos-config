@@ -2,6 +2,17 @@
 
 # https://sw.kovidgoyal.net/kitty/conf/
 
+let
+  kittyGrab = pkgs.applyPatches {
+    src = pkgs.fetchFromGitHub {
+      owner = "yurikhan";
+      repo = "kitty_grab";
+      rev = "e115f369bcc928fa56a4f9fe935c16a2b140e43e";
+      hash = "sha256-ia7plvP9872FPvbilQ6MNiFbAbIxpnzUr7bWyPuxvmI=";
+    };
+    patches = [ ./kitty_grab-pr44.patch ];
+  };
+in
 {
   programs.kitty = {
     enable = true;
@@ -31,10 +42,14 @@
       "kitty_mod+p" = "next_layout";
 
       "kitty_mod+i" = "set_window_title";
+
+      "kitty_mod+space" = "kitten kitty_grab/grab.py";
     };
   };
 
   home.file = {
+    ".config/kitty/kitty_grab".source = kittyGrab;
+    ".config/kitty/grab.conf".source = "${kittyGrab}/grab-vim.conf.example";
     #  ".config/kitty/themes/macchiato.conf".source = ./macchiato.conf;
     ".config/kitty/themes/mocha.conf".source = ./mocha.conf;
     ".config/kitty/themes/latte.conf".source = ./latte.conf;
