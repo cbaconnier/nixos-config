@@ -21,11 +21,11 @@ let
 in
 appimageTools.wrapType2 (finalAttrs: {
   inherit pname;
-  version = "1.9.2";
+  version = "1.14.0";
 
   src = fetchurl {
-    url = "https://github.com/OllamTechnologies/launcher-releases/releases/download/v${finalAttrs.version}/Amsel.Suite-${finalAttrs.version}-x64.AppImage";
-    hash = "sha256-pX5pvHJoZL6DS00X79e215YCL/ShXUa5/+EYqf8MyrE=";
+    url = "https://github.com/OllamTechnologies/launcher-releases/releases/download/v${finalAttrs.version}/AmselSuite-linux-x64.AppImage";
+    hash = "sha256:a857c1e10ef7ed0ab339663ddc09254c1b0036701cec6ffa93d44a764abfe3c5";
   };
 
   extraInstallCommands = ''
