@@ -45,7 +45,8 @@
       bruno
 
       # Apps
-      (firefox.override { extraPolicies.Certificates.Install = [ "${./caddy-root.crt}" ]; })
+
+      firefox-custom
       brave
       discord
       teamspeak6-client

@@ -6,4 +6,5 @@ pkgs: {
   amsel-suite = pkgs.callPackage ./amsel-suite { };
   kenku-fm = pkgs.callPackage ./kenku-fm { };
   amethyst-mod-manager = pkgs.callPackage ./amethyst-mod-manager { };
+  firefox-custom = pkgs.callPackage ./firefox-custom { };
 }

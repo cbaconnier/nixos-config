@@ -50,7 +50,7 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  security.pki.certificateFiles = [ ./caddy-root.crt ];
+  security.pki.certificateFiles = [ ../../files/certs/caddy-root.crt ];
 
   services.dnsmasq = {
     enable = true;
