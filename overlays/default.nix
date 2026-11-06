@@ -13,16 +13,16 @@
     # });
 
     freetube = prev.freetube.overrideAttrs (old: rec {
-      version = "0.25.3";
+      version = "0.26.0";
       src = final.fetchFromGitHub {
         owner = "FreeTubeApp";
         repo = "FreeTube";
         tag = "v${version}-beta";
-        hash = "sha256-eaf10W8dBMJDlqOFd57hsqQqRcBOYAMavLrfmkuRbSw=";
+        hash = "sha256-RaDpx24z3x+PfPBbPMs8ob37e+FqE6JSvDGbT827S8Q=";
       };
       pnpmDeps = old.pnpmDeps.override {
         inherit version src;
-        hash = "sha256-VsF/L917rpROii+PiG9chCqIntHgznOzNLo/YBM2R4Y=";
+        hash = "sha256-7cxg384UNK7hIGlwxwxXpn6z8nERmb62Wb9j7MsOfbE=";
       };
     });
 
