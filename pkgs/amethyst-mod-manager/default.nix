@@ -18,18 +18,19 @@
   python3Packages,
   qt6,
   rustPlatform,
+  sqlite,
   umu-launcher,
   vgmstream,
   winetricks,
   xdg-utils,
 }:
 let
-  version = "2.5.5";
+  version = "2.6.3";
   src = fetchFromGitHub {
     owner = "ChrisDKN";
     repo = "Amethyst-Mod-Manager";
     tag = "v${version}";
-    hash = "sha256-8bUKZ7RsR7X6ZXnU3R1JhbQW/jObBKrjCsNwoQK9+AI=";
+    hash = "sha256-jd99jkUj4aAxsqw9aAnEt1v3h4XKsL8QtmLDeF6bGpg=";
   };
 
   amethyst-filegraph = rustPlatform.buildRustPackage {
@@ -38,6 +39,7 @@ let
     version = "0.1.0";
     sourceRoot = "${src.name}/native/amethyst_filegraph";
     cargoHash = "sha256-PGyUuwwU44/0lHfHEipgi5TxGyXbdDPar/mDqHLFsgM=";
+    buildInputs = [ sqlite ];
   };
 in
 python3Packages.buildPythonApplication {
