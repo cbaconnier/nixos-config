@@ -9,12 +9,11 @@
       ssh = "kitten ssh";
       sail = "sh $([ -f sail ] && echo sail || echo vendor/bin/sail)";
       sail-bootstrap = ''
-        PHP_VERSION=$(jq -r '.require.php' composer.json | grep -oP '\d+\.\d+' | head -1 | tr -d '.')
         docker run --rm \
-          -v "$(pwd):/var/www/html" \
-          -w /var/www/html \
-          laravelsail/php''${PHP_VERSION}-composer:latest \
-          composer install --ignore-platform-reqs
+          -v "$(pwd):/app" \
+          -w /app \
+          composer:latest \
+          composer install --ignore-platform-reqs --no-scripts
       '';
     };
 
