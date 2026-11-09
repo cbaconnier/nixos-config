@@ -66,7 +66,11 @@
       vlc
       freetube
       spotify
-      deezer-enhanced
+      (deezer-desktop.overrideAttrs (old: {
+        postInstall = (old.postInstall or "") + ''
+          cp ${./deezer-icon.png} $out/share/deezer-desktop/resources/linux/systray.png
+        '';
+      }))
       playerctl
       gnome-sound-recorder
       rawtherapee

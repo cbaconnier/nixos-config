@@ -2,7 +2,6 @@
 {
   imports = [
     ./clipse
-    ./deezer
     ./easyeffects
     ./firefox
     ./git
