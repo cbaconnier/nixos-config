@@ -47,7 +47,7 @@
       # Apps
 
       firefox-custom
-      brave
+      ungoogled-chromium
       discord
       teamspeak6-client
       kchat
