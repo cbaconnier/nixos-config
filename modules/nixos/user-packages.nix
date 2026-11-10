@@ -25,6 +25,7 @@
       home-manager
       appimage-run
       openssl
+      age
       libnotify
 
       # Network
