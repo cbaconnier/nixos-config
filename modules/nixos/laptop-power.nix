@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   powerManagement = {
     enable = true;
     powertop.enable = true;
@@ -69,17 +70,21 @@
     };
   };
 
-  # issue(2026-10-31): when I plug my sleeping laptop into the dock and press the
-  # dock's power button, the laptop sometimes shuts down instead of waking up.
-  #--------
-  # This rule finds who sends SIGRTMIN+4 to PID 1 when the dock wakes the laptop.
-  # Run `sudo ausearch -k killinit` to read the logs.
+  # issue(2026-11-09): waking the laptop (dock power button, lid open) sometimes
+  # shuts it down. tiny_power_button turns the EC's wake-time "power button" event
+  # into SIGRTMIN+4 (poweroff) for PID 1, bypassing logind's HandlePowerKey.
+  boot.blacklistedKernelModules = [ "tiny_power_button" ];
+
+  # Audit kept to catch any userspace sender of SIGRTMIN+4 to PID 1 if it still happens.
+  # Run `sudo ausearch -k sigpoweroff` to read the logs.
   security.auditd.enable = true;
   security.audit = {
     enable = true;
-    rules = [ "-a always,exit -F arch=b64 -S kill -S rt_sigqueueinfo -F a0=1 -k killinit" ];
+    rules = [
+      "-a always,exit -F arch=b64 -S kill -S tkill -S rt_sigqueueinfo -S pidfd_send_signal -F a1=38 -k sigpoweroff"
+      "-a always,exit -F arch=b64 -S tgkill -S rt_tgsigqueueinfo -F a2=38 -k sigpoweroff"
+    ];
   };
-  #--------
 
   # System packages for power monitoring
   environment.systemPackages = with pkgs; [
