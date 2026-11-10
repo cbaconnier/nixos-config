@@ -61,6 +61,13 @@
     ];
   };
 
+  # Firmware updates
+  # `fwupdmgr refresh`      fetch the latest metadata
+  # `fwupdmgr get-devices`  list devices and their versions
+  # `fwupdmgr get-updates`  list available updates
+  # `fwupdmgr update`       apply them
+  services.fwupd.enable = true;
+
   systemd.services.home-manager-clement.serviceConfig.RemainAfterExit = "yes";
 
   system.stateVersion = "24.05";
