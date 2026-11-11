@@ -84,9 +84,8 @@ in
       if [ ! -d "$nvimConfigPath" ] || [ ! -d "$nvimConfigPath/.git" ]; then
 
         # Clone the repository
-        run ${pkgs.git}/bin/git clone \
-          --config core.sshCommand="${pkgs.openssh}/bin/ssh -i ${config.home.homeDirectory}/.ssh/id_rsa" \
-          git@github.com:cbaconnier/nvim.git "$nvimConfigPath"
+        run ${pkgs.git}/bin/git clone https://github.com/cbaconnier/nvim.git "$nvimConfigPath"
+        run ${pkgs.git}/bin/git -C "$nvimConfigPath" remote set-url --push origin git@github.com:cbaconnier/nvim.git
         
         run chmod -R u+w "${config.home.homeDirectory}/.config/nvim"
 
