@@ -98,7 +98,7 @@ hl.config({
 	},
 })
 
--- Default animations, see https://wiki.hypr.land/Configuring/Animations/
+-- Default animations, see https://wiki.hypr.land/configuring/core/animations/
 hl.curve("myBezier", { type = "bezier", points = { { 0.05, 0.9 }, { 0.1, 1.05 } } })
 
 hl.animation({ leaf = "windows", enabled = true, speed = 7, bezier = "myBezier" })
