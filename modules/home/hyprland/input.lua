@@ -3,25 +3,25 @@
 ---------------
 -- https://wiki.hypr.land/Configuring/Variables/#input
 hl.config({
-  input = {
-    kb_layout = "ch",
-    kb_variant = "fr",
-    kb_model = "",
-    kb_options = "",
-    kb_rules = "",
+	input = {
+		kb_layout = "ch",
+		kb_variant = "fr",
+		kb_model = "",
+		kb_options = "",
+		kb_rules = "",
 
-    repeat_rate = 50,
-    repeat_delay = 300,
+		repeat_rate = 50,
+		repeat_delay = 300,
 
-    follow_mouse = 2,
-    mouse_refocus = false,
+		follow_mouse = 2,
+		mouse_refocus = false,
 
-    sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
+		sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
 
-    touchpad = {
-      natural_scroll = false,
-    },
-  },
+		touchpad = {
+			natural_scroll = false,
+		},
+	},
 })
 
 -- https://wiki.hypr.land/Configuring/Variables/#gestures
