@@ -50,6 +50,8 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
+  programs.ssh.startAgent = true;
+
   security.pki.certificateFiles = [ ../../files/certs/caddy-root.crt ];
 
   services.dnsmasq = {
