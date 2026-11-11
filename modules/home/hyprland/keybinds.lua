@@ -24,6 +24,7 @@ hl.bind(mainMod .. " + period", hl.dsp.exec_cmd("emoji-picker"))
 
 -- pkill would kill itself (its args contain "clipse-app"), so just spawn it.
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("kitty --class clipse-app -e clipse"))
+hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("bw-pass"))
 
 -- Native cursor zoom
 hl.config({ binds = { scroll_event_delay = 0 } })

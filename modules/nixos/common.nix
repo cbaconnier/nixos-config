@@ -17,6 +17,7 @@
     ./php.nix
     ./printer.nix
     ./programs.nix
+    ./rbw.nix
     ./screen-lock.nix
     ./shell.nix
     ./system-packages.nix

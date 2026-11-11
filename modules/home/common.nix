@@ -14,6 +14,7 @@
     ./npm
     ./nvim
     ./pipewire
+    ./rbw
     ./reminders
     ./rofi
     ./swayimg
