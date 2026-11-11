@@ -49,9 +49,22 @@ in
       ${builtins.readFile ./layouts/layout-long.rasi}
     '';
 
+    ".config/rofi/themes/catppuccin-macchiato-popup.rasi".text = ''
+      ${builtins.readFile ./themes/catppuccin-macchiato.rasi}
+      ${builtins.readFile ./layouts/layout-popup.rasi}
+    '';
+    ".config/rofi/themes/catppuccin-latte-popup.rasi".text = ''
+      ${builtins.readFile ./themes/catppuccin-latte.rasi}
+      ${builtins.readFile ./layouts/layout-popup.rasi}
+    '';
+
     # Original files for reference
     ".config/rofi/configs/config-base.rasi".source = ./configs/config-base.rasi;
     ".config/rofi/configs/config-long.rasi".source = ./configs/config-long.rasi;
+    ".config/rofi/configs/config-popup.rasi".source = ./configs/config-popup.rasi;
+    ".config/rofi/config-popup.rasi".text = ''
+      @import "~/.config/rofi/configs/config-popup.rasi"
+    '';
   }
   // lib.listToAttrs (
     map (

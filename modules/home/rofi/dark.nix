@@ -8,4 +8,8 @@
     @import "~/.config/rofi/configs/config-long.rasi"
     @theme "~/.config/rofi/themes/catppuccin-macchiato-long.rasi"
   '';
+  home.file.".config/rofi/config-popup.rasi".text = lib.mkForce ''
+    @import "~/.config/rofi/configs/config-popup.rasi"
+    @theme "~/.config/rofi/themes/catppuccin-macchiato-popup.rasi"
+  '';
 }
