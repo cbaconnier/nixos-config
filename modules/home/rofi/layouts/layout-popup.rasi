@@ -49,8 +49,8 @@ listview {
     padding: 6px 0px 0px;
     margin: 10px 0px 10px 20px;
     columns: 1;
-    lines: 8;
-    fixed-height: false;
+    lines: 5;
+    fixed-height: true;
     background-color: @bg-col;
 }
 
