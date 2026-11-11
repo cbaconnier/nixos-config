@@ -2,6 +2,7 @@
 {
   imports = [
     ./clipse
+    ./composer
     ./easyeffects
     ./firefox
     ./git
@@ -10,6 +11,7 @@
     ./hyprlock
     ./kitty
     ./mime
+    ./npm
     ./nvim
     ./pipewire
     ./reminders
