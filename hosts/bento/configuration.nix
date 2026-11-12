@@ -5,10 +5,16 @@
     ../../modules/nixos/agenix.nix
     ../../modules/nixos/alloy.nix
     ../../modules/nixos/locale.nix
+    ../../modules/nixos/tailscale.nix
   ];
 
   networking.hostName = "bento";
   networking.networkmanager.enable = true;
+  networking.extraHosts = ''
+    100.116.221.46 grafana.home.arpa loki.home.arpa prometheus.home.arpa
+  '';
+
+  security.pki.certificateFiles = [ ../../files/certs/caddy-root.crt ];
 
   boot.loader = {
     systemd-boot.enable = true;
