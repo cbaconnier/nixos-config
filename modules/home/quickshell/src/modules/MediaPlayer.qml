@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Services.Mpris
 import ".."
 
@@ -16,6 +17,17 @@ RowLayout {
   readonly property MprisPlayer player: candidates.find(p => p.playbackState === MprisPlaybackState.Playing) ?? candidates[0] ?? null
 
   readonly property bool active: player !== null
+
+  function focusApp() {
+    const p = root.player;
+    if (!p)
+      return;
+    const names = [p.desktopEntry, p.identity].filter(k => k).map(k => k.replace(/[^A-Za-z0-9]/g, "."));
+    if (names.length > 0)
+      Hyprland.dispatch(`hl.dsp.focus({ window = "class:(?i).*(${names.join("|")}).*" })`);
+    if (p.canRaise)
+      p.raise();
+  }
 
   visible: active && !Zen.active
   spacing: 8
@@ -49,46 +61,61 @@ RowLayout {
     }
   }
 
-  Rectangle {
+  MouseArea {
+    id: area
     Layout.alignment: Qt.AlignVCenter
-    implicitWidth: 24
-    implicitHeight: 24
-    radius: 8
-    color: "transparent"
-    clip: true
-    visible: cover.status === Image.Ready
+    implicitWidth: info.implicitWidth
+    implicitHeight: info.implicitHeight
+    cursorShape: Qt.PointingHandCursor
+    onClicked: root.focusApp()
 
-    Image {
-      id: cover
+    RowLayout {
+      id: info
       anchors.fill: parent
-      source: root.player?.trackArtUrl ?? ""
-      fillMode: Image.PreserveAspectCrop
-      smooth: true
-    }
-  }
+      spacing: 8
 
-  ColumnLayout {
-    Layout.alignment: Qt.AlignVCenter
-    spacing: 0
+      Rectangle {
+        Layout.alignment: Qt.AlignVCenter
+        implicitWidth: 24
+        implicitHeight: 24
+        radius: 8
+        color: "transparent"
+        clip: true
+        visible: cover.status === Image.Ready
 
-    Text {
-      Layout.maximumWidth: 220
-      text: root.player?.trackTitle || "Unknown Title"
-      elide: Text.ElideRight
-      color: Theme.fg
-      font.family: Theme.fontFamily
-      font.pixelSize: Theme.fontSize * 0.8
-      font.bold: true
-    }
+        Image {
+          id: cover
+          anchors.fill: parent
+          source: root.player?.trackArtUrl ?? ""
+          fillMode: Image.PreserveAspectCrop
+          smooth: true
+        }
+      }
 
-    Text {
-      Layout.maximumWidth: 220
-      text: root.player?.trackArtist || "Unknown Artist"
-      elide: Text.ElideRight
-      color: Theme.fg
-      opacity: 0.8
-      font.family: Theme.fontFamily
-      font.pixelSize: Theme.fontSize * 0.7
+      ColumnLayout {
+        Layout.alignment: Qt.AlignVCenter
+        spacing: 0
+
+        Text {
+          Layout.maximumWidth: 220
+          text: root.player?.trackTitle || "Unknown Title"
+          elide: Text.ElideRight
+          color: Theme.fg
+          font.family: Theme.fontFamily
+          font.pixelSize: Theme.fontSize * 0.8
+          font.bold: true
+        }
+
+        Text {
+          Layout.maximumWidth: 220
+          text: root.player?.trackArtist || "Unknown Artist"
+          elide: Text.ElideRight
+          color: Theme.fg
+          opacity: 0.8
+          font.family: Theme.fontFamily
+          font.pixelSize: Theme.fontSize * 0.7
+        }
+      }
     }
   }
 }
