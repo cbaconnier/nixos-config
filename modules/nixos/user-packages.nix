@@ -66,7 +66,6 @@
       # Media
       vlc
       freetube
-      spotify
       (deezer-desktop.overrideAttrs (old: {
         postInstall = (old.postInstall or "") + ''
           cp ${./deezer-icon.png} $out/share/deezer-desktop/resources/linux/systray.png
@@ -101,7 +100,6 @@
       # Dev
       gh
       awscli2
-      github-copilot-cli
       gcc # C compiler
       nodejs
       python3
