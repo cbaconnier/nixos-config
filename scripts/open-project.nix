@@ -15,7 +15,6 @@ pkgs.writeShellScriptBin "open-project" ''
   get_projects() {
       find ~/Projects -maxdepth 2 -mindepth 1 -type d
       echo "$HOME/nixos-config"
-      echo "$HOME/.config/nvim"
       echo "/tmp"
   }
 
