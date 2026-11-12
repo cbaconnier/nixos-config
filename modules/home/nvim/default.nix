@@ -66,6 +66,7 @@ in
       # Other LSP
       nixd
       rust-analyzer
+      kdePackages.qtdeclarative # qmlls, qmlformat, qmllint
 
       # Required for snacks.nvim image rendering
       imagemagick
