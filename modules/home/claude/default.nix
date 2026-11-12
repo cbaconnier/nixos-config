@@ -1,8 +1,11 @@
-{ ... }:
+{ lib, osConfig, ... }:
 {
   programs.claude-code = {
     enable = true;
     package = null;
+    skills = lib.optionalAttrs osConfig.programs.playground.enable {
+      playground = ./skills/playground/SKILL.md;
+    };
     settings = {
       env = {
         CLAUDE_CODE_ENABLE_TELEMETRY = "1";

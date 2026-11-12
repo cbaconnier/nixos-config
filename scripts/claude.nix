@@ -6,6 +6,7 @@ let
     runtimeInputs = [
       pkgs.bubblewrap
       pkgs.coreutils
+      pkgs.gnused
     ];
     text = ''
       usage() {
@@ -33,6 +34,17 @@ let
       fi
 
       claude_dir="$HOME/.claude"
+      uid=$(id -u)
+      workdir_key=$(printf '%s' "$workdir" | sed 's/[^A-Za-z0-9]/-/g')
+      scratch_root="/tmp/claude-scratchpad-$uid"
+      scratch_dir="$scratch_root/$workdir_key"
+      mkdir -m 700 "$scratch_root" 2>/dev/null || true
+      if [[ -L "$scratch_root" || ! -O "$scratch_root" ]]; then
+        echo "claude: $scratch_root is not a directory of yours, refusing to use it" >&2
+        exit 1
+      fi
+      chmod 700 "$scratch_root"
+      mkdir -p "$scratch_dir"
 
       args=(
         --die-with-parent
@@ -58,10 +70,12 @@ let
       args+=(
         --bind "$workdir" "$workdir"
         --bind "$claude_dir" "$claude_dir"
+        --bind "$scratch_dir" "/tmp/claude-$uid/$workdir_key"
         --bind-try "$HOME/.claude.json" "$HOME/.claude.json"
         --ro-bind-try "$claude_dir/settings.local.json" "$claude_dir/settings.local.json"
         --ro-bind-try "$HOME/.gitconfig" "$HOME/.gitconfig"
         --ro-bind-try "$HOME/.config/git" "$HOME/.config/git"
+        --ro-bind-try "$HOME/.ssh/id_ed25519_claude" "$HOME/.ssh/id_ed25519_claude"
       )
 
       if [[ $nix -eq 1 ]]; then
