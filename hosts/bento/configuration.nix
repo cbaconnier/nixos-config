@@ -3,7 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos/agenix.nix
-    # ../../modules/nixos/alloy.nix
+    ../../modules/nixos/alloy.nix
     ../../modules/nixos/locale.nix
   ];
 
