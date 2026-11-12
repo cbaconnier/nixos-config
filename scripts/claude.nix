@@ -35,7 +35,7 @@ let
       claude_dir="$HOME/.claude"
 
       args=(
-        --die-with-parent --new-session
+        --die-with-parent
         --unshare-pid --unshare-ipc --unshare-uts
         --proc /proc --dev /dev --tmpfs /tmp
         --ro-bind /nix/store /nix/store
@@ -87,6 +87,9 @@ let
         --setenv SSL_CERT_FILE /etc/ssl/certs/ca-bundle.crt
         --chdir "$workdir"
       )
+
+      [[ -z "''${TERMINFO:-}" ]] || args+=(--setenv TERMINFO "$TERMINFO")
+      [[ -z "''${TERMINFO_DIRS:-}" ]] || args+=(--setenv TERMINFO_DIRS "$TERMINFO_DIRS")
 
       exec bwrap "''${args[@]}" ${pkgs.claude-code}/bin/claude "$@"
     '';
