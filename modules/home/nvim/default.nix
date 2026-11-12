@@ -75,20 +75,23 @@ in
   # Prevent home-manager from managing init.lua
   xdg.configFile."nvim/init.lua".enable = lib.mkForce false;
 
-  # Clone my nvim configuration with write access when not already present.
+  # Clone my nvim configuration into ~/Projects/cbaconnier/ and symlink it from ~/.config/nvim.
   home.activation = {
     cloneNvimConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      nvimRepoPath="${config.home.homeDirectory}/Projects/cbaconnier/nvim"
       nvimConfigPath="${config.home.homeDirectory}/.config/nvim"
 
-      # Check if nvim directory exists and has a git repo
-      if [ ! -d "$nvimConfigPath" ] || [ ! -d "$nvimConfigPath/.git" ]; then
+      if [ ! -d "$nvimConfigPath/.git" ]; then
+        if [ ! -d "$nvimRepoPath/.git" ]; then
+          run mkdir -p "$(dirname "$nvimRepoPath")"
+          run ${pkgs.git}/bin/git clone https://github.com/cbaconnier/nvim.git "$nvimRepoPath"
+          run ${pkgs.git}/bin/git -C "$nvimRepoPath" remote set-url --push origin git@github.com:cbaconnier/nvim.git
+          run chmod -R u+w "$nvimRepoPath"
+        fi
 
-        # Clone the repository
-        run ${pkgs.git}/bin/git clone https://github.com/cbaconnier/nvim.git "$nvimConfigPath"
-        run ${pkgs.git}/bin/git -C "$nvimConfigPath" remote set-url --push origin git@github.com:cbaconnier/nvim.git
-        
-        run chmod -R u+w "${config.home.homeDirectory}/.config/nvim"
-
+        if [ ! -e "$nvimConfigPath" ]; then
+          run ln -sfn "$nvimRepoPath" "$nvimConfigPath"
+        fi
       fi
     '';
   };

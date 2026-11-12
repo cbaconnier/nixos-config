@@ -27,6 +27,7 @@
     (import ./hue-ctl.nix { inherit pkgs; })
     (import ./voice-mode.nix { inherit pkgs; })
     (import ./bw-pass.nix { inherit pkgs; })
+    (import ./claude.nix { inherit pkgs; })
   ];
 
 }

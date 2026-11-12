@@ -102,7 +102,6 @@
       gh
       awscli2
       github-copilot-cli
-      claude-code
       gcc # C compiler
       nodejs
       python3

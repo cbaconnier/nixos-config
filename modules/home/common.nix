@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./claude
     ./clipse
     ./composer
     ./easyeffects

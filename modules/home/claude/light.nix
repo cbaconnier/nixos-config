@@ -1,9 +1,4 @@
-{ pkgs, config, ... }:
+{ lib, ... }:
 {
-  home.activation.claude-theme = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    _s="$HOME/.claude/settings.json"
-    if [ -f "$_s" ]; then
-      ${pkgs.jq}/bin/jq '.theme = "light"' "$_s" > "$_s.tmp" && mv "$_s.tmp" "$_s"
-    fi
-  '';
+  programs.claude-code.settings.theme = lib.mkForce "light";
 }
