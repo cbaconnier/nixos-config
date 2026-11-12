@@ -21,7 +21,7 @@
       127.0.0.1 meilisearch
       127.0.0.1 minio
       127.0.0.1 rustfs
-      100.116.221.46 grafana.home.arpa loki.home.arpa prometheus.home.arpa
+      100.114.165.99 grafana.home.arpa loki.home.arpa prometheus.home.arpa
     '';
   };
 

@@ -4,14 +4,17 @@
     ./hardware-configuration.nix
     ../../modules/nixos/agenix.nix
     ../../modules/nixos/alloy.nix
+    ../../modules/nixos/docker-rootless.nix
+    ../../modules/nixos/hue-dusk
     ../../modules/nixos/locale.nix
+    ../../modules/nixos/observability
     ../../modules/nixos/tailscale.nix
   ];
 
   networking.hostName = "bento";
   networking.networkmanager.enable = true;
   networking.extraHosts = ''
-    100.116.221.46 grafana.home.arpa loki.home.arpa prometheus.home.arpa
+    127.0.0.1 grafana.home.arpa loki.home.arpa prometheus.home.arpa
   '';
 
   security.pki.certificateFiles = [ ../../files/certs/caddy-root.crt ];
@@ -34,11 +37,13 @@
     "nix-command"
     "flakes"
   ];
+  nix.settings.trusted-users = [ "clement" ]; # accept closures pushed from the laptop
 
   nixpkgs.config.allowUnfree = true;
 
   users.users.clement = {
     isNormalUser = true;
+    linger = true; # rootless docker (and its containers) start at boot without a login
     description = "clement";
     extraGroups = [
       "networkmanager"

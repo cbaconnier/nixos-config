@@ -66,6 +66,15 @@ let
                            | { id: .id,
                                name: .metadata.name,
                                active: (.status.active != "inactive"),
+                               status: (.status.active // "inactive"),
+                               targets: ([ (.actions // [])[]
+                                           | select(.target.rtype == "light")
+                                           | { key: .target.rid,
+                                               value: { on: (.action.on.on // true),
+                                                        brightness: (.action.dimming.brightness // null),
+                                                        mirek: (.action.color_temperature.mirek // null),
+                                                        xy: (.action.color.xy // null) } } ]
+                                         | from_entries),
                                colors: ([ (.actions // [])[].action
                                           | (.effects_v2.action.parameters // {}) as $fx
                                           | if .color.xy then { x: .color.xy.x, y: .color.xy.y }
@@ -84,7 +93,7 @@ in
 pkgs.writeShellScriptBin "hue-ctl" ''
   set -euo pipefail
 
-  key_file="/run/agenix/hue-api-key"
+  key_file="''${HUE_KEY_FILE:-/run/agenix/hue-api-key}"
   ip_file="''${XDG_CONFIG_HOME:-$HOME/.config}/hue/bridge-ip"
 
   usage() {
@@ -98,10 +107,14 @@ pkgs.writeShellScriptBin "hue-ctl" ''
   }
 
   [ -r "$key_file" ] || { echo "hue-ctl: no API key at $key_file (agenix secret not decrypted?)" >&2; exit 1; }
-  [ -r "$ip_file" ] || { echo "hue-ctl: no bridge address at $ip_file" >&2; exit 1; }
+  if [ -n "''${HUE_BRIDGE:-}" ]; then
+    bridge=$HUE_BRIDGE
+  else
+    [ -r "$ip_file" ] || { echo "hue-ctl: no bridge address at $ip_file" >&2; exit 1; }
+    bridge=$(tr -d '[:space:]' < "$ip_file")
+  fi
 
   key=$(tr -d '[:space:]' < "$key_file")
-  bridge=$(tr -d '[:space:]' < "$ip_file")
   [ -n "$bridge" ] || { echo "hue-ctl: empty bridge address in $ip_file" >&2; exit 1; }
 
   # The key goes through a curl config file on stdin so it stays out of argv.

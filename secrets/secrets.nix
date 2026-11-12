@@ -14,4 +14,6 @@ in
   "hue-api-key.age".publicKeys = keys;
   "alloy-ingest.age".publicKeys = keys;
   "rbw-email.age".publicKeys = keys;
+  "caddy-ingest.age".publicKeys = keys;
+  "grafana-env.age".publicKeys = keys;
 }

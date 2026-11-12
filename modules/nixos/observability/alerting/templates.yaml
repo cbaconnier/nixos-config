@@ -1,0 +1,14 @@
+apiVersion: 1
+
+templates:
+  - orgId: 1
+    name: discord
+    template: |
+      {{ define "discord.title" }}[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }} {{ .CommonLabels.host }}{{ end }}
+
+      {{ define "discord.explore" }}{{ $from := (.StartsAt.Add -720000000000).UnixMilli }}{{ $to := "now" }}{{ if eq .Status "resolved" }}{{ $to = (.EndsAt.Add 300000000000).UnixMilli }}{{ end }}https://grafana.home.arpa/explore?schemaVersion=1&orgId=1&panes={{ urlquery (printf "{\"a\":{\"datasource\":\"loki\",\"queries\":[{\"refId\":\"A\",\"expr\":\"{job=\\\"journal\\\", level=\\\"critical\\\", host=\\\"%s\\\", unit!~\\\"user@.*|systemd-coredump@.*\\\"%s}\"}],\"range\":{\"from\":\"%v\",\"to\":\"%v\"}}}" .Labels.host (or (and .Labels.unit (printf ", unit=\\\"%s\\\"" .Labels.unit)) "") $from $to) }}{{ end }}
+
+      {{ define "discord.message" }}{{ range .Alerts }}**{{ .Labels.alertname }}** ({{ .Labels.severity }}) on **{{ .Labels.host }}**{{ if .Labels.unit }} · `{{ .Labels.unit }}`{{ end }}
+      {{ .Annotations.summary }}
+      [Logs]({{ template "discord.explore" . }}) · [Source]({{ .GeneratorURL }}) · [Silence]({{ .SilenceURL }})
+      {{ end }}{{ end }}
