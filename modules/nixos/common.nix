@@ -15,6 +15,7 @@
     ./network.nix
     ./nix-ld.nix
     ./php.nix
+    ./playground-vm.nix
     ./printer.nix
     ./programs.nix
     ./rbw.nix

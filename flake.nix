@@ -68,6 +68,10 @@
           specialArgs = { inherit inputs outputs; };
           modules = [ ./hosts/bento/configuration.nix ];
         };
+        playground = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [ ./hosts/playground/configuration.nix ];
+        };
       };
 
       checks.${system} = nixpkgs.lib.genAttrs hosts (
