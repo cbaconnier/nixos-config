@@ -63,11 +63,7 @@
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
 
       nixosConfigurations = nixpkgs.lib.genAttrs hosts mkHost // {
-        bento = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs outputs; };
-          modules = [ ./hosts/bento/configuration.nix ];
-        };
+        bento = mkHost "bento";
         playground = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [ ./hosts/playground/configuration.nix ];

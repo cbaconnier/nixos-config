@@ -3,7 +3,7 @@
   programs.claude-code = {
     enable = true;
     package = null;
-    skills = lib.optionalAttrs osConfig.programs.playground.enable {
+    skills = lib.optionalAttrs (osConfig.programs.playground.enable or false) {
       playground = ./skills/playground/SKILL.md;
     };
     settings = {
