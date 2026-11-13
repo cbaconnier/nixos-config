@@ -7,6 +7,8 @@ let
   hasSecret = builtins.pathExists ../../secrets/alloy-ingest.age;
 in
 {
+  imports = [ ./nixos-updates ];
+
   age.secrets = lib.optionalAttrs hasSecret {
     alloy-ingest.file = ../../secrets/alloy-ingest.age;
   };

@@ -352,3 +352,57 @@ groups:
           description: '{{ $labels.message }}'
         labels:
           severity: critical
+  - orgId: 1
+    name: updates
+    folder: Alerts
+    interval: 1h
+    rules:
+      - uid: nixos-update-reminder
+        title: NixOS update reminder
+        condition: C
+        for: 0s
+        noDataState: OK
+        execErrState: Error
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: prometheus
+            model:
+              refId: A
+              expr: '(time() - max by (host) (nixos_nixpkgs_timestamp_seconds)) / 86400'
+              instant: true
+              range: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+          - refId: B
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: __expr__
+            model:
+              refId: B
+              type: reduce
+              expression: A
+              reducer: last
+              settings:
+                mode: dropNN
+          - refId: C
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: __expr__
+            model:
+              refId: C
+              type: threshold
+              expression: B
+              conditions:
+                - evaluator:
+                    type: gt
+                    params: [14]
+        annotations:
+          summary: '{{ $labels.host }} runs nixpkgs from {{ printf "%.0f" $values.B.Value }} days ago'
+          description: 'Pending updates and CVEs: https://grafana.home.arpa/d/nixos-updates'
+        labels:
+          severity: warning
