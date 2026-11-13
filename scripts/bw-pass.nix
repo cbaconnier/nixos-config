@@ -27,7 +27,7 @@ pkgs.writeShellScriptBin "bw-pass" ''
   ${pkgs.rofi-rbw-wayland}/bin/rofi-rbw \
     --selector rofi --no-cache --no-help --prompt "Bitwarden" --typing-start-delay 1 --clear-after 15 \
     --keybindings "${keybindings}" \
-    --selector-args="-theme $HOME/.config/rofi/config-popup.rasi -filter '${filter}' -mesg '${mesg}'" \
+    --selector-args="-theme $HOME/.config/rofi/config-popup.rasi -theme-str 'configuration { sort: false; }' -filter '${filter}' -mesg '${mesg}'" \
     "$@"
   status=$?
 
