@@ -10,5 +10,6 @@ templates:
 
       {{ define "discord.message" }}{{ range .Alerts }}**{{ .Labels.alertname }}** ({{ .Labels.severity }}) on **{{ .Labels.host }}**{{ if .Labels.unit }} · `{{ .Labels.unit }}`{{ end }}
       {{ .Annotations.summary }}
-      [Logs]({{ template "discord.explore" . }}) · [Source]({{ .GeneratorURL }}) · [Silence]({{ .SilenceURL }})
+      {{ if .Annotations.description }}> {{ .Annotations.description }}
+      {{ end }}[Logs]({{ template "discord.explore" . }}) · [Source]({{ .GeneratorURL }}) · [Silence]({{ .SilenceURL }})
       {{ end }}{{ end }}
