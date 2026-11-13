@@ -98,7 +98,9 @@ in
         };
         script = ''
           export HUE_KEY_FILE="$CREDENTIALS_DIRECTORY/key"
-          ${lib.optionalString (room.at == "sunset") "sunwait wait set ${location.lat} ${location.lon}"}
+          ${lib.optionalString (room.at == "sunset")
+            ''[ "$(sunwait poll ${location.lat} ${location.lon})" = DAY ] && sunwait wait set ${location.lat} ${location.lon}''
+          }
           exec hue-dusk ${
             lib.escapeShellArgs [
               room.name
