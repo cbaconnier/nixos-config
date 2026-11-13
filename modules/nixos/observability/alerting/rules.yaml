@@ -318,7 +318,7 @@ groups:
             datasourceUid: loki
             model:
               refId: A
-              expr: 'sum by (host, unit) (count_over_time({job="journal", level="critical", unit!~"user@.*\\.service|systemd-coredump@.*\\.service"} != "a password is required" != "Qt platform plugin"[10m]))'
+              expr: 'sum by (host, unit, message) (count_over_time({job="journal", level="critical", unit!~"user@.*\\.service|systemd-coredump@.*\\.service"} != "a password is required" != "Qt platform plugin" != "watchdog did not stop" | label_format message="{{ __line__ | trunc 300 }}"[10m]))'
               queryType: instant
               intervalMs: 1000
               maxDataPoints: 43200
@@ -349,5 +349,6 @@ groups:
                     params: [0]
         annotations:
           summary: 'Critical journal entry on {{ $labels.host }}{{ if $labels.unit }} ({{ $labels.unit }}){{ end }}'
+          description: '{{ $labels.message }}'
         labels:
           severity: critical
