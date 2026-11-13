@@ -21,13 +21,15 @@ let
   ];
   rooms = [
     {
-      name = "Sejour";
+      name = "Séjour";
+      unit = "living-room";
       scene = "Repos";
       minutes = 20;
       at = "20:00";
     }
     {
-      name = "Chambre";
+      name = "Chambre à coucher";
+      unit = "bedroom";
       scene = "Repos";
       minutes = 20;
       at = "sunset";
@@ -72,7 +74,7 @@ let
     '';
   };
 
-  unitName = room: "hue-dusk-${lib.toLower room.name}";
+  unitName = room: "hue-dusk-${room.unit}";
 in
 {
   imports = [ ../hue.nix ];
