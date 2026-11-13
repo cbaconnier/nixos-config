@@ -28,6 +28,7 @@
     (import ./voice-mode.nix { inherit pkgs; })
     (import ./bw-pass.nix { inherit pkgs; })
     (import ./claude.nix { inherit pkgs; })
+    (import ./screenshot.nix { inherit pkgs; })
   ];
 
 }

@@ -46,6 +46,14 @@ let
       chmod 700 "$scratch_root"
       mkdir -p "$scratch_dir"
 
+      inbox=/tmp/claude-inbox
+      mkdir -m 700 "$inbox" 2>/dev/null || true
+      if [[ -L "$inbox" || ! -O "$inbox" ]]; then
+        echo "claude: $inbox is not a directory of yours, refusing to use it" >&2
+        exit 1
+      fi
+      chmod 700 "$inbox"
+
       args=(
         --die-with-parent
         --unshare-pid --unshare-ipc --unshare-uts
@@ -71,6 +79,7 @@ let
         --bind "$workdir" "$workdir"
         --bind "$claude_dir" "$claude_dir"
         --bind "$scratch_dir" "/tmp/claude-$uid/$workdir_key"
+        --ro-bind "$inbox" "$inbox"
         --bind-try "$HOME/.claude.json" "$HOME/.claude.json"
         --ro-bind-try "$claude_dir/settings.local.json" "$claude_dir/settings.local.json"
         --ro-bind-try "$HOME/.gitconfig" "$HOME/.gitconfig"

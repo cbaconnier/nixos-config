@@ -137,20 +137,16 @@ hl.bind(mainMod .. " + SHIFT + dead_circumflex", hl.dsp.window.move({ workspace 
 -- hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 
 -- Screenshot
-hl.bind(
-	"Print",
-	hl.dsp.exec_cmd(
-		[[grim -g "$(slurp -o -r)" -t ppm - | satty --disable-notifications --filename - --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png]]
-	)
-)
+hl.bind("Print", hl.dsp.exec_cmd("screenshot"))
+
+-- Screenshot for claude: file in `/tmp/claude-inbox`, path copied to the clipboard
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd("screenshot --claude"))
 
 -- Screenshot current screen with 5 seconds delay + cursor
-hl.bind(
-	mainMod .. " + Print",
-	hl.dsp.exec_cmd([[
-      hyprctl notify -1 5000 0 "Screenshot in 5s..." ; sleep 5 && grim -c -o "$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')" -t ppm - | satty --disable-notifications --filename - --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H-%M-%S').png
-  ]])
-)
+hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd("screenshot --delay"))
+
+-- Screenshot for claude with 5 seconds delay: file in `/tmp/claude-inbox`, path copied to the clipboard
+hl.bind(mainMod .. " + SHIFT + Print", hl.dsp.exec_cmd("screenshot --delay --claude"))
 
 -- Move / resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
