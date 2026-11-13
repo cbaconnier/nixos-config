@@ -304,13 +304,15 @@
               "host": "Host",
               "package": "Package",
               "from": "Running",
-              "to": "After update"
+              "to": "After update",
+              "size": "Size change"
             },
             "indexByName": {
               "host": 0,
               "package": 1,
               "from": 2,
-              "to": 3
+              "to": 3,
+              "size": 4
             }
           }
         }
