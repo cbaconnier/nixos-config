@@ -94,7 +94,6 @@ pkgs.writeShellScriptBin "hue-ctl" ''
   set -euo pipefail
 
   key_file="''${HUE_KEY_FILE:-/run/agenix/hue-api-key}"
-  ip_file="''${XDG_CONFIG_HOME:-$HOME/.config}/hue/bridge-ip"
 
   usage() {
     echo "usage: hue-ctl <command>" >&2
@@ -110,12 +109,13 @@ pkgs.writeShellScriptBin "hue-ctl" ''
   if [ -n "''${HUE_BRIDGE:-}" ]; then
     bridge=$HUE_BRIDGE
   else
+    ip_file="''${XDG_CONFIG_HOME:-''${HOME:-/nonexistent}/.config}/hue/bridge-ip"
     [ -r "$ip_file" ] || { echo "hue-ctl: no bridge address at $ip_file" >&2; exit 1; }
     bridge=$(tr -d '[:space:]' < "$ip_file")
   fi
 
   key=$(tr -d '[:space:]' < "$key_file")
-  [ -n "$bridge" ] || { echo "hue-ctl: empty bridge address in $ip_file" >&2; exit 1; }
+  [ -n "$bridge" ] || { echo "hue-ctl: empty bridge address" >&2; exit 1; }
 
   # The key goes through a curl config file on stdin so it stays out of argv.
   api() {
