@@ -24,5 +24,5 @@ configuration {
 
     // rank matches by relevance (fzf-style) instead of leaving them in list order
     sort: true;
-    sorting-method: "fzf";
+    sorting-method: "fzf-v2";
 }
