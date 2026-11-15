@@ -14,7 +14,7 @@ NixOS flake, Home Manager and a rabbit hole.
 8. Replace `/etc/nixos` with a symlink to the repo: `sudo mv /etc/nixos /etc/nixos.bak && sudo ln -s ~/nixos-config /etc/nixos`.
 9. Run the rebuild command, then add the host's key to the secrets as described below and rebuild again.
 
-## Secrets (agenix)
+## Secrets
 
 Secrets are stored encrypted in `secrets/`, using [agenix](https://github.com/ryantm/agenix). 
 
