@@ -56,7 +56,7 @@ in
       # Formatters
       prettier
       stylua
-      php83Packages.php-cs-fixer
+      php85Packages.php-cs-fixer
       nixfmt
       # pint -- this one use ./vendor/bin/pint
 

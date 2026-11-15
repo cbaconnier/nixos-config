@@ -5,8 +5,8 @@
 
 {
   environment.systemPackages = with pkgs; [
-    php84
-    php84Packages.composer
+    php85
+    php85Packages.composer
   ];
 
   environment.shellInit = ''
