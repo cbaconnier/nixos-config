@@ -5,72 +5,72 @@ import Quickshell.Io
 import "."
 
 ShellRoot {
-  id: root
+    id: root
 
-  // Workspace ids that hide the bar until hovered
-  property var kioskWorkspaces: new Set()
+    // Workspace ids that hide the bar until hovered
+    property var kioskWorkspaces: new Set()
 
-  IpcHandler {
-    target: "bar"
+    IpcHandler {
+        target: "bar"
 
-    function setKiosk(id: int, enabled: bool): string {
-      const next = new Set(root.kioskWorkspaces);
-      if (enabled)
-        next.add(id);
-      else
-        next.delete(id);
-      root.kioskWorkspaces = next;
-      return "ok";
+        function setKiosk(id: int, enabled: bool): string {
+            const next = new Set(root.kioskWorkspaces);
+            if (enabled)
+                next.add(id);
+            else
+                next.delete(id);
+            root.kioskWorkspaces = next;
+            return "ok";
+        }
+
+        function listKiosk(): string {
+            return Array.from(root.kioskWorkspaces).join(",");
+        }
     }
 
-    function listKiosk(): string {
-      return Array.from(root.kioskWorkspaces).join(",");
-    }
-  }
+    IpcHandler {
+        target: "reminders"
 
-  IpcHandler {
-    target: "reminders"
+        function alert(title: string, body: string): string {
+            Reminders.alert(title, body);
+            return "ok";
+        }
 
-    function alert(title: string, body: string): string {
-      Reminders.alert(title, body);
-      return "ok";
-    }
-
-    function timer(minutes: real, label: string): string {
-      Reminders.startTimer(minutes, label);
-      return "ok";
-    }
-  }
-
-  Switcher {
-    id: switcher
-  }
-
-  IpcHandler {
-    target: "switcher"
-
-    function next(): string {
-      switcher.step(1);
-      return "ok";
+        function timer(minutes: real, label: string): string {
+            Reminders.startTimer(minutes, label);
+            return "ok";
+        }
     }
 
-    function prev(): string {
-      switcher.step(-1);
-      return "ok";
+    Switcher {
+        id: switcher
     }
-  }
 
-  Variants {
-    model: Quickshell.screens
+    IpcHandler {
+        target: "switcher"
 
-    Bar {
-      required property var modelData
-      screen: modelData
-      kioskWorkspaces: root.kioskWorkspaces
+        function next(): string {
+            switcher.step(1);
+            return "ok";
+        }
+
+        function prev(): string {
+            switcher.step(-1);
+            return "ok";
+        }
     }
-  }
 
-  NotificationPopup {}
+    Variants {
+        model: Quickshell.screens
 
-  ReminderAlerts {}
+        Bar {
+            required property var modelData
+            screen: modelData
+            kioskWorkspaces: root.kioskWorkspaces
+        }
+    }
+
+    NotificationPopup {}
+
+    ReminderAlerts {}
 }

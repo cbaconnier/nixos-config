@@ -4,83 +4,83 @@ import Quickshell
 import ".."
 
 Rectangle {
-  id: button
+    id: button
 
-  property string icon
-  property real iconOpacity: 1
-  property string tooltip
-  property Item tooltipHost: null
-  property bool checked: false
-  property bool enabled: true
-  property bool filled: false
-  property bool embedded: false
+    property string icon
+    property real iconOpacity: 1
+    property string tooltip
+    property Item tooltipHost: null
+    property bool checked: false
+    property bool enabled: true
+    property bool filled: false
+    property bool embedded: false
 
-  signal clicked
+    signal clicked
 
-  Layout.alignment: Qt.AlignVCenter
+    Layout.alignment: Qt.AlignVCenter
 
-  implicitWidth: filled ? 34 : 30
-  implicitHeight: filled ? 30 : 30
-  radius: Theme.radius
-  opacity: enabled ? 1 : 0.6
+    implicitWidth: filled ? 34 : 30
+    implicitHeight: filled ? 30 : 30
+    radius: Theme.radius
+    opacity: enabled ? 1 : 0.6
 
-  color: {
-    if (embedded)
-      return hover.hovered ? Theme.alpha(Theme.selectedFg, 0.15) : "transparent";
-    if (checked)
-      return Theme.selectedBg;
-    if (hover.hovered && enabled)
-      return Theme.alpha(Theme.fg, 0.12);
-    return filled ? Theme.alpha(Theme.fg, 0.08) : "transparent";
-  }
-
-  border.width: filled && !checked ? 1 : 0
-  border.color: Theme.alpha(Theme.fg, 0.12)
-
-  Icon {
-    x: Math.round((button.width - width) / 2)
-    y: Math.round((button.height - height) / 2)
-    icon: button.icon
-    opacity: button.iconOpacity
-    color: button.checked || button.embedded ? Theme.selectedFg : Theme.fg
-    size: 16
-  }
-
-  MouseArea {
-    id: hover
-
-    anchors.fill: parent
-    enabled: button.enabled
-    hoverEnabled: true
-
-    readonly property bool hovered: containsMouse
-
-    onHoveredChanged: {
-      if (hovered && button.tooltip && button.tooltipHost)
-        tipDelay.restart();
-      else {
-        tipDelay.stop();
-        if (button.tooltipHost?.target === button)
-          button.tooltipHost.hide();
-      }
+    color: {
+        if (embedded)
+            return hover.hovered ? Theme.alpha(Theme.selectedFg, 0.15) : "transparent";
+        if (checked)
+            return Theme.selectedBg;
+        if (hover.hovered && enabled)
+            return Theme.alpha(Theme.fg, 0.12);
+        return filled ? Theme.alpha(Theme.fg, 0.08) : "transparent";
     }
 
-    onClicked: {
-      tipDelay.stop();
-      if (button.tooltipHost?.target === button)
-        button.tooltipHost.hide();
-      button.clicked();
+    border.width: filled && !checked ? 1 : 0
+    border.color: Theme.alpha(Theme.fg, 0.12)
+
+    Icon {
+        x: Math.round((button.width - width) / 2)
+        y: Math.round((button.height - height) / 2)
+        icon: button.icon
+        opacity: button.iconOpacity
+        color: button.checked || button.embedded ? Theme.selectedFg : Theme.fg
+        size: 16
     }
-  }
 
-  Timer {
-    id: tipDelay
+    MouseArea {
+        id: hover
 
-    interval: 600
-    onTriggered: if (hover.hovered)
-      button.tooltipHost.show(button, button.tooltip)
-  }
+        anchors.fill: parent
+        enabled: button.enabled
+        hoverEnabled: true
 
-  Component.onDestruction: if (button.tooltipHost?.target === button)
-    button.tooltipHost.hide()
+        readonly property bool hovered: containsMouse
+
+        onHoveredChanged: {
+            if (hovered && button.tooltip && button.tooltipHost)
+                tipDelay.restart();
+            else {
+                tipDelay.stop();
+                if (button.tooltipHost?.target === button)
+                    button.tooltipHost.hide();
+            }
+        }
+
+        onClicked: {
+            tipDelay.stop();
+            if (button.tooltipHost?.target === button)
+                button.tooltipHost.hide();
+            button.clicked();
+        }
+    }
+
+    Timer {
+        id: tipDelay
+
+        interval: 600
+        onTriggered: if (hover.hovered)
+            button.tooltipHost.show(button, button.tooltip)
+    }
+
+    Component.onDestruction: if (button.tooltipHost?.target === button)
+        button.tooltipHost.hide()
 }

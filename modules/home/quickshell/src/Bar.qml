@@ -8,267 +8,266 @@ import "."
 import "modules"
 
 Scope {
-  id: bar
+    id: bar
 
-  required property ShellScreen screen
-  property var kioskWorkspaces: new Set()
+    required property ShellScreen screen
+    property var kioskWorkspaces: new Set()
 
-  readonly property HyprlandMonitor monitor: Hyprland.monitorFor(screen)
-  readonly property int activeWorkspaceId: monitor?.activeWorkspace?.id ?? -1
-  readonly property bool inKiosk: kioskWorkspaces.has(activeWorkspaceId)
+    readonly property HyprlandMonitor monitor: Hyprland.monitorFor(screen)
+    readonly property int activeWorkspaceId: monitor?.activeWorkspace?.id ?? -1
+    readonly property bool inKiosk: kioskWorkspaces.has(activeWorkspaceId)
 
-  readonly property bool broadcast: Zen.isBroadcast(screen.name)
+    readonly property bool broadcast: Zen.isBroadcast(screen.name)
 
-  property bool hovering: false
-  readonly property bool revealed: !inKiosk || hovering
+    property bool hovering: false
+    readonly property bool revealed: !inKiosk || hovering
 
-  Timer {
-    id: hideTimer
-    interval: Theme.hideDelayMs
-    onTriggered: bar.hovering = false
-  }
-
-  function onEnter() {
-    hideTimer.stop();
-    bar.hovering = true;
-  }
-
-  function onLeave() {
-    hideTimer.restart();
-  }
-
-  PanelWindow {
-    id: win
-
-    screen: bar.screen
-    visible: bar.revealed
-    color: "transparent"
-
-    readonly property bool panelOpen: menu.open || battery.detailsOpen || clock.calendarOpen || notifIndicator.detailsOpen
-
-    implicitHeight: bar.screen.height
-
-    anchors {
-      top: true
-      left: true
-      right: true
+    Timer {
+        id: hideTimer
+        interval: Theme.hideDelayMs
+        onTriggered: bar.hovering = false
     }
 
-    WlrLayershell.keyboardFocus: clock.calendarOpen ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
-
-    exclusionMode: ExclusionMode.Normal
-    exclusiveZone: bar.inKiosk ? 0 : Theme.barHeight
-
-    mask: Region {
-      item: maskItem
-
-      Region {
-        x: clock.dialogOpen ? clock.panelRect.x : 0
-        y: clock.dialogOpen ? clock.panelRect.y : 0
-        width: clock.dialogOpen ? clock.panelRect.width : 0
-        height: clock.dialogOpen ? clock.panelRect.height : 0
-      }
-
-      Region {
-        x: clock.dialogOpen ? clock.dialogRect.x : 0
-        y: clock.dialogOpen ? clock.dialogRect.y : 0
-        width: clock.dialogOpen ? clock.dialogRect.width : 0
-        height: clock.dialogOpen ? clock.dialogRect.height : 0
-      }
+    function onEnter() {
+        hideTimer.stop();
+        bar.hovering = true;
     }
 
-    Item {
-      id: maskItem
-
-      width: win.width
-      height: win.panelOpen && !clock.dialogOpen ? win.height : Theme.barHeight
+    function onLeave() {
+        hideTimer.restart();
     }
 
-    MouseArea {
-      anchors.fill: parent
-      enabled: win.panelOpen
-      z: 0
-      onClicked: {
-        menu.open = false;
-        battery.detailsOpen = false;
-        clock.calendarOpen = false;
-        notifIndicator.detailsOpen = false;
-      }
-    }
+    PanelWindow {
+        id: win
 
-    Rectangle {
-      id: barStrip
+        screen: bar.screen
+        visible: bar.revealed
+        color: "transparent"
 
-      z: 1
-      width: parent.width
-      height: Theme.barHeight
-      color: Theme.bg
-      border.color: Theme.border
-      border.width: 1
+        readonly property bool panelOpen: menu.open || battery.detailsOpen || clock.calendarOpen || notifIndicator.detailsOpen
 
-      HoverHandler {
-        onHoveredChanged: hovered ? bar.onEnter() : bar.onLeave()
-      }
+        implicitHeight: bar.screen.height
 
-      RowLayout {
-        anchors.fill: parent
-        anchors.leftMargin: Theme.gap
-        anchors.rightMargin: Theme.gap
-        spacing: 0
-
-        Workspaces {
-          monitor: bar.monitor
+        anchors {
+            top: true
+            left: true
+            right: true
         }
 
-        Separator {
-          visible: media.visible
-        }
+        WlrLayershell.keyboardFocus: clock.calendarOpen ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
-        MediaPlayer {
-          id: media
+        exclusionMode: ExclusionMode.Normal
+        exclusiveZone: bar.inKiosk ? 0 : Theme.barHeight
 
-          tooltipHost: tooltip
+        mask: Region {
+            item: maskItem
+
+            Region {
+                x: clock.dialogOpen ? clock.panelRect.x : 0
+                y: clock.dialogOpen ? clock.panelRect.y : 0
+                width: clock.dialogOpen ? clock.panelRect.width : 0
+                height: clock.dialogOpen ? clock.panelRect.height : 0
+            }
+
+            Region {
+                x: clock.dialogOpen ? clock.dialogRect.x : 0
+                y: clock.dialogOpen ? clock.dialogRect.y : 0
+                width: clock.dialogOpen ? clock.dialogRect.width : 0
+                height: clock.dialogOpen ? clock.dialogRect.height : 0
+            }
         }
 
         Item {
-          Layout.fillWidth: true
+            id: maskItem
+
+            width: win.width
+            height: win.panelOpen && !clock.dialogOpen ? win.height : Theme.barHeight
         }
 
-
-        Clock {
-          id: clock
-
-          visible: !Zen.active || !Zen.hideClock
-          panelHost: panelLayer
-          tooltipHost: tooltip
+        MouseArea {
+            anchors.fill: parent
+            enabled: win.panelOpen
+            z: 0
+            onClicked: {
+                menu.open = false;
+                battery.detailsOpen = false;
+                clock.calendarOpen = false;
+                notifIndicator.detailsOpen = false;
+            }
         }
 
-        RowLayout {
-          visible: !Zen.active
-          spacing: Theme.itemSpacing
+        Rectangle {
+            id: barStrip
 
-          Separator {}
+            z: 1
+            width: parent.width
+            height: Theme.barHeight
+            color: Theme.bg
+            border.color: Theme.border
+            border.width: 1
 
-          Battery {
-            id: battery
+            HoverHandler {
+                onHoveredChanged: hovered ? bar.onEnter() : bar.onLeave()
+            }
 
-            panelHost: panelLayer
-          }
+            RowLayout {
+                anchors.fill: parent
+                anchors.leftMargin: Theme.gap
+                anchors.rightMargin: Theme.gap
+                spacing: 0
 
-          Tray {
-            visible: !bar.broadcast
-          }
+                Workspaces {
+                    monitor: bar.monitor
+                }
 
-          AudioControl {
-            node: Pipewire.defaultAudioSource
-            isMicrophone: true
-            visible: !muted
-            tooltipHost: tooltip
-          }
+                Separator {
+                    visible: media.visible
+                }
 
-          NotificationIndicator {
-            id: notifIndicator
+                MediaPlayer {
+                    id: media
 
-            hidden: bar.broadcast
+                    tooltipHost: tooltip
+                }
 
-            panelHost: panelLayer
-            tooltipHost: tooltip
-          }
+                Item {
+                    Layout.fillWidth: true
+                }
 
-          BarButton {
-            visible: Notifications.dnd && !bar.broadcast
-            icon: "bell-off"
-            tooltip: "Activer les notifications"
-            tooltipHost: tooltip
-            onClicked: Notifications.dnd = false
-          }
+                Clock {
+                    id: clock
 
-          BarButton {
-            visible: menu.keepAwake
-            icon: "device-desktop-bolt"
-            tooltip: "Activer la mise en veille"
-            tooltipHost: tooltip
-            onClicked: menu.setKeepAwake(false)
-          }
+                    visible: !Zen.active || !Zen.hideClock
+                    panelHost: panelLayer
+                    tooltipHost: tooltip
+                }
 
-          BarButton {
-            visible: menu.nightLightOn
-            icon: "sunset-2"
-            tooltip: "Désactiver le filtre lumière chaude"
-            tooltipHost: tooltip
-            onClicked: menu.setNightLight(false)
-          }
+                RowLayout {
+                    visible: !Zen.active
+                    spacing: Theme.itemSpacing
+
+                    Separator {}
+
+                    Battery {
+                        id: battery
+
+                        panelHost: panelLayer
+                    }
+
+                    Tray {
+                        visible: !bar.broadcast
+                    }
+
+                    AudioControl {
+                        node: Pipewire.defaultAudioSource
+                        isMicrophone: true
+                        visible: !muted
+                        tooltipHost: tooltip
+                    }
+
+                    NotificationIndicator {
+                        id: notifIndicator
+
+                        hidden: bar.broadcast
+
+                        panelHost: panelLayer
+                        tooltipHost: tooltip
+                    }
+
+                    BarButton {
+                        visible: Notifications.dnd && !bar.broadcast
+                        icon: "bell-off"
+                        tooltip: "Activer les notifications"
+                        tooltipHost: tooltip
+                        onClicked: Notifications.dnd = false
+                    }
+
+                    BarButton {
+                        visible: menu.keepAwake
+                        icon: "device-desktop-bolt"
+                        tooltip: "Activer la mise en veille"
+                        tooltipHost: tooltip
+                        onClicked: menu.setKeepAwake(false)
+                    }
+
+                    BarButton {
+                        visible: menu.nightLightOn
+                        icon: "sunset-2"
+                        tooltip: "Désactiver le filtre lumière chaude"
+                        tooltipHost: tooltip
+                        onClicked: menu.setNightLight(false)
+                    }
+                }
+
+                BarButton {
+                    id: menuButton
+
+                    icon: "dots-vertical"
+                    tooltip: Zen.active ? "Menu — Mode zen actif" : "Menu"
+                    tooltipHost: tooltip
+                    checked: menu.open
+                    onClicked: menu.open = !menu.open
+                }
+            }
         }
 
-        BarButton {
-          id: menuButton
+        Item {
+            id: panelLayer
 
-          icon: "dots-vertical"
-          tooltip: Zen.active ? "Menu — Mode zen actif" : "Menu"
-          tooltipHost: tooltip
-          checked: menu.open
-          onClicked: menu.open = !menu.open
+            anchors.fill: parent
+            z: 2
         }
-      }
+
+        Menu {
+            id: menu
+
+            tooltipHost: tooltip
+            screenName: bar.screen.name
+            hasBacklight: /^(eDP|LVDS|DSI)/.test(bar.screen.name)
+            z: 2
+
+            onOpenChanged: if (open)
+                menu.x = Math.round(Math.max(4, Math.min(win.width - menu.width - 4, menuButton.mapToItem(win.contentItem, 0, 0).x + menuButton.width - menu.width)))
+
+            y: Theme.barHeight + 4
+        }
+
+        Tooltip {
+            id: tooltip
+
+            z: 3
+        }
+
+        Connections {
+            target: menu
+
+            function onOpenChanged() {
+                if (menu.open)
+                    bar.onEnter();
+                else
+                    bar.onLeave();
+            }
+        }
     }
 
-    Item {
-      id: panelLayer
+    PanelWindow {
+        screen: bar.screen
+        visible: bar.inKiosk && !bar.revealed
+        implicitHeight: Theme.hoverZoneHeight
+        WlrLayershell.layer: WlrLayer.Overlay
+        exclusionMode: ExclusionMode.Ignore
 
-      anchors.fill: parent
-      z: 2
+        anchors {
+            top: true
+            left: true
+            right: true
+        }
+
+        color: Qt.rgba(0, 0, 0, 0.01)
+
+        HoverHandler {
+            onHoveredChanged: if (hovered)
+                bar.onEnter()
+        }
     }
-
-    Menu {
-      id: menu
-
-      tooltipHost: tooltip
-      screenName: bar.screen.name
-      hasBacklight: /^(eDP|LVDS|DSI)/.test(bar.screen.name)
-      z: 2
-
-      onOpenChanged: if (open)
-        menu.x = Math.round(Math.max(4, Math.min(win.width - menu.width - 4, menuButton.mapToItem(win.contentItem, 0, 0).x + menuButton.width - menu.width)))
-
-      y: Theme.barHeight + 4
-    }
-
-    Tooltip {
-      id: tooltip
-
-      z: 3
-    }
-
-    Connections {
-      target: menu
-
-      function onOpenChanged() {
-        if (menu.open)
-          bar.onEnter();
-        else
-          bar.onLeave();
-      }
-    }
-  }
-
-  PanelWindow {
-    screen: bar.screen
-    visible: bar.inKiosk && !bar.revealed
-    implicitHeight: Theme.hoverZoneHeight
-    WlrLayershell.layer: WlrLayer.Overlay
-    exclusionMode: ExclusionMode.Ignore
-
-    anchors {
-      top: true
-      left: true
-      right: true
-    }
-
-    color: Qt.rgba(0, 0, 0, 0.01)
-
-    HoverHandler {
-      onHoveredChanged: if (hovered)
-        bar.onEnter()
-    }
-  }
 }
