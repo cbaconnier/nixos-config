@@ -64,8 +64,15 @@ let
 
       nix store diff-closures "$current" "$next" > "$work/diff"
       cat "$work/diff"
+      jq -cR -f ${./parse.jq} "$work/diff" > "$work/packages.json"
+      names=$(jq -sc 'map(.package) | unique' "$work/packages.json")
+      changelogs=$(nix eval --json "path:$work#nixosConfigurations.${host}.pkgs" --apply "pkgs:
+        builtins.listToAttrs (map (n:
+          let r = builtins.tryEval (pkgs.\''${n}.meta.changelog or \"\");
+          in { name = n; value = if r.success && builtins.isString r.value then r.value else \"\"; }
+        ) (builtins.fromJSON '''$names'''))" || echo '{}')
       {
-        jq -rR -f ${./updates.jq} "$work/diff"
+        jq -r --argjson changelogs "$changelogs" -f ${./updates.jq} "$work/packages.json"
         echo "nixos_update_preview_timestamp_seconds $(date +%s)"
       } | publish preview
 
