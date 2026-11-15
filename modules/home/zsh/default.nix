@@ -20,6 +20,10 @@ in
     };
 
     initContent = ''
+      # export terminal ID so each terminal reuses its own SSH connections
+      # (ControlPath in ~/.ssh/config)
+      export SSH_TERM_ID=$$
+
       # star prompt for the passphrase of commands that spawn ssh
       _ssh_show_stars() {
         local -x SSH_ASKPASS=${askpass} SSH_ASKPASS_REQUIRE=force

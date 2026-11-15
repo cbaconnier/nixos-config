@@ -48,6 +48,7 @@ in
   };
 
   home.file = {
+    ".config/kitty/ssh.conf".text = "share_connections no\n";
     ".config/kitty/kitty_grab".source = kittyGrab;
     ".config/kitty/grab.conf".source = "${kittyGrab}/grab-vim.conf.example";
     #  ".config/kitty/themes/macchiato.conf".source = ./macchiato.conf;
