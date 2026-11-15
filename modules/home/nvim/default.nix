@@ -66,7 +66,14 @@ in
       # Other LSP
       nixd
       rust-analyzer
-      kdePackages.qtdeclarative # qmlls, qmlformat, qmllint
+      (symlinkJoin {
+        name = "qtdeclarative-with-quickshell";
+        paths = [ kdePackages.qtdeclarative ]; # qmlls, qmlformat, qmllint
+        nativeBuildInputs = [ makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/qmlls --add-flags "-I ${quickshell}/lib/qt-6/qml"
+        '';
+      })
 
       # Required for snacks.nvim image rendering
       imagemagick
