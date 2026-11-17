@@ -185,6 +185,23 @@ Item {
             }
 
             Rectangle {
+                visible: mouseBattery.visible
+                Layout.fillWidth: true
+                Layout.topMargin: 4
+                Layout.bottomMargin: 4
+                implicitHeight: 1
+                color: Theme.border
+            }
+
+            MouseBattery {
+                id: mouseBattery
+
+                Layout.fillWidth: true
+                Layout.leftMargin: 6
+                Layout.rightMargin: 28
+            }
+
+            Rectangle {
                 Layout.fillWidth: true
                 Layout.topMargin: 4
                 Layout.bottomMargin: 4

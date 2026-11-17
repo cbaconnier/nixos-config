@@ -154,6 +154,11 @@ Scope {
                         panelHost: panelLayer
                     }
 
+                    MouseBattery {
+                        barIcon: true
+                        tooltipHost: tooltip
+                    }
+
                     Tray {
                         visible: !bar.broadcast
                     }
