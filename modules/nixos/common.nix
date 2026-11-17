@@ -2,7 +2,7 @@
 {
   imports = [
     ./agenix.nix
-    ./alloy.nix
+    ./observability/alloy
     ./audio.nix
     ./boot-plymouth.nix
     ./flatpak.nix

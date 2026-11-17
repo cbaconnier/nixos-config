@@ -3,19 +3,16 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos/agenix.nix
-    ../../modules/nixos/alloy.nix
     ../../modules/nixos/docker-rootless.nix
     ../../modules/nixos/hue-dusk
     ../../modules/nixos/locale.nix
     ../../modules/nixos/observability
+    ../../modules/nixos/observability/alloy
     ../../modules/nixos/tailscale.nix
   ];
 
   networking.hostName = "bento";
   networking.networkmanager.enable = true;
-  networking.extraHosts = ''
-    127.0.0.1 grafana.home.arpa loki.home.arpa prometheus.home.arpa
-  '';
 
   security.pki.certificateFiles = [ ../../files/certs/caddy-root.crt ];
 

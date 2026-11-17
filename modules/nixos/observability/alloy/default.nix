@@ -4,16 +4,24 @@
   ...
 }:
 let
-  hasSecret = builtins.pathExists ../../secrets/alloy-ingest.age;
+  hasSecret = builtins.pathExists ../../../../secrets/alloy-ingest.age;
 in
 {
-  imports = [ ./nixos-updates ];
+  imports = [ ../nixos-updates ];
 
   age.secrets = lib.optionalAttrs hasSecret {
-    alloy-ingest.file = ../../secrets/alloy-ingest.age;
+    alloy-ingest.file = ../../../../secrets/alloy-ingest.age;
   };
 
-  environment.etc."alloy/config.alloy".source = ./alloy/config.alloy;
+  networking.hosts."${
+    if config.services.grafana.enable then "127.0.0.1" else "100.114.165.99"
+  }" = [
+    "grafana.home.arpa"
+    "loki.home.arpa"
+    "prometheus.home.arpa"
+  ];
+
+  environment.etc."alloy/config.alloy".source = ./config.alloy;
 
   services.alloy = lib.mkIf hasSecret {
     enable = true;
