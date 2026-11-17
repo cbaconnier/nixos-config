@@ -46,7 +46,6 @@
       bruno
 
       # Apps
-
       firefox-custom
       ungoogled-chromium
       discord
@@ -62,6 +61,7 @@
       ente-desktop
       filen-desktop
       stremio-linux-shell
+      obsidian
 
       # Media
       vlc
