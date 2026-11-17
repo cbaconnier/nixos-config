@@ -68,7 +68,7 @@
       freetube
       (deezer-desktop.overrideAttrs (old: {
         postInstall = (old.postInstall or "") + ''
-          cp ${./deezer-icon.png} $out/share/deezer-desktop/resources/linux/systray.png
+          cp ${../../files/icons/deezer.png} $out/share/deezer-desktop/resources/linux/systray.png
         '';
       }))
       playerctl
