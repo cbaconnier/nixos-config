@@ -8,6 +8,7 @@
     ../../modules/nixos/locale.nix
     ../../modules/nixos/observability
     ../../modules/nixos/observability/alloy
+    ../../modules/nixos/syncthing.nix
     ../../modules/nixos/tailscale.nix
   ];
 

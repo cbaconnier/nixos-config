@@ -19,6 +19,7 @@ in
     "grafana.home.arpa"
     "loki.home.arpa"
     "prometheus.home.arpa"
+    "syncthing.home.arpa"
   ];
 
   environment.etc."alloy/config.alloy".source = ./config.alloy;
