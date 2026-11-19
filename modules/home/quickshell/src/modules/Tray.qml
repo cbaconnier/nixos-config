@@ -6,6 +6,7 @@ import ".."
 
 RowLayout {
     spacing: Theme.itemSpacing
+    Layout.fillWidth: false
 
     Repeater {
         model: SystemTray.items

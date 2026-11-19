@@ -145,6 +145,7 @@ Scope {
                 RowLayout {
                     visible: !Zen.active
                     spacing: Theme.itemSpacing
+                    Layout.fillWidth: false
 
                     Separator {}
 
