@@ -49,17 +49,25 @@ let
       [ "$latest" != "${rev}" ] && available=1
       echo "nixos_channel_update_available{latest=\"$latest\"} $available" | publish channel
 
-      cves current "$current"
-
-      key="$current $latest"
-      if [ "$(cat "${stateDir}/preview.key" 2> /dev/null)" = "$key" ]; then
-        exit 0
+      # Drop the preview if it was made for another system, so a failed run
+      # doesn't leave it on the dashboard.
+      key=$(cat "${stateDir}/preview.key" 2> /dev/null || true)
+      if [ "''${key%% *}" != "$current" ]; then
+        rm -f "${stateDir}/preview.prom" "${stateDir}/cves-updated.prom" "${stateDir}/preview.key"
       fi
+
+      cves current "$current"
 
       work=$(mktemp -d)
       trap 'rm -rf "$work"' EXIT
       cp -r --no-preserve=mode ${inputs.self}/. "$work"
-      nix flake update --flake "path:$work"
+      # Pin nixpkgs to the channel revision so the preview matches the update flag.
+      nix flake update --flake "path:$work" --override-input nixpkgs "github:NixOS/nixpkgs/$latest"
+
+      key="$current $(sha256sum < "$work/flake.lock" | cut -d' ' -f1)"
+      if [ "$(cat "${stateDir}/preview.key" 2> /dev/null)" = "$key" ]; then
+        exit 0
+      fi
 
       # Keep the result out of the garbage collector for the next check and upgrade.
       next=$(nix build --out-link "${cacheDir}/next" --print-out-paths "path:$work#nixosConfigurations.${host}.config.system.build.toplevel")
@@ -123,7 +131,8 @@ in
   systemd.timers.nixos-update-check = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
-      OnBootSec = "10min";
+      # The trigger unit already runs the check at boot.
+      OnBootSec = "6h";
       OnUnitActiveSec = "6h";
     };
   };
