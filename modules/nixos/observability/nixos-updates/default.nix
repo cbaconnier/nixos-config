@@ -60,7 +60,9 @@ let
       trap 'rm -rf "$work"' EXIT
       cp -r --no-preserve=mode ${inputs.self}/. "$work"
       nix flake update --flake "path:$work"
-      next=$(nix build --no-link --print-out-paths "path:$work#nixosConfigurations.${host}.config.system.build.toplevel")
+
+      # Keep the result out of the garbage collector for the next check and upgrade.
+      next=$(nix build --out-link "${cacheDir}/next" --print-out-paths "path:$work#nixosConfigurations.${host}.config.system.build.toplevel")
 
       nix store diff-closures "$current" "$next" > "$work/diff"
       cat "$work/diff"
@@ -84,8 +86,19 @@ in
 {
   system.activationScripts.nixos-updates = ''
     install -Dm0644 ${deployed} ${stateDir}/deployed.prom
-    rm -f ${stateDir}/cves-current.prom ${stateDir}/cves-updated.prom ${stateDir}/preview.prom ${stateDir}/preview.key
   '';
+
+  # Refresh Grafana after each config change
+  systemd.services.nixos-update-check-trigger = {
+    description = "Queue nixos-update-check after a configuration switch";
+    wantedBy = [ "multi-user.target" ];
+    restartTriggers = [ inputs.self.outPath ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${config.systemd.package}/bin/systemctl start --no-block nixos-update-check.service";
+    };
+  };
 
   systemd.services.nixos-update-check = {
     description = "List pending NixOS updates and CVEs";
