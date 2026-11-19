@@ -70,6 +70,8 @@
   # `fwupdmgr update`       apply them
   services.fwupd.enable = true;
 
+  services.upower.enable = true;
+
   systemd.services.home-manager-clement.serviceConfig.RemainAfterExit = "yes";
 
   system.stateVersion = "24.05";
