@@ -5,22 +5,31 @@
 }:
 let
   hasSecret = builtins.pathExists ../../../../secrets/alloy-ingest.age;
+  isBento = config.services.grafana.enable;
 in
 {
   imports = [ ../nixos-updates ];
 
-  age.secrets = lib.optionalAttrs hasSecret {
-    alloy-ingest.file = ../../../../secrets/alloy-ingest.age;
+  age.secrets.alloy-ingest = lib.mkIf hasSecret {
+    file = ../../../../secrets/alloy-ingest.age;
   };
 
-  networking.hosts."${
-    if config.services.grafana.enable then "127.0.0.1" else "100.114.165.99"
-  }" = [
-    "grafana.home.arpa"
-    "loki.home.arpa"
-    "prometheus.home.arpa"
-    "syncthing.home.arpa"
-  ];
+  # bento serves them itself
+  networking.hosts = lib.mkIf isBento {
+    "127.0.0.1" = [
+      "grafana.home.arpa"
+      "loki.home.arpa"
+      "prometheus.home.arpa"
+      "syncthing.home.arpa"
+    ];
+  };
+
+  # The other hosts reach bento over Tailscale
+  age.secrets.bento-hosts = lib.mkIf (!isBento) {
+    file = ../../../../secrets/bento-hosts.age;
+    owner = "dnsmasq";
+  };
+  services.dnsmasq.settings.addn-hosts = lib.mkIf (!isBento) config.age.secrets.bento-hosts.path;
 
   environment.etc."alloy/config.alloy".source = ./config.alloy;
 

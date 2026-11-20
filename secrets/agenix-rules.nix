@@ -16,4 +16,5 @@ in
   "rbw-email.age".publicKeys = keys;
   "caddy-ingest.age".publicKeys = keys;
   "grafana-env.age".publicKeys = keys;
+  "bento-hosts.age".publicKeys = keys;
 }
