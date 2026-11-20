@@ -14,6 +14,12 @@ NixOS flake, Home Manager and a rabbit hole.
 8. Replace `/etc/nixos` with a symlink to the repo: `sudo mv /etc/nixos /etc/nixos.bak && sudo ln -s ~/nixos-config /etc/nixos`.
 9. Run the rebuild command, then add the host's key to the secrets as described below and rebuild again.
 
+## Manual steps after install
+
+- Tailscale: `sudo tailscale up`
+- Bitwarden: `rbw register` then `rbw login`
+- Syncthing (bento): pair devices and folders in the web UI at https://syncthing.home.arpa
+
 ## Secrets
 
 Secrets are stored encrypted in `secrets/`, using [agenix](https://github.com/ryantm/agenix). 
