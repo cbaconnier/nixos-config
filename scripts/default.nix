@@ -30,6 +30,7 @@
     (import ./claude.nix { inherit pkgs; })
     (import ./screenshot.nix { inherit pkgs; })
     (import ./yubikey-unlock.nix { inherit pkgs; })
+    (import ./ssh-askpass-touch.nix { inherit pkgs; })
   ];
 
 }

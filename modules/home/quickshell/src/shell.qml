@@ -42,6 +42,15 @@ ShellRoot {
         }
     }
 
+    IpcHandler {
+        target: "yubikey"
+
+        function touch(waiting: bool): string {
+            YubiKey.touchWaiting = waiting;
+            return "ok";
+        }
+    }
+
     Switcher {
         id: switcher
     }
@@ -71,6 +80,8 @@ ShellRoot {
     }
 
     NotificationPopup {}
+
+    YubiKeyTouch {}
 
     ReminderAlerts {}
 }

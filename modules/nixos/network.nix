@@ -50,8 +50,8 @@
   # networking.firewall.enable = false;
 
   programs.ssh.startAgent = true;
-  # No x11-ssh-askpass window: ssh asks in the terminal
-  programs.ssh.enableAskPassword = false;
+  # Only shows the Quickshell "touch your YubiKey" popup, ssh asks the rest in the terminal
+  programs.ssh.askPassword = "/run/current-system/sw/bin/ssh-askpass-touch";
 
   security.pki.certificateFiles = [ ../../files/certs/caddy-root.crt ];
 

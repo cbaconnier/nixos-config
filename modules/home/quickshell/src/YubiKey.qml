@@ -11,6 +11,8 @@ Singleton {
     property bool unlocked: false
     // A YubiKey already plugged at login doesn't open the PIN popup
     property bool ready: false
+    // ssh waits for a touch (ssh-askpass-touch)
+    property bool touchWaiting: false
 
     readonly property var env: ({
             SSH_AUTH_SOCK: Quickshell.env("SSH_AUTH_SOCK") || `${Quickshell.env("XDG_RUNTIME_DIR")}/ssh-agent`
@@ -61,6 +63,13 @@ Singleton {
         command: ["ssh-add", "-D"]
         environment: root.env
         onExited: root.refresh()
+    }
+
+    // In case ssh-askpass-touch never says the touch is done
+    Timer {
+        interval: 30000
+        running: root.touchWaiting
+        onTriggered: root.touchWaiting = false
     }
 
     Timer {
