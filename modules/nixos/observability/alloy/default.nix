@@ -6,6 +6,14 @@
 let
   hasSecret = builtins.pathExists ../../../../secrets/alloy-ingest.age;
   isBento = config.services.grafana.enable;
+
+  homeNames = [
+    "grafana.home.arpa"
+    "loki.home.arpa"
+    "prometheus.home.arpa"
+    "syncthing.home.arpa"
+  ];
+  bentoHosts = "/run/dnsmasq-bento-hosts";
 in
 {
   imports = [ ../nixos-updates ];
@@ -15,21 +23,19 @@ in
   };
 
   # bento serves them itself
-  networking.hosts = lib.mkIf isBento {
-    "127.0.0.1" = [
-      "grafana.home.arpa"
-      "loki.home.arpa"
-      "prometheus.home.arpa"
-      "syncthing.home.arpa"
-    ];
-  };
+  networking.hosts = lib.mkIf isBento { "127.0.0.1" = homeNames; };
 
   # The other hosts reach bento over Tailscale
-  age.secrets.bento-hosts = lib.mkIf (!isBento) {
-    file = ../../../../secrets/bento-hosts.age;
-    owner = "dnsmasq";
+  age.secrets.bento-tailscale-ip = lib.mkIf (!isBento) {
+    file = ../../../../secrets/bento-tailscale-ip.age;
   };
-  services.dnsmasq.settings.addn-hosts = lib.mkIf (!isBento) config.age.secrets.bento-hosts.path;
+  services.dnsmasq.settings.addn-hosts = lib.mkIf (!isBento) bentoHosts;
+  systemd.services.dnsmasq.preStart = lib.mkIf (!isBento) (
+    lib.mkBefore ''
+      printf '%s %s\n' "$(cat ${config.age.secrets.bento-tailscale-ip.path})" \
+        "${lib.concatStringsSep " " homeNames}" > ${bentoHosts}
+    ''
+  );
 
   environment.etc."alloy/config.alloy".source = ./config.alloy;
 
