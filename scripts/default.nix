@@ -29,6 +29,7 @@
     (import ./bw-pass.nix { inherit pkgs; })
     (import ./claude.nix { inherit pkgs; })
     (import ./screenshot.nix { inherit pkgs; })
+    (import ./yubikey-unlock.nix { inherit pkgs; })
   ];
 
 }

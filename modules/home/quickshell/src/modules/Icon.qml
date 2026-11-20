@@ -25,6 +25,8 @@ Item {
             "apps": 0xebb6,
             "color-picker": 0xebe6,
             "power": 0xeb0d,
+            "lock-key": 0x10358,
+            "lock-open-off": 0xf156,
             "chevron-up": 0xea62,
             "chevron-down": 0xea5f,
             "chevron-left": 0xea60,

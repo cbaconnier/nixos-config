@@ -197,6 +197,14 @@ Scope {
                     }
 
                     BarButton {
+                        visible: YubiKey.plugged && !YubiKey.unlocked
+                        icon: "lock-key"
+                        tooltip: "Déverrouiller la YubiKey"
+                        tooltipHost: tooltip
+                        onClicked: YubiKey.unlock()
+                    }
+
+                    BarButton {
                         visible: menu.nightLightOn
                         icon: "sunset-2"
                         tooltip: "Désactiver le filtre lumière chaude"

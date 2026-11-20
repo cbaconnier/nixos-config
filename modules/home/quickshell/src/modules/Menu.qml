@@ -300,8 +300,7 @@ Item {
                                 id: awake
 
                                 tooltipHost: root.tooltipHost
-                            }
-                        }
+                            }                        }
                     }
 
                     Rectangle {
@@ -337,6 +336,33 @@ Item {
                                 onClicked: {
                                     root.open = false;
                                     pickerProc.startDetached();
+                                }
+                            }
+                        }
+                    }
+
+                    Rectangle {
+                        visible: YubiKey.plugged || YubiKey.unlocked
+                        Layout.fillWidth: true
+                        Layout.preferredWidth: yubikeyToggle.implicitWidth + 16
+                        implicitHeight: yubikeyToggle.implicitHeight + 16
+                        radius: Theme.radius
+                        color: Theme.alpha(Theme.fg, 0.05)
+
+                        BarButton {
+                            id: yubikeyToggle
+
+                            anchors.centerIn: parent
+                            checked: YubiKey.unlocked
+                            icon: YubiKey.unlocked ? "lock-open-off" : "lock-key"
+                            tooltip: YubiKey.unlocked ? "Verrouiller la YubiKey" : "Déverrouiller la YubiKey"
+                            tooltipHost: root.tooltipHost
+                            onClicked: {
+                                if (YubiKey.unlocked)
+                                    YubiKey.lock();
+                                else {
+                                    root.open = false;
+                                    YubiKey.unlock();
                                 }
                             }
                         }
