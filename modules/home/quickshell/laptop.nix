@@ -22,6 +22,7 @@
         "alsa_output.usb-Lenovo_ThinkPad_Thunderbolt_4_Dock_USB_Audio_000000000000-00.analog-stereo" =
           "Dock";
         "alsa_output.pci-0000_c7_00.6.HiFi__Headphones__sink" = "Headphones";
+        "alsa_output.usb-KTMicro_KT_USB_Audio_2021-07-19-0000-0000-0000--00.analog-stereo" = "DT 770 pro";
       };
     };
     microphones = {
