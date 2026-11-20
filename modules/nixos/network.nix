@@ -57,6 +57,41 @@
   programs.ssh.startAgent = true;
   # Only shows the Quickshell "touch your YubiKey" popup, ssh asks the rest in the terminal
   programs.ssh.askPassword = "/run/current-system/sw/bin/ssh-askpass-touch";
+  # ~/.ssh/config is read first, so it can override this or add private hosts
+  programs.ssh.extraConfig = ''
+    Host github.com
+      IdentityAgent SSH_AUTH_SOCK
+      IdentitiesOnly no
+      IdentityFile ~/.ssh/id_ed25519
+      ControlMaster auto
+      ControlPath ''${XDG_RUNTIME_DIR}/ssh-github-%C
+      ControlPersist yes
+
+    Host bento
+      HostName 192.168.1.49
+      User clement
+      IdentityAgent SSH_AUTH_SOCK
+      IdentitiesOnly no
+      IdentityFile ~/.ssh/id_ed25519
+
+    Host bento-remote
+      User clement
+      IdentityAgent SSH_AUTH_SOCK
+      IdentitiesOnly no
+      IdentityFile ~/.ssh/id_ed25519
+
+    Host playground
+      HostName 127.0.0.1
+      Port 2222
+      User runner
+      IdentityFile ~/.ssh/id_ed25519_claude
+      StrictHostKeyChecking no
+      UserKnownHostsFile /dev/null
+
+    Host *
+      IdentityAgent none
+      IdentitiesOnly yes
+  '';
 
   security.pki.certificateFiles = [ ../../files/certs/caddy-root.crt ];
 
