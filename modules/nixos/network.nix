@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -54,6 +59,14 @@
   programs.ssh.askPassword = "/run/current-system/sw/bin/ssh-askpass-touch";
 
   security.pki.certificateFiles = [ ../../files/certs/caddy-root.crt ];
+
+  age.secrets.bento-tailscale-ip.file = ../../secrets/bento-tailscale-ip.age;
+  services.dnsmasq.settings.addn-hosts = "/run/dnsmasq-bento-hosts";
+  systemd.services.dnsmasq.preStart = lib.mkBefore ''
+    printf '%s %s\n' "$(cat ${config.age.secrets.bento-tailscale-ip.path})" \
+      "grafana.home.arpa loki.home.arpa prometheus.home.arpa syncthing.home.arpa bento-remote" \
+      > /run/dnsmasq-bento-hosts
+  '';
 
   services.dnsmasq = {
     enable = true;

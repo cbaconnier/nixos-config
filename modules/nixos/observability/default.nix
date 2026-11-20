@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   lokiDir = "/var/lib/loki";
   sizesDir = "/var/lib/stack-sizes";
@@ -155,6 +160,8 @@ in
     };
   };
   systemd.services.grafana.serviceConfig.EnvironmentFile = config.age.secrets.grafana-env.path;
+
+  networking.hosts."127.0.0.1" = lib.attrNames config.services.caddy.virtualHosts;
 
   services.caddy = {
     enable = true;
