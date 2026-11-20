@@ -49,6 +49,8 @@
     ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFNZrnn3toGnHv4HjEUzfGU1xQuTJTccvtY8RxsV6R6o default"
+      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIIsgvq1IcNj9hG76b78UfA2iVZu7SFHJEaSv6WeLgwDIAAAADXNzaDp5dWJpX2hvbWU= yubi_home"
+      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIE4Ry/UcCfdoKEEgneJiRE7xm4KgP4gkvYv6vZcYtTmQAAAAEXNzaDp5dWJpX2tleWNoYWlu yubi_keychain"
     ];
   };
 

@@ -25,6 +25,7 @@
     ./tailscale.nix
     ./user-packages.nix
     ./virtualisation.nix
+    ./yubikey.nix
     ../../scripts
   ];
 
