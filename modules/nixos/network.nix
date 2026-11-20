@@ -50,6 +50,8 @@
   # networking.firewall.enable = false;
 
   programs.ssh.startAgent = true;
+  # No x11-ssh-askpass window: ssh asks in the terminal
+  programs.ssh.enableAskPassword = false;
 
   security.pki.certificateFiles = [ ../../files/certs/caddy-root.crt ];
 
