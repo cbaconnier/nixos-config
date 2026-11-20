@@ -8,10 +8,10 @@
       # Tabler icons are not packaged in nixpkgs: take the font from the npm webfont release
       (stdenvNoCC.mkDerivation {
         pname = "tabler-icons-font";
-        version = "3.49.0";
+        version = "3.52.0";
         src = fetchurl {
-          url = "https://registry.npmjs.org/@tabler/icons-webfont/-/icons-webfont-3.49.0.tgz";
-          hash = "sha512-kWgnmEzo17dzQyMqRmlfj+TiGV0clLMYfUtKp2WG7M+TH5418o6fsoaSlrOTK3lwESg0xS7jVfOozYrR02Ryxw==";
+          url = "https://registry.npmjs.org/@tabler/icons-webfont/-/icons-webfont-3.52.0.tgz";
+          hash = "sha512-Kdr77t4sXa1YiznEcj8aFsqDTPbCjTNV2V5c3UccXa1hFm6n4qrsnMMXHtEX5puBbXmcrTZcUgJyOVrhk6+u0A==";
         };
         sourceRoot = "package";
         installPhase = "install -Dm444 dist/fonts/tabler-icons.ttf $out/share/fonts/truetype/tabler-icons.ttf";
