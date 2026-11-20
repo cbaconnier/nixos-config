@@ -1,8 +1,5 @@
 { pkgs, config, ... }:
 
-let
-  askpass = import ./askpass-stars.nix { inherit pkgs; };
-in
 {
   programs.zsh = {
     enable = true;
@@ -20,24 +17,12 @@ in
     };
 
     initContent = ''
-      # export terminal ID so each terminal reuses its own SSH connections
-      # (ControlPath in ~/.ssh/config)
-      export SSH_TERM_ID=$$
-
-      # star prompt for the passphrase of commands that spawn ssh
-      _ssh_show_stars() {
-        local -x SSH_ASKPASS=${askpass} SSH_ASKPASS_REQUIRE=force
-        command "$@"
-      }
-
       # alias ssh="kitten ssh" breaks tab completion, hence the function
       # issue : https://github.com/kovidgoyal/kitty/issues/7491
-      ssh() { _ssh_show_stars kitten ssh "$@"; }
+      ssh() { kitten ssh "$@"; }
+
       # ssh without kitten, because kitten breaks remote commands (ssh <host> 'command')
-      sshc() { _ssh_show_stars ssh "$@"; }
-      scp() { _ssh_show_stars scp "$@"; }
-      sftp() { _ssh_show_stars sftp "$@"; }
-      rsync() { _ssh_show_stars rsync "$@"; }
+      sshc() { command ssh "$@"; }
     '';
 
     oh-my-zsh = {
