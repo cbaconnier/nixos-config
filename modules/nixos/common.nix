@@ -47,6 +47,8 @@
     "flakes"
   ];
 
+  programs.playground.enable = true;
+
   nixpkgs.config.allowUnfree = true;
 
   nixpkgs.overlays = [

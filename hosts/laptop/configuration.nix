@@ -11,8 +11,6 @@
 
   networking.hostName = "laptop";
 
-  programs.playground.enable = true;
-
   programs.nm-applet.enable = true;
 
   users.users.clement.packages = with pkgs; [
