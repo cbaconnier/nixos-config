@@ -45,8 +45,8 @@ ShellRoot {
     IpcHandler {
         target: "yubikey"
 
-        function touch(waiting: bool): string {
-            YubiKey.touchWaiting = waiting;
+        function touch(waiting: bool, pid: int): string {
+            YubiKey.setTouchWaiting(waiting, pid);
             return "ok";
         }
     }

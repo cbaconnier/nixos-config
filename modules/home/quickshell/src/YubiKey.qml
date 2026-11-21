@@ -13,6 +13,8 @@ Singleton {
     property bool ready: false
     // ssh waits for a touch (ssh-askpass-touch)
     property bool touchWaiting: false
+    // pid of the ssh-askpass-touch showing the popup, signalled to deny the touch
+    property int touchPid: 0
 
     readonly property var env: ({
             SSH_AUTH_SOCK: Quickshell.env("SSH_AUTH_SOCK") || `${Quickshell.env("XDG_RUNTIME_DIR")}/ssh-agent`
@@ -24,6 +26,21 @@ Singleton {
 
     function lock() {
         lockProc.running = true;
+    }
+
+    function setTouchWaiting(waiting: bool, pid: int) {
+        // An older ssh-askpass-touch finishing doesn't hide a newer popup
+        if (!waiting && pid && pid !== touchPid)
+            return;
+        touchPid = waiting ? pid : 0;
+        touchWaiting = waiting;
+    }
+
+    function denyTouch() {
+        if (touchPid)
+            Quickshell.execDetached(["kill", "-USR1", String(touchPid)]);
+        touchPid = 0;
+        touchWaiting = false;
     }
 
     function refresh() {
@@ -69,7 +86,7 @@ Singleton {
     Timer {
         interval: 30000
         running: root.touchWaiting
-        onTriggered: root.touchWaiting = false
+        onTriggered: root.setTouchWaiting(false, 0)
     }
 
     Timer {
