@@ -26,6 +26,9 @@
       };
     });
 
+    # TODO(2026-11-21) Remove once nixpkgs is updated
+    filen-desktop = prev.filen-desktop.override { electron = final.electron_43; };
+
     # TODO(2026-09-02) Remove once https://github.com/NixOS/nixpkgs/pull/547296 is merged
     # (needed by pkgs/amethyst-mod-manager)
     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
