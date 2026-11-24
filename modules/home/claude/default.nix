@@ -16,7 +16,7 @@
         OTEL_LOG_TOOL_DETAILS = "1";
         OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE = "cumulative";
       };
-      model = "sonnet";
+      model = "opus";
       tui = "fullscreen";
       theme = "dark";
       preferredNotifChannel = "notifications_disabled";
