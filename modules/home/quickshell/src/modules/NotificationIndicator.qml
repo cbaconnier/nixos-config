@@ -13,6 +13,29 @@ Item {
 
     readonly property int unread: Notifications.unreadCount
 
+    property real now: Date.now()
+
+    function relativeTime(t) {
+        const s = Math.max(0, Math.floor((root.now - t) / 1000));
+        if (s < 60)
+            return "now";
+        const m = Math.floor(s / 60);
+        if (m < 60)
+            return m + "m ago";
+        const h = Math.floor(m / 60);
+        if (h < 24)
+            return h + "h ago";
+        const d = Math.floor(h / 24);
+        return d + "d ago";
+    }
+
+    Timer {
+        interval: 30000
+        repeat: true
+        running: root.detailsOpen
+        onTriggered: root.now = Date.now()
+    }
+
     visible: !hidden && !Notifications.dnd && Notifications.history.count > 0
     implicitWidth: 30
     implicitHeight: 30
@@ -31,6 +54,7 @@ Item {
         onClicked: {
             root.detailsOpen = !root.detailsOpen;
             if (root.detailsOpen) {
+                root.now = Date.now();
                 Notifications.markRead();
                 Notifications.clearPopups();
                 panel.place();
@@ -133,6 +157,7 @@ Item {
                     required property string appName
                     required property string appIcon
                     required property string image
+                    required property real time
                     required property int index
 
                     readonly property string iconSource: image.length > 0 ? image : (appIcon.length > 0 ? Quickshell.iconPath(appIcon, true) : "")
@@ -179,13 +204,25 @@ Item {
                             Layout.fillWidth: true
                             spacing: 2
 
-                            Text {
+                            RowLayout {
                                 Layout.fillWidth: true
-                                visible: entry.appName.length > 0
-                                text: entry.appName
-                                color: Theme.alpha(Theme.fg, 0.6)
-                                font.family: Theme.fontFamily
-                                font.pixelSize: Theme.fontSize - 2
+                                spacing: 6
+
+                                Text {
+                                    Layout.fillWidth: true
+                                    text: entry.appName
+                                    color: Theme.alpha(Theme.fg, 0.6)
+                                    font.family: Theme.fontFamily
+                                    font.pixelSize: Theme.fontSize - 2
+                                    elide: Text.ElideRight
+                                }
+
+                                Text {
+                                    text: root.relativeTime(entry.time)
+                                    color: Theme.alpha(Theme.fg, 0.5)
+                                    font.family: Theme.fontFamily
+                                    font.pixelSize: Theme.fontSize - 2
+                                }
                             }
 
                             Text {

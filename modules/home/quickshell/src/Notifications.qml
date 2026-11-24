@@ -30,7 +30,8 @@ Singleton {
                 body: notif.body,
                 appName: notif.appName,
                 appIcon: notif.appIcon,
-                image: notif.image
+                image: notif.image,
+                time: Date.now()
             });
             if (root.history.count > root.historyLimit)
                 root.history.remove(root.historyLimit, root.history.count - root.historyLimit);
