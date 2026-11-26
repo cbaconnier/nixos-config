@@ -85,14 +85,17 @@ pkgs.writeShellApplication {
     fi
 
     workdir=$(pwd -P)
-    owner=$(basename "$(dirname "$workdir")")
-    name=$(basename "$workdir")
-    for part in "$owner" "$name"; do
-      if [[ ! "$part" =~ ^[A-Za-z0-9._-]+$ ]]; then
-        echo "playground: unsupported directory name: $part" >&2
-        exit 1
+    safe_name() {
+      local s LC_ALL=C
+      if [[ "$1" =~ ^[A-Za-z0-9._-]+$ && "$1" != . && "$1" != .. ]]; then
+        printf '%s' "$1"
+        return
       fi
-    done
+      s=$(printf '%s' "$1" | LC_ALL=C sed 's/[^A-Za-z0-9._-]\{1,\}/-/g; s/^[.-]*//; s/-*$//')
+      printf '%s-%s' "''${s:-dir}" "$(printf '%s' "$1" | sha256sum | cut -c1-8)"
+    }
+    owner=$(safe_name "$(basename "$(dirname "$workdir")")")
+    name=$(safe_name "$(basename "$workdir")")
     remote_dir="\$HOME/work/$owner/$name"
 
     ssh_opts=(-i "$key" -o IdentitiesOnly=yes -o BatchMode=yes -o ConnectTimeout=15
