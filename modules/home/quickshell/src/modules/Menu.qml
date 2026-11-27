@@ -27,6 +27,8 @@ Item {
         nightLight.apply(v);
     }
 
+    property string currentTheme: "dark"
+
     property string activeList: ""
     property Item activeAnchor: null
 
@@ -41,6 +43,7 @@ Item {
             awake.refresh();
             brightness.refresh();
             nightLight.refresh();
+            themeQuery.running = true;
             voiceModes.refresh();
         } else {
             root.closeList();
@@ -322,6 +325,19 @@ Item {
                                 tooltipHost: root.tooltipHost
                             }
 
+                            BarButton {
+                                readonly property bool dark: root.currentTheme !== "light"
+
+                                icon: dark ? "sun" : "moon"
+                                tooltip: dark ? "Passer au thème clair" : "Passer au thème sombre"
+                                tooltipHost: root.tooltipHost
+                                onClicked: {
+                                    root.open = false;
+                                    themeProc.command = ["theme", dark ? "light" : "dark"];
+                                    themeProc.startDetached();
+                                }
+                            }
+
                             HueLights {
                                 id: hue
 
@@ -446,6 +462,20 @@ Item {
         id: pickerProc
 
         command: ["bash", "-c", "sleep 0.3; exec hyprpicker -a"]
+    }
+
+    Process {
+        id: themeProc
+    }
+
+    Process {
+        id: themeQuery
+
+        command: ["sh", "-c", "cat \"$HOME/.cache/.current_theme\" 2>/dev/null"]
+
+        stdout: StdioCollector {
+            onStreamFinished: root.currentTheme = text.trim() || "dark"
+        }
     }
 
     Process {

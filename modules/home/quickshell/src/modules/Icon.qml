@@ -45,6 +45,7 @@ Item {
             "sun-low": 0xf237,
             "sun": 0xeb30,
             "sun-high": 0xf236,
+            "moon": 0xeaf8,
             "dots-vertical": 0xea94,
             "battery-vertical-1": 0xff1c,
             "battery-vertical-2": 0xff1b,
